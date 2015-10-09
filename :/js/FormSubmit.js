@@ -1,5 +1,6 @@
 var formID = "#inputform";
 var signupformID = "#signupform";
+var msignupformID = "#msignupform";
 
 $(document).ready(function(){
 	
@@ -7,7 +8,7 @@ $(document).ready(function(){
 	$(formID).on('submit', function(e) { //use on if jQuery 1.7+
         	e.preventDefault();
 		$.post( "localhost:8080/auth", {
-    			username: $('#username').val(),
+    			email: $('#email').val(),
         		password: $('#password').val()
     		});
 	});
@@ -17,9 +18,8 @@ $(document).ready(function(){
         	e.preventDefault();
 		$.post( "localhost:8080/register", {
     			name: $('#name').val(),
-    			username: $('#username').val(),
-			email: $('#email').val(),
-			company: $('#company').val(),
+    			email: $('#email').val(),
+			token: $('#token').val(),
         		password: $('#password').val()
     		});
 	});
@@ -29,9 +29,8 @@ $(document).ready(function(){
         	e.preventDefault();
 		$.post( "localhost:8080/register", {
     			name: $('#name').val(),
-			username: $('#username').val(),
 			email: $('#email').val(),
-			token: $('#token').val(),
+			company: $('#company').val(),
         		password: $('#password').val()
     		});
 	});
