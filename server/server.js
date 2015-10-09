@@ -52,11 +52,20 @@ console.log("server has started");
 app.get('/auth', function(req,res){
 
   var username = req.body.username;
-
+  console.log(username);
 
 
 });
 
+
+app.get('/register', function(req, res) {
+
+  var username = req.body.username;
+  console.log(username);
+
+
+
+});
 
 
 
