@@ -182,11 +182,11 @@
                             </form>
                   
                             <div class='date text-contrast'>Things to do:</div>
-                            <ul class='list-unstyled sortable' data-sortable-axis='y' data-sortable-connect='.sortable'>
-                              <li class='important item'>
+                            <ul id='todoelements' class='list-unstyled sortable' data-sortable-axis='y' data-sortable-connect='.sortable'>
+                              <li class='item important'>
                                 <label class='check pull-left todo'>
                                   <input type='checkbox'>
-                                  <span>Molestias non et</span>
+                                  <span>This is your personal To-do list!</span>
                                 </label>
                                 <div class='actions pull-right'>
                                   <a class='btn btn-link edit has-tooltip' data-placement='top' href='#' title='Edit todo'>
@@ -200,58 +200,7 @@
                                   </a>
                                 </div>
                               </li>
-                              <li class='item'>
-                                <label class='check pull-left todo'>
-                                  <input type='checkbox'>
-                                  <span>Praesentium quas est</span>
-                                </label>
-                                <div class='actions pull-right'>
-                                  <a class='btn btn-link edit has-tooltip' data-placement='top' href='#' title='Edit todo'>
-                                    <i class='icon-pencil'></i>
-                                  </a>
-                                  <a class='btn btn-link remove has-tooltip' data-placement='top' href='#' title='Remove todo'>
-                                    <i class='icon-remove'></i>
-                                  </a>
-                                  <a class='btn btn-link important has-tooltip' data-placement='top' href='#' title='Mark as important'>
-                                    <i class='icon-bookmark-empty'></i>
-                                  </a>
-                                </div>
-                              </li>
-                              <li class='done item'>
-                                <label class='check pull-left todo'>
-                                  <input checked='checked' type='checkbox'>
-                                  <span>Dolores sed libero</span>
-                                </label>
-                                <div class='actions pull-right'>
-                                  <a class='btn btn-link edit has-tooltip' data-placement='top' href='#' title='Edit todo'>
-                                    <i class='icon-pencil'></i>
-                                  </a>
-                                  <a class='btn btn-link remove has-tooltip' data-placement='top' href='#' title='Remove todo'>
-                                    <i class='icon-remove'></i>
-                                  </a>
-                                  <a class='btn btn-link important has-tooltip' data-placement='top' href='#' title='Mark as important'>
-                                    <i class='icon-bookmark-empty'></i>
-                                  </a>
-                                </div>
-                              </li>
-                              <li class='item'>
-                                <label class='check pull-left todo'>
-                                  <input type='checkbox'>
-                                  <i class='icon-envelope-alt'></i>
-                                  <span>Ex numquam inventore ut</span>
-                                </label>
-                                <div class='actions pull-right'>
-                                  <a class='btn btn-link edit has-tooltip' data-placement='top' href='#' title='Edit todo'>
-                                    <i class='icon-pencil'></i>
-                                  </a>
-                                  <a class='btn btn-link remove has-tooltip' data-placement='top' href='#' title='Remove todo'>
-                                    <i class='icon-remove'></i>
-                                  </a>
-                                  <a class='btn btn-link important has-tooltip' data-placement='top' href='#' title='Mark as important'>
-                                    <i class='icon-bookmark-empty'></i>
-                                  </a>
-                                </div>
-                              </li>
+
                             </ul>
                           </div>
                         </div>
@@ -771,7 +720,7 @@
           li.find("input[type='checkbox']").attr("checked", false);
           li.removeClass("important").removeClass("done");
           li.find("label.todo span").text(todo_name);
-          $(".todo-list ul").first().prepend(li);
+          $(".todo-list ul").first().append(li);
           li.effect("highlight", {}, 500);
         }
         return e.preventDefault();

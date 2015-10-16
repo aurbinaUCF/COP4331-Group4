@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>User profile | Knight Tracker</title>
+    <title>Blank | Flatty - Flat Administration Template</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <meta content='text/html;charset=utf-8' http-equiv='content-type'>
     <meta content='Flat administration template for Twitter Bootstrap. Twitter Bootstrap 3 template with Ruby on Rails support.' name='description'>
-    <link href='imgs/meta_icons/logoKT.ico' rel='shortcut icon' type='image/x-icon'>
+    <link href='imgs/meta_icons/favicon.ico' rel='shortcut icon' type='image/x-icon'>
     <link href='imgs/meta_icons/apple-touch-icon.png' rel='apple-touch-icon-precomposed'>
     <link href='imgs/meta_icons/apple-touch-icon-57x57.png' rel='apple-touch-icon-precomposed' sizes='57x57'>
     <link href='imgs/meta_icons/apple-touch-icon-72x72.png' rel='apple-touch-icon-precomposed' sizes='72x72'>
@@ -26,8 +26,20 @@
       <script src="js/ie/html5shiv.js" type="text/javascript"></script>
       <script src="js/ie/respond.min.js" type="text/javascript"></script>
     <![endif]-->
+
+	<!-- Firebase -->
+  <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+
+  <!-- CodeMirror -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.2.0/codemirror.js"></script>
+  
+  <!-- Firepad -->
+  <link rel="stylesheet" href="https://cdn.firebase.com/libs/firepad/1.2.0/firepad.css" />
+  <script src="https://cdn.firebase.com/libs/firepad/1.2.0/firepad.min.js"></script>
+	
+	
   </head>
-  <body class='contrast-banana '>
+  <body class='contrast-banana without-footer'>
     <header>
       <nav class='navbar navbar-default'>
         <a class='navbar-brand' href='index.html'>
@@ -41,7 +53,7 @@
           <li class='dropdown dark user-menu'>
             <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
               <img width="23" height="23" class='putprofilepic'/>
-              <span class='user-name'>John Doe</span>
+              <span class='user-name'></span>
               <b class='caret'></b>
             </a>
             <ul class='dropdown-menu'>
@@ -88,13 +100,13 @@
             </form>
           </div>
           <ul class='nav nav-stacked'>
-            <li class=''>
-              <a href='dashboard.html'>
+            <li class='active'>
+              <a href='index.html'>
                 <i class='icon-dashboard'></i>
                 <span>Dashboard</span>
               </a>
             </li>
-	    <li class=''>
+            <li class=''>
                       <a class="dropdown-collapse" href="#"><i class='icon-edit'></i>
               <span>Projects</span>
               <i class='icon-angle-down angle-down'></i>
@@ -133,124 +145,8 @@
       <section id='content'>
         <div class='container'>
           <div class='row' id='content-wrapper'>
-            <div class='col-xs-12'>
-              <div class='row'>
-                <div class='col-sm-12'>
-                  <div class='page-header'>
-                    <h1 class='pull-left'>
-                      <i class='icon-user'></i>
-                      <span>User profile</span>
-                    </h1>
-                    <div class='pull-right'>
-                      <ul class='breadcrumb'>
-                        <li>
-                          <a href='index.html'>
-                            <i class='icon-bar-chart'></i>
-                          </a>
-                        </li>
-                        <li class='separator'>
-                          <i class='icon-angle-right'></i>
-                        </li>
-                        <li class='active'>User profile</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class='row'>
-                <div class='col-sm-3 col-lg-2'>
-                  <div class='box'>
-                    <div class='box-content'>
-                      <img class="img-responsive putprofilepic" />
-                    </div>
-                  </div>
-                </div>
-                <div class='col-sm-9 col-lg-10'>
-                  <div class='box'>
-                    <div class='box-content box-double-padding'>
-                      <form class='form' style='margin-bottom: 0;'>
-                        <fieldset>
-                          <div class='col-sm-4'>
-                            <div class='lead'>
-                              <i class='icon-github text-contrast'></i>
-                              Account Information
-                            </div>
-                            <small class='text-muted'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nisl est, vulputate at porttitor non, interdum a mauris. Phasellus imperdiet gravida pulvinar.</small>
-                          </div>
-                          <div class='col-sm-7 col-sm-offset-1'>
-                            <div class='form-group'>
-                              <label>E-mail</label>
-                              <input class='form-control putemail' id='username' placeholder='Email' type='text'>
-                            </div>
-                            <hr class='hr-normal'>
-                            <div class='form-group'>
-                              <div class='controls'>
-                                <div class='checkbox'>
-                                  <label>
-                                    <input data-target='#change-password' data-toggle='collapse' id='changepasswordcheck' type='checkbox' value='option1'>
-                                    Change password?
-                                  </label>
-                                </div>
-                              </div>
-                            </div>
-                            <div class='collapse' id='change-password'>
-                              <div class='form-group'>
-                                <label>Old Password</label>
-                                <input class='form-control' id='oldpassword' placeholder='Password' type='password'>
-                              </div>
-			      <div class='form-group'>
-                                <label>New Password</label>
-                                <input class='form-control' id='newpassword' placeholder='Password' type='password'>
-                              </div>
-                              <div class='form-group'>
-                                <label>New Password Confirmation</label>
-                                <input class='form-control' id='password-confirmation' placeholder='Password confirmation' type='password'>
-                              </div>
-                            </div>
-                          </div>
-                        </fieldset>
-                        <hr class='hr-normal'>
-                        <fieldset>
-                          <div class='col-sm-4'>
-                            <div class='lead'>
-                              <i class='icon-user text-contrast'></i>
-                              Personal info
-                            </div>
-                            <small class='text-muted'>Proin eu nibh ut urna tristique rhoncus. Sed euismod, quam sed dignissim imperdiet, nulla leo vehicula mi, a sagittis lacus augue nec sapien.</small>
-                          </div>
-                          <div class='col-sm-7 col-sm-offset-1'>
-                            <div class='form-group'>
-                              <label>Full name</label>
-                              <input class='form-control putname' id='fullname' placeholder='Full Name' type='text'>
-                            </div>
-			    <div class='form-group manageronly'>
-                              <label>Company</label>
-                              <input class='form-control putcompany' id='company' placeholder='Company' type='text'>
-                            </div>
-			    <div class='form-group'>
-                              <label>Token</label>
-                              <input class='form-control puttoken' id='token' placeholder='Token' type='text' readonly>
-                            </div>
-                            <hr class='hr-normal'>
-                            <div class='form-group'>
-                              <label>Bio</label>
-                              <textarea class='autosize form-control putbio' id='bio' placeholder='Bio'></textarea>
-                            </div>
-                          </div>
-                        </fieldset>
-                        <div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
-                          <div class='text-right'>
-                            <div class='btn btn-primary btn-lg'>
-                              <i class='icon-save'></i>
-                              Save
-                            </div>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div class='col-xs-12' id='puttexteditor'>
+              
             </div>
           </div>
           <footer id='footer'>
@@ -288,7 +184,108 @@
     <!-- / This file puts info from the database into the html -->
     <script src="js/putinfo.js" type="text/javascript"></script>
     <!-- / START - page related files and scripts [optional] -->
-    
+    <script>
+    function init() {
+      //// Initialize Firebase.
+      //var firepadRef = getExampleRef();
+      // TODO: Replace above line with:
+      var firepadRef = new Firebase('blistering-inferno-7454.firebaseIO.com');
+
+      //// Create CodeMirror (with lineWrapping on).
+      var codeMirror = CodeMirror(document.getElementById('puttexteditor'), { lineWrapping: true });
+
+      //// Create Firepad (with rich text toolbar and shortcuts enabled).
+      var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror,
+          { richTextToolbar: true, richTextShortcuts: true });
+
+      //// Initialize contents.
+      firepad.on('ready', function() {
+        if (firepad.isHistoryEmpty()) {
+          firepad.setHtml(
+              '<span style="font-size: 24px;">Rich-text editing with <span style="color: red">Firepad!</span></span><br/>\n' +
+              '<br/>' +
+              '<div style="font-size: 18px">' +
+              'Supports:<br/>' +
+              '<ul>' +
+                '<li>Different ' +
+                  '<span style="font-family: impact">fonts,</span>' +
+                  '<span style="font-size: 24px;"> sizes, </span>' +
+                  '<span style="color: blue">and colors.</span>' +
+                '</li>' +
+                '<li>' +
+                  '<b>Bold, </b>' +
+                  '<i>italic, </i>' +
+                  '<u>and underline.</u>' +
+                '</li>' +
+                '<li>Lists' +
+                  '<ol>' +
+                    '<li>One</li>' +
+                    '<li>Two</li>' +
+                  '</ol>' +
+                '</li>' +
+                '<li>Undo / redo</li>' +
+                '<li>Cursor / selection synchronization.</li>' +
+                '<li><checkbox></checkbox> It supports customized entities.</li>' +
+                '<li>And it\'s all fully collaborative!</li>' +
+              '</ul>' +
+              '</div>');
+        }
+      });
+
+      // An example of a complex custom entity.
+      firepad.registerEntity('checkbox', {
+        render: function (info, entityHandler) {
+          var inputElement = document.createElement('input');
+          inputElement.setAttribute('type', 'checkbox');
+          if(info.checked) {
+            inputElement.checked = 'checked';
+          }
+          inputElement.addEventListener('click', function () {
+            entityHandler.replace({checked:this.checked});
+          });
+          return inputElement;
+        }.bind(this),
+        fromElement: function (element) {
+          var info = {};
+          if(element.hasAttribute('checked')) {
+            info.checked = true;
+          }
+          return info;
+        },
+        update: function (info, element) {
+          if (info.checked) {
+            element.checked = 'checked';
+          } else {
+            element.checked = null;
+          }
+        },
+        export: function (info) {
+          var inputElement = document.createElement('checkbox');
+          if(info.checked) {
+            inputElement.setAttribute('checked', true);
+          }
+          return inputElement;
+        }
+      });
+    }
+
+    // Helper to get hash from end of URL or generate a random one.
+    function getExampleRef() {
+      var ref = new Firebase('https://firepad.firebaseio-demo.com');
+      var hash = window.location.hash.replace(/#/g, '');
+      if (hash) {
+        ref = ref.child(hash);
+      } else {
+        ref = ref.push(); // generate unique location.
+        window.location = window.location + '#' + ref.key(); // add it as a hash to the URL.
+      }
+      if (typeof console !== 'undefined')
+        console.log('Firebase data: ', ref.toString());
+      return ref;
+    }
+
+    init();
+  </script>
     <!-- / END - page related files and scripts [optional] -->
   </body>
 </html>
