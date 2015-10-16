@@ -29,13 +29,13 @@
 
 <body>
   <div id="firepad-container"></div>
+	<script src="js/jquery/jquery.min.js" type="text/javascript"></script>	
 	<script src='js/putinfo.js'></script>
 	<script>
-	  var firepadRef = new Firebase('blistering-inferno-7454.firebaseIO.com/'+token+'/trial');
+	  var firepadRef = new Firebase('blistering-inferno-7454.firebaseIO.com/'+token+'/'+getCookie("ProjectSelected")+'/trial');
 	  var editor = ace.edit('firepad-container');
 	  var firepad = Firepad.fromACE(firepadRef, editor);
 	</script>
-	<script src="js/jquery/jquery.min.js" type="text/javascript"></script>
 	<script>
 		$('document').ready(function(){
 			$('.powered-by-firepad').remove();
