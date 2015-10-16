@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!-- This is the html for the actual text editor... texteditor.html holds this -->
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <!-- Firebase -->
+  <script src="js/firepad/firebase.js"></script>
+
+  <!-- Ace -->
+  <script src="js/firepad/ace.js"></script>
+
+  <!-- Firepad -->
+  <link rel="stylesheet" href="css/firepad.css" />
+  <script src="js/firepad/firepad.min.js"></script>
+	
+
+  <style>
+    html { height: 100%; }
+    body { margin: 0; height: 100%; position: relative; }
+      /* Height / width / positioning can be customized for your use case.
+         For demo purposes, we make firepad fill the entire browser. */
+    #firepad-container {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="firepad-container"></div>
+	<script src='js/putinfo.js'></script>
+	<script>
+	  var firepadRef = new Firebase('blistering-inferno-7454.firebaseIO.com/'+token+'/trial');
+	  var editor = ace.edit('firepad-container');
+	  var firepad = Firepad.fromACE(firepadRef, editor);
+	</script>
+	<script src="js/jquery/jquery.min.js" type="text/javascript"></script>
+	<script>
+		$('document').ready(function(){
+			$('.powered-by-firepad').remove();
+		});
+	</script>
+	
+</body>
+</html>
