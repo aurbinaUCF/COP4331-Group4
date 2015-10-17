@@ -28,18 +28,36 @@
 </head>
 
 <body>
-  <div id="firepad-container"></div>
+	<div id='whatfiles'></div>
+	
+	<div id="firepad-container"></div>
+	
 	<script src="js/jquery/jquery.min.js" type="text/javascript"></script>	
 	<script src='js/putinfo.js'></script>
 	<script>
-	  var firepadRef = new Firebase('blistering-inferno-7454.firebaseIO.com/'+token+'/'+getCookie("ProjectSelected")+'/trial');
-	  var editor = ace.edit('firepad-container');
-	  var firepad = Firepad.fromACE(firepadRef, editor);
-	</script>
-	<script>
 		$('document').ready(function(){
 			$('.powered-by-firepad').remove();
+			var pf = "";
+			for(var i = 0; i<projectfiles.length; i++){
+				if(i==0){
+					if(getCookie('FileEditing')==="Need"){
+						setCookie('FileEditing',projectfiles[i], 1);
+					}
+				}
+				pf += projectfiles[i]+" ";
+			}
+			//$('#whatfiles').html(pf);
 		});
+	</script>
+	<script>
+	if(getCookie('FileEditing')==="Need"){
+	  var firepadRef = new Firebase('blistering-inferno-7454.firebaseIO.com/'+token+'/'+getCookie("ProjectSelected")+'/trial');
+	} else {
+		console.log('blistering-inferno-7454.firebaseIO.com/'+token+'/'+getCookie("ProjectSelected")+'/'+getHash(getCookie("FileEditing")));
+	var firepadRef = new Firebase('blistering-inferno-7454.firebaseIO.com/'+token+'/'+getCookie("ProjectSelected")+'/'+getHash(getCookie('FileEditing')));
+	}
+	  var editor = ace.edit('firepad-container');
+	  var firepad = Firepad.fromACE(firepadRef, editor);
 	</script>
 	
 </body>

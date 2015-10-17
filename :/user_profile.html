@@ -38,7 +38,26 @@
           <i class='icon-reorder'></i>
         </a>
         <ul class='nav'>
-          <li class='dropdown dark user-menu'>
+          <li class='dropdown light only-icon'>
+            <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+              <i class='icon-cog'></i>
+            </a>
+            <ul class='dropdown-menu'>
+              <li>
+                <div class='label'>Change User</div>
+                <a href='#' onClick='testMode(0); putInfo(); window.location.reload();'>
+                  John Doe - Manager
+                  <small>(default)</small>
+                </a>
+                <a href='#' onClick='testMode(1); putInfo(); window.location.reload();'>
+                  Granny G - User
+                </a>
+                <a href='#' onClick='testMode(2); putInfo(); window.location.reload();'>
+                  Aang - Manager
+                </a>
+              </li>
+		</ul></li>
+	<li class='dropdown dark user-menu'>
             <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
               <img width="23" height="23" class='putprofilepic'/>
               <span class='user-name'>John Doe</span>
@@ -244,6 +263,8 @@
     </div>
     <!-- / jquery [required] -->
     <script src="js/jquery/jquery.min.js" type="text/javascript"></script>
+    <!-- / This file puts info from the database into the html -->
+    <script src="js/putinfo.js" type="text/javascript"></script>
     <!-- / jquery mobile (for touch events) -->
     <script src="js/jquery/jquery.mobile.custom.min.js" type="text/javascript"></script>
     <!-- / jquery migrate (for compatibility with new jquery) [required] -->
@@ -262,8 +283,6 @@
     <script src="js/theme.js" type="text/javascript"></script>
     <!-- / demo file [not required!] -->
     <script src="js/demo.js" type="text/javascript"></script>
-    <!-- / This file puts info from the database into the html -->
-    <script src="js/putinfo.js" type="text/javascript"></script>
     <!-- / START - page related files and scripts [optional] -->
     
     <!-- / END - page related files and scripts [optional] -->

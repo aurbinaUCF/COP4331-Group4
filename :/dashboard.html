@@ -40,6 +40,25 @@
           <i class='icon-reorder'></i>
         </a>
         <ul class='nav'>
+	<li class='dropdown light only-icon'>
+            <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+              <i class='icon-cog'></i>
+            </a>
+            <ul class='dropdown-menu'>
+              <li>
+                <div class='label'>Change User</div>
+                <a href='#' onClick='testMode(0); putInfo(); window.location.reload();'>
+                  John Doe - Manager
+                  <small>(default)</small>
+                </a>
+                <a href='#' onClick='testMode(1); putInfo(); window.location.reload();'>
+                  Granny G - User
+                </a>
+                <a href='#' onClick='testMode(2); putInfo(); window.location.reload();'>
+                  Aang - Manager
+                </a>
+              </li>
+		</ul></li>
           <li class='dropdown dark user-menu'>
             <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
               <img width="23" height="23" class='putprofilepic'/>
