@@ -2,18 +2,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 
-var handleCors = function(req, res,next){
-    res.header =('Access-Control-Allow-Origin', '*');
-    res.header =('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header =('Access-Control-Allow-Headers', 'Content-Type');
-    next();
-};
 
-app.use(handleCors);
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
 
 var util = require('util');
 var http = require('http');
@@ -43,16 +32,19 @@ if(typeof localStorage === "undefined" || localStorage === null)
 
 app.get('/', function (req, res) {
   res.send('Hello World');
+  console.log('hello');
+
 });
 
 console.log("server has started");
 
 
 
-app.get('/auth', function(req,res){
+app.get('/track/auth', function(req,res){
 
-  var username = req.body.username;
-  console.log(username);
+
+  var email = req.body.email;
+  console.log(email);
 
 
 });
