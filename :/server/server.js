@@ -22,7 +22,7 @@ app.listen(8080,function(){
 })
 
 var sqlite3 = require('sqlite3');
-var db = new sqlite3.Database('./company.db');
+var companyDb = new sqlite3.Database('./company.db');
 var projectDb = new sqlite3.Database('./projects.db');
 
 var bcrypt = require('bcrypt-nodejs');
@@ -47,28 +47,76 @@ app.get('/', function (req, res,next) {
 res.json(resources);
 });
 
-console.log("server has started");
 
 app.post('/auth', function(req,res){
 
 
+	var password = req.body.password; 
+
+	var salt = bcrypt.genSaltSync(15);
+	var userhash = bcrypt.hashSync(password,salt); 
+
+	var search = "SELECT companyToken,name,role, password, email FROM users WHERE email = '" + req.body.email +"'";
+	console.log(search);
+	companyDb.get(search, function(err,row){
+		console.log(row.password);
+
+	});
+	/*companyDb.get(search, function(err,row){
+		var hashedPW = row.password;
+		var key = bcrypt.compareSync(userhash,hashedPW);
+		if(key){
+			var userJSON = {
+				userID: row.userID,
+				companyToken: row.companyToken,
+				name:row.name,
+				email:row.email,
+				role:row.role
+			};
+			var token = jwt.sign(userJSON,app.get(secretKey),{
+				expiresInMinutes: 1440
+			});
+			localStorage.setItem("token",token);
+			console.log('success');
+			res.redirect('http://localhost/track/dashboard.html');
+		}
+		else{
+			console.log('reject');
+			res.status(404);
+			res.redirect('http://localhost/track/calendar.html');
+		}
+	})*/
 });
 
 
 app.post('/register', function(req, res) {
 
 	if(req.body.title == "developer"){
-		console.log('developer selected');	
-		console.log('token= ' +req.body.token);	
-		console.log('name = '+req.body.name);	
-		console.log('email = '+req.body.email);
-		console.log('password = ' +req.body.password);
+
+		var salt = bcrypt.genSaltSync(15);
+		var hash = bcrypt.hashSync(req.body.password,salt); 
+		var userHash = bcrypt.hashSync(req.body.name,salt);
+
+		var createuser = 'INSERT INTO users (name, email, password, role, userID, companyToken) VALUES' +  "('" + req.body.name + "','" + req.body.email + "','" + hash + "','" +req.body.title+"','" + userHash+ "','"+ req.body.token+ "')";
+		companyDb.run(createuser);
+		res.redirect('/dashboard.html');
+
 	}
 	else if(req.body.title == "manager"){
-		console.log(req.body.title);	
-		console.log(req.body.name);	
-		console.log(req.body.email);
-		console.log(req.body.password);
+
+		var salt = bcrypt.genSaltSync(15);
+		var hash = bcrypt.hashSync(req.body.password,salt); 
+		var managerHash = bcrypt.hashSync(req.body.name,salt);
+		var companyTokenHash = bcrypt.hashSync(req.body.company,salt);
+
+
+		var createManager = 'INSERT INTO users (name, email, password, role, userID,companyToken) VALUES' +  "('" + req.body.name + "','" + req.body.email + "','" + hash + "','" +req.body.title+"','" + managerHash+"','" +companyTokenHash+"')";
+		companyDb.run(createManager);
+
+		var createCompany = 'INSERT INTO accounts(companyName, managerID,companyToken) VALUES'+ "('" +req.body.company + "','"+ managerHash +"','"+ companyTokenHash+"')";
+
+		companyDb.run(createCompany);
+		res.redirect('/dashboard.html');
 	}
 	
 
