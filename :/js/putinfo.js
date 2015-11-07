@@ -9,6 +9,29 @@ var todo = "This is all put in from the javascript;Another Todo;The Last Todo";
 
 var ismanager = true;
 
+//$(".full-calendar-demo").fullCalendar('clientEvents');
+calendarevents = [
+            {
+              id: "event1",
+              title: "Automatically Imported Event",
+              start: new Date(2015, 10, 1),
+              className: 'event-orange'
+            }, {
+              id: "event2",
+              title: "What not to do at a stop light?",
+              start: new Date(2015, 10, 5),
+              end: new Date(2015, 10, 2),
+              className: "event-red"
+            }, {
+              id: "event3",
+              title: "Fiesta Party",
+              start: new Date(2015, 10, 15, 19, 0),
+              end: new Date(2015, 10, 15, 22, 30),
+              allDay: false,
+              className: "event-purple"
+            }
+          ];
+
 //testMode(2);
 
 function testMode(which){
@@ -113,6 +136,11 @@ function putInfo(){
 
 	var projectssplit = projects.split(";");
 	var normalprojects="", texteditorprojects = "";	
+	
+	if(getCookie("ProjectSelected")!==undefined){
+		$('.projectname').html(getCookie("ProjectSelected"));
+	}
+	
 	for(var i = 0; i<projectssplit.length; i++){
 		var textsplit = projectssplit[i].split("-");
 		if(getCookie("ProjectSelected")===textsplit[0]){		
