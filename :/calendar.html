@@ -211,7 +211,9 @@
     <!-- / jquery [required] -->
     <script src="assets/javascripts/jquery/jquery.min.js" type="text/javascript"></script>
     <!-- / This file puts info from the database into the html -->
-    <script src="js/putinfo.js" type="text/javascript"></script
+    <script src="js/putinfo.js" type="text/javascript"></script>
+    <!-- / This file allows different elements to edit the information in the database -->
+    <script src="js/UpdateDatabase.js" type="text/javascript"></script>
     <!-- / jquery mobile (for touch events) -->
     <script src="assets/javascripts/jquery/jquery.mobile.custom.min.js" type="text/javascript"></script>
     <!-- / jquery migrate (for compatibility with new jquery) [required] -->
@@ -233,111 +235,8 @@
     <!-- / START - page related files and scripts [optional] -->
     <script src="assets/javascripts/plugins/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
     <script src="assets/javascripts/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
-    <script>
-      (function() {
-        var cal, calendarDate, d, m, y;
-      
-        this.setDraggableEvents = function() {
-          return $("#events .external-event").each(function() {
-            var eventObject;
-            eventObject = {
-              title: $.trim($(this).text())
-            };
-            $(this).data("eventObject", eventObject);
-            return $(this).draggable({
-              zIndex: 999,
-              revert: true,
-              revertDuration: 0
-            });
-          });
-        };
-      
-        setDraggableEvents();
-      
-        calendarDate = new Date();
-      
-        d = calendarDate.getDate();
-      
-        m = calendarDate.getMonth();
-      
-        y = calendarDate.getFullYear();
-      
-        cal = $(".full-calendar-demo").fullCalendar({
-          header: {
-            center: "title",
-            left: "basicDay,basicWeek,month",
-            right: "prev,today,next"
-          },
-          buttonText: {
-            prev: "<span class=\"icon-chevron-left\"></span>",
-            next: "<span class=\"icon-chevron-right\"></span>",
-            today: "Today",
-            basicDay: "Day",
-            basicWeek: "Week",
-            month: "Month"
-          },
-          droppable: true,
-          editable: true,
-          selectable: true,
-          select: function(start, end, allDay) {
-            return bootbox.prompt("Event title", function(title) {
-              if (title !== null) {
-                cal.fullCalendar("renderEvent", {
-                  title: title,
-                  start: start,
-                  end: end,
-                  allDay: allDay
-                }, true);
-                return cal.fullCalendar('unselect');
-              }
-            });
-          },
-          eventClick: function(calEvent, jsEvent, view) {
-            return bootbox.dialog({
-              message: $("<form class='form'><label>Change event name</label></form><input id='new-event-title' class='form-control' type='text' value='" + calEvent.title + "' /> "),
-              buttons: {
-                "delete": {
-                  label: "<i class='icon-trash'></i> Delete Event",
-                  className: "pull-left",
-                  callback: function() {
-                    return cal.fullCalendar("removeEvents", function(ev) {
-                      return ev._id === calEvent._id;
-                    });
-                  }
-                },
-                success: {
-                  label: "<i class='icon-save'></i> Save",
-                  className: "btn-success",
-                  callback: function() {
-                    calEvent.title = $("#new-event-title").val();
-                    return cal.fullCalendar('updateEvent', calEvent);
-                  }
-                }
-              }
-            });
-          },
-          drop: function(date, allDay) {
-            var copiedEventObject, eventClass, originalEventObject;
-            originalEventObject = $(this).data("eventObject");
-            originalEventObject.id = Math.floor(Math.random() * 99999);
-            eventClass = $(this).attr('data-event-class');
-            console.log(originalEventObject);
-            copiedEventObject = $.extend({}, originalEventObject);
-            copiedEventObject.start = date;
-            copiedEventObject.allDay = allDay;
-            if (eventClass) {
-              copiedEventObject["className"] = [eventClass];
-            }
-            $(".full-calendar-demo").fullCalendar("renderEvent", copiedEventObject, true);
-            if ($("#calendar-remove-after-drop").is(":checked")) {
-              return $(this).remove();
-            }
-          },
-          events: calendarevents
-        });
-      
-      }).call(this);
-    </script>
+    <script src='js/date.js'></script>
+    <script src='js/calendar.js'></script>
     <script>
       $("#new-event").live('submit', function(e) {
         var value;
