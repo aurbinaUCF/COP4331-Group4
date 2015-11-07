@@ -49,6 +49,27 @@ res.json(resources);
 });
 
 
+app.get('/verify',function(req,res){
+	var access = localStorage.getItem("token");
+	if(access){
+		jwt.verify(access),app.get('secretKey'),function(err,results){
+			if (err){
+				return console.log(err);
+			}
+			else{
+					res.json(results);
+					console.log(results);
+			}
+		};
+	}
+	else{
+		return res.stat(403).send({
+				success:false,
+				message:'No token provided'
+		});
+	}
+});
+
 app.post('/auth', function(req,res){
 
 
@@ -81,14 +102,20 @@ app.post('/auth', function(req,res){
 	
 		}
 		else{
-			console.log('reject');
-			res.redirect(200,'http://localhost/calendar.html');
+			res.redirect(200,'http://localhost/retry.html');
 			
 		}
 	})
 });
 
+app.post('/logout', function(req,res){
 
+
+	localStorage.clear();
+	res.redirect(200,'http://localhost/');
+
+
+});
 app.post('/register', function(req, res) {
 
 	if(req.body.title == "developer"){

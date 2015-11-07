@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Knight-Tracker</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <meta content='text/html;charset=utf-8' http-equiv='content-type'>
+    <meta content='Flat administration template for Twitter Bootstrap. Twitter Bootstrap 3 template with Ruby on Rails support.' name='description'>
+    <link href='assets/images/meta_icons/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+    <link href='assets/images/meta_icons/apple-touch-icon.png' rel='apple-touch-icon-precomposed'>
+    <link href='assets/images/meta_icons/apple-touch-icon-57x57.png' rel='apple-touch-icon-precomposed' sizes='57x57'>
+    <link href='assets/images/meta_icons/apple-touch-icon-72x72.png' rel='apple-touch-icon-precomposed' sizes='72x72'>
+    <link href='assets/images/meta_icons/apple-touch-icon-114x114.png' rel='apple-touch-icon-precomposed' sizes='114x114'>
+    <link href='assets/images/meta_icons/apple-touch-icon-144x144.png' rel='apple-touch-icon-precomposed' sizes='144x144'>
+    <!-- / START - page related stylesheets [optional] -->
+    <link href="assets/stylesheets/plugins/datatables/bootstrap-datatable.css" media="all" rel="stylesheet" type="text/css" />
+    <!-- / END - page related stylesheets [optional] -->
+    <!-- / bootstrap [required] -->
+    <link href="assets/stylesheets/bootstrap/bootstrap.css" media="all" rel="stylesheet" type="text/css" />
+    <!-- / theme file [required] -->
+    <link href="assets/stylesheets/dark-theme.css" media="all" id="color-settings-body-color" rel="stylesheet" type="text/css" />
+    <!-- / coloring file [optional] (if you are going to use custom contrast color) -->
+    <link href="assets/stylesheets/theme-colors.css" media="all" rel="stylesheet" type="text/css" />
+    <!-- / demo file [not required!] -->
+    <link href="assets/stylesheets/demo.css" media="all" rel="stylesheet" type="text/css" />
+    <!--[if lt IE 9]>
+      <script src="assets/javascripts/ie/html5shiv.js" type="text/javascript"></script>
+      <script src="assets/javascripts/ie/respond.min.js" type="text/javascript"></script>
+    <![endif]-->
+  </head>
+  <body class='contrast-banana'>
+    <header>
+      <nav class='navbar navbar-default'>
+        <a class='navbar-brand' href='index.html'>
+          <img width="81" height="21" class="logo" alt="Flatty" src="imgs/logo.svg" />
+          <img width="21" height="21" class="logo-xs" alt="Flatty" src="imgs/logo_xs.svg" />
+        </a>
+        <a class='toggle-nav btn pull-left' href='#'>
+          <i class='icon-reorder'></i>
+        </a>
+        <ul class='nav'>
+  <li class='dropdown light only-icon'>
+            <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+              <i class='icon-cog'></i>
+            </a>
+            <ul class='dropdown-menu'>
+              <li>
+                <div class='label'>Change User</div>
+                <a href='#' onClick='testMode(0); putInfo(); window.location.reload();'>
+                  John Doe - Manager
+                  <small>(default)</small>
+                </a>
+                <a href='#' onClick='testMode(1); putInfo(); window.location.reload();'>
+                  Granny G - User
+                </a>
+                <a href='#' onClick='testMode(2); putInfo(); window.location.reload();'>
+                  Aang - Manager
+                </a>
+              </li>
+    </ul></li>
+          <li class='dropdown dark user-menu'>
+            <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+              <img width="23" height="23" class='putprofilepic'/>
+              <span class='user-name'></span>
+              <b class='caret'></b>
+            </a>
+            <ul class='dropdown-menu'>
+              <li>
+                <a href='user_profile.html'>
+                  <i class='icon-user'></i>
+                  Profile
+                </a>
+              </li>
+              <li>
+                <a href='user_profile.html'>
+                  <i class='icon-cog'></i>
+                  Settings
+                </a>
+              </li>
+              <li class='divider'></li>
+              <li>
+                <a href='sign_in.html'>
+                  <i class='icon-signout'></i>
+                  Sign out
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <form action='search_results.html' class='navbar-form navbar-right hidden-xs' method='get'>
+          <button class='btn btn-link icon-search' name='button' type='submit'></button>
+          <div class='form-group'>
+            <input value="" class="form-control" placeholder="Search..." autocomplete="off" id="q_header" name="q" type="text" />
+          </div>
+        </form>
+      </nav>
+    </header>
+    <div id='wrapper'>
+      <div id='main-nav-bg'></div>
+      <nav id='main-nav'>
+        <div class='navigation'>
+          <div class='search'>
+            <form action='search_results.html' method='get'>
+              <div class='search-wrapper'>
+                <input value="" class="search-query form-control" placeholder="Search..." autocomplete="off" name="q" type="text" />
+                <button class='btn btn-link icon-search' name='button' type='submit'></button>
+              </div>
+            </form>
+          </div>
+          <ul class='nav nav-stacked'>
+            <li class='active'>
+              <a href='dashboard.html'>
+                <i class='icon-dashboard'></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li class=''>
+              <a class="dropdown-collapse" href="#"><i class='icon-edit'></i>
+              <span>Projects</span>
+              <i class='icon-angle-down angle-down'></i>
+              </a>
+      
+              <ul id='projects' class='nav nav-stacked'>
+                
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <section id='content'>
+        <div class='container'>
+          <div class='row' id='content-wrapper'>
+            <div class='col-xs-12'>
+              <div class='row'>
+                <div class='col-sm-12'>
+                  <div class='page-header'>
+                    <h1 class='pull-left'>
+                      <i class='icon-dashboard'></i>
+                      <span>Project Name goes Here</span>
+                    </h1>
+                </div>
+                </div>
+              </div>
+              <br>
+              <div class='row'>
+                <div class='col-sm-12 box' style='margin-bottom: 0'>
+                  <div class='box-header banana-background'>
+                    <div class='title'>Responsive tabs</div>
+                    <div class='actions'>
+                      <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
+                      </a>
+                      
+                      <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                      </a>
+                    </div>
+                  </div>
+                  <div class='box-content'>
+                    <strong>Resize window to see responsive tabs.</strong>
+                    <div class='tabbable' style='margin-top: 20px'>
+                      <ul class='nav nav-responsive nav-tabs'>
+                        <li class='active'>
+                          <a data-toggle='tab' href='#retab1'>
+                            Requirements
+                          </a>
+                        </li>
+                        <li class=''>
+                          <a data-toggle='tab' href='#retab2'>
+                            Design
+                          </a>
+                        </li>
+                        <li class=''>
+                          <a data-toggle='tab' href='#retab3'>
+                            Implementation
+                          </a>
+                        </li>
+                        <li class=''>
+                          <a data-toggle='tab' href='#retab4'>
+                            Verification
+                          </a>
+                        </li>
+                        <li class=''>
+                          <a data-toggle='tab' href='#retab5'>
+                            Maintanence
+                          </a>
+                        </li>
+                        <li class=''>
+                          <a data-toggle='tab' href='#retab6'>
+                            Collaborative Code Editor
+                          </a>
+                        </li>
+                        
+                      </ul>
+                      <div class='tab-content'>
+                                  <div id="retab1" class="tab-pane active">
+
+              <div class='row'>
+                <div class='col-sm-12'>
+                  <div class='box bordered-box orange-border' style='margin-bottom:0;'>
+                    <div class='box-header dark-background'>
+                      <div class='title'>Data table with column filter in footer</div>
+                      <div class='actions'>
+                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
+                        </a>
+                        
+                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                        </a>
+                      </div>
+                    </div>
+                    <div class='box-content box-no-padding'>
+                      <div class='responsive-table'>
+                        <div class='scrollable-area'>
+                          <table class='data-table-column-filter table table-bordered table-striped' style='margin-bottom:0;'>
+                            <thead>
+                              <tr>
+                                <th>
+                                  Name
+                                </th>
+                                <th>
+                                  E-mail
+                                </th>
+                                <th>
+                                  Status
+                                </th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Gabrielle Fritsch</td>
+                                <td>marjory@gmail.com</td>
+                                <td>
+                                  <span class='label label-warning'>Warning</span>
+                                </td>
+                                <td>
+                                  <div class='text-right'>
+                                    <a class='btn btn-success btn-xs' href='#'>
+                                      <i class='icon-ok'></i>
+                                    </a>
+                                    <a class='btn btn-danger btn-xs' href='#'>
+                                      <i class='icon-remove'></i>
+                                    </a>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <th>Name</th>
+                                <th>E-mail</th>
+                                <th colspan='2'>Status</th>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                                  </div>
+              
+                                  <div id="retab2" class="tab-pane ">
+
+                                     <div class='row'>
+                <div class='col-sm-12'>
+                  <div class='box bordered-box orange-border' style='margin-bottom:0;'>
+                    <div class='box-header purple-background'>
+                      <div class='title'>Data table with column filter in footer</div>
+                      <div class='actions'>
+                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
+                        </a>
+                        
+                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                        </a>
+                      </div>
+                    </div>
+                    <div class='box-content box-no-padding'>
+                      <div class='responsive-table'>
+                        <div class='scrollable-area'>
+                          <table class='data-table-column-filter table table-bordered table-striped' style='margin-bottom:0;'>
+                            <thead>
+                              <tr>
+                                <th>
+                                  Name
+                                </th>
+                                <th>
+                                  E-mail
+                                </th>
+                                <th>
+                                  Status
+                                </th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Gabrielle Fritsch</td>
+                                <td>marjory@gmail.com</td>
+                                <td>
+                                  <span class='label label-warning'>Warning</span>
+                                </td>
+                                <td>
+                                  <div class='text-right'>
+                                    <a class='btn btn-success btn-xs' href='#'>
+                                      <i class='icon-ok'></i>
+                                    </a>
+                                    <a class='btn btn-danger btn-xs' href='#'>
+                                      <i class='icon-remove'></i>
+                                    </a>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <th>Name</th>
+                                <th>E-mail</th>
+                                <th colspan='2'>Status</th>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+                        </div>
+              
+                                  <div id="retab3" class="tab-pane ">
+
+                                     <div class='row'>
+                <div class='col-sm-12'>
+                  <div class='box bordered-box orange-border' style='margin-bottom:0;'>
+                    <div class='box-header purple-background'>
+                      <div class='title'>Data table with column filter in footer</div>
+                      <div class='actions'>
+                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
+                        </a>
+                        
+                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                        </a>
+                      </div>
+                    </div>
+                    <div class='box-content box-no-padding'>
+                      <div class='responsive-table'>
+                        <div class='scrollable-area'>
+                          <table class='data-table-column-filter table table-bordered table-striped' style='margin-bottom:0;'>
+                            <thead>
+                              <tr>
+                                <th>
+                                  Name
+                                </th>
+                                <th>
+                                  E-mail
+                                </th>
+                                <th>
+                                  Status
+                                </th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Gabrielle Fritsch</td>
+                                <td>marjory@gmail.com</td>
+                                <td>
+                                  <span class='label label-warning'>Warning</span>
+                                </td>
+                                <td>
+                                  <div class='text-right'>
+                                    <a class='btn btn-success btn-xs' href='#'>
+                                      <i class='icon-ok'></i>
+                                    </a>
+                                    <a class='btn btn-danger btn-xs' href='#'>
+                                      <i class='icon-remove'></i>
+                                    </a>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <th>Name</th>
+                                <th>E-mail</th>
+                                <th colspan='2'>Status</th>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+                        </div>
+              
+                                  <div id="retab4" class="tab-pane ">
+
+                                     <div class='row'>
+                <div class='col-sm-12'>
+                  <div class='box bordered-box orange-border' style='margin-bottom:0;'>
+                    <div class='box-header purple-background'>
+                      <div class='title'>Data table with column filter in footer</div>
+                      <div class='actions'>
+                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
+                        </a>
+                        
+                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                        </a>
+                      </div>
+                    </div>
+                    <div class='box-content box-no-padding'>
+                      <div class='responsive-table'>
+                        <div class='scrollable-area'>
+                          <table class='data-table-column-filter table table-bordered table-striped' style='margin-bottom:0;'>
+                            <thead>
+                              <tr>
+                                <th>
+                                  Name
+                                </th>
+                                <th>
+                                  E-mail
+                                </th>
+                                <th>
+                                  Status
+                                </th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Gabrielle Fritsch</td>
+                                <td>marjory@gmail.com</td>
+                                <td>
+                                  <span class='label label-warning'>Warning</span>
+                                </td>
+                                <td>
+                                  <div class='text-right'>
+                                    <a class='btn btn-success btn-xs' href='#'>
+                                      <i class='icon-ok'></i>
+                                    </a>
+                                    <a class='btn btn-danger btn-xs' href='#'>
+                                      <i class='icon-remove'></i>
+                                    </a>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <th>Name</th>
+                                <th>E-mail</th>
+                                <th colspan='2'>Status</th>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+                        </div>
+              
+                                  <div id="retab5" class="tab-pane ">
+
+                                     <div class='row'>
+                <div class='col-sm-12'>
+                  <div class='box bordered-box orange-border' style='margin-bottom:0;'>
+                    <div class='box-header purple-background'>
+                      <div class='title'>Data table with column filter in footer</div>
+                      <div class='actions'>
+                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
+                        </a>
+                        
+                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                        </a>
+                      </div>
+                    </div>
+                    <div class='box-content box-no-padding'>
+                      <div class='responsive-table'>
+                        <div class='scrollable-area'>
+                          <table class='data-table-column-filter table table-bordered table-striped' style='margin-bottom:0;'>
+                            <thead>
+                              <tr>
+                                <th>
+                                  Name
+                                </th>
+                                <th>
+                                  E-mail
+                                </th>
+                                <th>
+                                  Status
+                                </th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Gabrielle Fritsch</td>
+                                <td>marjory@gmail.com</td>
+                                <td>
+                                  <span class='label label-warning'>Warning</span>
+                                </td>
+                                <td>
+                                  <div class='text-right'>
+                                    <a class='btn btn-success btn-xs' href='#'>
+                                      <i class='icon-ok'></i>
+                                    </a>
+                                    <a class='btn btn-danger btn-xs' href='#'>
+                                      <i class='icon-remove'></i>
+                                    </a>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <th>Name</th>
+                                <th>E-mail</th>
+                                <th colspan='2'>Status</th>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+                        </div>
+              
+                                 <div id="retab6" class="tab-pane ">
+                                    <h2>Code Editor</h2>
+                                      <div class="tabbable">
+                                        <ul id='tabs' class="nav nav-tabs">
+                                          
+                                        </ul>
+                                      </div>
+                                <iframe id='texteditholder' src='firepad.html' width='100%' height='500px' frameBorder='0'></iframe>
+                               </div>
+              
+                                  
+                      
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <footer id='footer'>
+            <div class='footer-wrapper'>
+              <div class='row'>
+                <div class='col-sm-6 text'>
+                  Copyright © 2015 Knight Tracker
+                </div>
+            
+              </div>
+            </div>
+          </footer>
+        </div>
+      </section>
+    </div>
+    <!-- / jquery [required] -->
+    <script src="assets/javascripts/jquery/jquery.min.js" type="text/javascript"></script>
+    <!-- / jquery mobile (for touch events) -->
+     <script src="js/putinfo.js" type="text/javascript"></script>
+    <script src="assets/javascripts/jquery/jquery.mobile.custom.min.js" type="text/javascript"></script>
+    <!-- / jquery migrate (for compatibility with new jquery) [required] -->
+    <script src="assets/javascripts/jquery/jquery-migrate.min.js" type="text/javascript"></script>
+    <!-- / jquery ui -->
+    <script src="assets/javascripts/jquery/jquery-ui.min.js" type="text/javascript"></script>
+    <!-- / jQuery UI Touch Punch -->
+    <script src="assets/javascripts/plugins/jquery_ui_touch_punch/jquery.ui.touch-punch.min.js" type="text/javascript"></script>
+    <!-- / bootstrap [required] -->
+    <script src="assets/javascripts/bootstrap/bootstrap.js" type="text/javascript"></script>
+    <!-- / modernizr -->
+    <script src="assets/javascripts/plugins/modernizr/modernizr.min.js" type="text/javascript"></script>
+    <!-- / retina -->
+    <script src="assets/javascripts/plugins/retina/retina.js" type="text/javascript"></script>
+    <!-- / theme file [required] -->
+    <script src="assets/javascripts/theme.js" type="text/javascript"></script>
+    <!-- / demo file [not required!] -->
+    <script src="assets/javascripts/demo.js" type="text/javascript"></script>
+    <!-- / START - page related files and scripts [optional] -->
+    <script src="assets/javascripts/plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="assets/javascripts/plugins/datatables/jquery.dataTables.columnFilter.js" type="text/javascript"></script>
+    <script src="assets/javascripts/plugins/datatables/dataTables.overrides.js" type="text/javascript"></script>
+    <!-- / END - page related files and scripts [optional] -->
+
+
+    <script>
+    $('document').ready(function(){
+      //$('#texteditholder').height(parseInt($('window').height())-50);
+      $('#texteditholder').attr('height', (parseInt($(document).height())-70)+"px");
+    });
+  </script>
+<script>
+$('document').ready(function(){
+    
+  var tab1beg = '<li class="active filetab"><a data-toggle="tab"></i>';
+  var tabbeg = '<li class="filetab"><a data-toggle="tab"></i>';
+  var tabend = "</a></li>";
+  for(var i = 0; i<projectfiles.length; i++){
+    if(i==0){
+      if(getCookie('FileEditing')==="Need"||getCookie('FileEditing')===projectfiles[i]){
+        setCookie('FileEditing',projectfiles[i], 1);
+        $('#tabs').append(tab1beg+projectfiles[i]+tabend);
+      } else {
+        $('#tabs').append(tabbeg+projectfiles[i]+tabend);
+      }   
+    } else {
+      if(getCookie('FileEditing')===projectfiles[i]){
+        $('#tabs').append(tab1beg+projectfiles[i]+tabend);
+      } else {
+        $('#tabs').append(tabbeg+projectfiles[i]+tabend);
+      }
+    } 
+  }
+  $('.filetab').click(function(){
+    setCookie('FileEditing', $(this).find('a').html(), 1);
+    var iframe = document.getElementById('texteditholder');
+    iframe.src = iframe.src;
+  });
+});
+      </script>
+    <!-- / END - page related files and scripts [optional] -->
+
+
+
+  </body>
+</html>
