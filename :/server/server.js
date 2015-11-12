@@ -118,15 +118,28 @@ app.post('/logout', function(req,res){
 });
 app.post('/todo',function(req, res){
 	
-	var submitTask = 'INSERT INTO todo (userID, task) VALUES' + "('"+req.body.userid+ "','" +req.body.todolist+ "')";
+	var submitTask = 'INSERT INTO todo (userID, tasklist) VALUES' + "('"+req.body.userid+ "','" +req.body.todolist+ "')";
 	companyDb.run(submitTask);	
 
 }),
 
 app.post('/gettodo', function(req,res){
-	var getToDo = 'SELECT tasklist WHERE userID =' +req.body.userid+ "'"; 
-	companyDb.run(getToDo); 
+	var getToDo = "SELECT tasklist FROM todo WHERE userID ='"+req.body.ID+"'";
+	companyDb.get(getToDo, function(err, row){
+			res.json(row);
+		}); 
+
 }), 
+app.post('/calendar', function(req,res){
+	var submitCalendar = 'INSERT INTO calendar (userID, calendarInformation) VALUES' + "('"+ req.body.userid + "','"+req.body.calendarinfo "')";
+	companyDb.run(submitCalendar);
+}),
+app.post('/getCalendar', function(req, res){
+	var getCalendar = "SELECT calendarInformation FROM calendar WHERE userID ='" +req.body.userid+ "'";
+	companyDb.get(getCalendar, function(err,row){
+		res.json(row);
+	});
+}),
 
 app.post('/register', function(req, res) {
 
@@ -163,4 +176,92 @@ app.post('/register', function(req, res) {
 	
 
 });
+
+app.post('/createProject', function(req,res){
+
+	var CreateDB = new sqlite3.Database('./'+req.body.projectName+'.db');
+	var createProjectInfo = "CREATE TABLE 'info' (
+		'managerID'       TEXT, 
+		'userID'          TEXT, 
+		'projectID'       INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+		'projectName'     TEXT,
+		'projectDescription'     TEXT)";
+
+	var createRequirements = "CREATE TABLE 'Requirements' (
+	`taskID`	INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+	`taskInfo`	TEXT,
+	`userID`	TEXT,
+	'status'    TEXT,
+	`companyToken`	TEXT
+)";
+	var createDesign = "CREATE TABLE 'Design' (
+	`taskID`	INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+	`taskInfo`	TEXT,
+	`userID`	TEXT,
+	'status'    TEXT,
+	`companyToken`	TEXT
+)";
+	var createImplementation = "CREATE TABLE 'Implementation' (
+	`taskID`	INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+	`taskInfo`	TEXT,
+	`userID`	TEXT,
+	'status'    TEXT,
+	`companyToken`	TEXT
+)";
+	var createVerification = "CREATE TABLE 'Verification' (
+	`taskID`	INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+	`taskInfo`	TEXT,
+	`userID`	TEXT,
+	'status'    TEXT,
+	`companyToken`	TEXT
+)";
+	var createMaintanence = "CREATE TABLE 'Maintanence' (
+	`taskID`	INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+	`taskInfo`	TEXT,
+	`userID`	TEXT,
+	'status'    TEXT,
+	`companyToken`	TEXT
+)";
+	CreateaDB.run(createProjectInfo);
+	CreateDB.run(createRequirements);
+	CreateDB.run(createDesign);
+	CreateDB.run(createImplementation);
+	CreateDB.run(createVerification);
+	CreateDB.run(createMaintanence); 
+
+	var infoSubmit = "INSERT INTO info (managerID, projectName, projectDescription) VALUES '" +req.body.userID+ "','" + req.body.projectName + "','"+ req.body.projectDescription+"')";
+	CreateDB.run(infoSubmit); 
+
+});
+
+
+app.post('/projectTask', function(err,rows){
+	var DB = new sqlite3.Database('./'+req.body.projectName+'.db');
+	var newTask = "INSERT INTO Requirements (taskInfo,userID,status,companyToken) VALUES '" +req.body.taskInfo+"','"+ req.body.userID+ "','"+"Incomplete"+ "','"+ req.body.companyToken+"')"; 
+	var deleteTask = "DELETE FROM Requirements WHERE taskInfo = "+ req.body.taskInfo; 
+	DB.run(newTask); 
+});
+
+app.post('/updateTask/Requirements', function(err,rows){
+	var DB = new sqlite3.Database('./'+req.body.projectName+'.db');
+	var newTask = "INSERT INTO Design (taskInfo,userID,status,companyToken) VALUES '" +req.body.taskInfo+"','"+ req.body.userID+ "','"+"Incomplete"+ "','"+ req.body.companyToken+"')"; 
+	var deleteTask = "DELETE FROM Requirements WHERE taskInfo = "+ req.body.taskInfo; 	
+}); 
+
+app.post('/updateTask/design', function(err,rows){
+	var DB = new sqlite3.Database('./'+req.body.projectName+'.db');
+	var newTask = "INSERT INTO Implementation (taskInfo,userID,status,companyToken) VALUES '" +req.body.taskInfo+"','"+ req.body.userID+ "','"+"Incomplete"+ "','"+ req.body.companyToken+"')"; 
+	var deleteTask = "DELETE FROM Design WHERE taskInfo = "+ req.body.taskInfo; 
+}); 
+app.post('/updateTask/implementation', function(err,rows){
+	var DB = new sqlite3.Database('./'+req.body.projectName+'.db');
+	var newTask = "INSERT INTO Verification (taskInfo,userID,status,companyToken) VALUES '" +req.body.taskInfo+"','"+ req.body.userID+ "','"+"Incomplete"+ "','"+ req.body.companyToken+"')"; 
+	var deleteTask = "DELETE FROM Implementation WHERE taskInfo = "+ req.body.taskInfo; 
+}); 
+
+app.post('/updateTask/verification', function(err,rows){
+	var DB = new sqlite3.Database('./'+req.body.projectName+'.db');
+	var newTask = "INSERT INTO Maintanence (taskInfo,userID,status,companyToken) VALUES '" +req.body.taskInfo+"','"+ req.body.userID+ "','"+"Incomplete"+ "','"+ req.body.companyToken+"')"; 
+	var deleteTask = "DELETE FROM Verification WHERE taskInfo = "+ req.body.taskInfo; 
+}); 
 
