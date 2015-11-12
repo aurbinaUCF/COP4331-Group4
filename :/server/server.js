@@ -52,7 +52,7 @@ res.json(resources);
 app.get('/verify',function(req,res){
 	var access = localStorage.getItem("token");
 	if(access){
-		jwt.verify(access),app.get('secretKey'),function(err,results){
+		jwt.verify(access,app.get('secretKey'),function(err,results){
 			if (err){
 				return console.log(err);
 			}
@@ -60,7 +60,7 @@ app.get('/verify',function(req,res){
 					res.json(results);
 					console.log(results);
 			}
-		};
+		});
 	}
 	else{
 		return res.stat(403).send({
@@ -77,7 +77,7 @@ app.post('/auth', function(req,res){
 	console.log("input password = "+ password);
 
 
-	var search = "SELECT companyToken,name,role, password, email FROM users WHERE email = '" + req.body.email +"'";
+	var search = "SELECT userID, companyToken,name,role, password, email FROM users WHERE email = '" + req.body.email +"'";
 	console.log('search = '+ search);
 	companyDb.get(search, function(err,row){
 
@@ -116,6 +116,14 @@ app.post('/logout', function(req,res){
 
 
 });
+app.post('/todo',function(req, res){
+	console.log(req.body.userid);
+	console.log(req.body.todolist);
+	//var submit = 'INSERT INTO todo (userID, task, status) VALUES' + "('"+req.body.userid+ "','"
+
+
+}),
+
 app.post('/register', function(req, res) {
 
 	if(req.body.title == "developer"){
