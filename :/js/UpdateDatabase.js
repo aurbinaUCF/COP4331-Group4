@@ -1,11 +1,33 @@
-var userid = "randomuserid";
+var useridtoken = null;
+
+function getToken(){        
+	var URI = 'http://localhost:8081/login';
+	$.getJSON(URI, function(results){
+    		useridtoken = results.userID;
+	});
+} 
+
+function getTodoList(){        
+	$.ajax({
+		type:"POST",
+		cache:false,
+		url:"http://localhost:8081/gettodo",
+		data: {userid: useridtoken},
+		success: function(result){
+			alert("It updated! "+result.tasklist);
+		},
+		error:function(result){
+			alert("fail " + result.responseText);
+		}
+	});
+} 
 
 function updateTodoList(){
 	$.ajax({
 		type:"POST",
 		cache:false,
 		url:"http://localhost:8081/todo",
-		data: {userid: userid, todolist: todo},
+		data: {userid: useridtoken, todolist: todo},
 		success: function(result){
 			alert("It updated!");
 		},

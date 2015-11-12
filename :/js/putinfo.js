@@ -103,6 +103,8 @@ function putInfo(){
 	}
 	testMode(parseInt(getCookie("User")));	
 	
+	getToken();
+	
 	$('.user-name:not(div, span, p, h1,h2,h3,h4,h5,h6)').val(name);
 	$('.user-name:not(input)').html(name);	
 
