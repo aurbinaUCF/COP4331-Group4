@@ -20,7 +20,7 @@ var http = require('http');
 app.listen(8081,function(){
 	console.log('Started Server @ http://localhost:8081');
 })
-
+var tokenID; 
 var sqlite3 = require('sqlite3');
 var companyDb = new sqlite3.Database('./company.db');
 var projectDb = new sqlite3.Database('./projects.db');
@@ -49,7 +49,7 @@ res.json(resources);
 });
 
 
-app.get('/verify',function(req,res){
+app.get('/login',function(req,res){
 	var access = localStorage.getItem("token");
 	if(access){
 		jwt.verify(access,app.get('secretKey'),function(err,results){
@@ -117,12 +117,16 @@ app.post('/logout', function(req,res){
 
 });
 app.post('/todo',function(req, res){
-	console.log(req.body.userid);
-	console.log(req.body.todolist);
-	//var submit = 'INSERT INTO todo (userID, task, status) VALUES' + "('"+req.body.userid+ "','"
-
+	
+	var submitTask = 'INSERT INTO todo (userID, task) VALUES' + "('"+req.body.userid+ "','" +req.body.todolist+ "')";
+	companyDb.run(submitTask);	
 
 }),
+
+app.post('/gettodo', function(req,res){
+	var getToDo = 'SELECT tasklist WHERE userID =' +req.body.userid+ "'"; 
+	companyDb.run(getToDo); 
+}), 
 
 app.post('/register', function(req, res) {
 
@@ -159,5 +163,4 @@ app.post('/register', function(req, res) {
 	
 
 });
-
 
