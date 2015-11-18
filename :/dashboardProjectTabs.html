@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Knight-Tracker</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <meta content='text/html;charset=utf-8' http-equiv='content-type'>
+    <meta content='Flat administration template for Twitter Bootstrap. Twitter Bootstrap 3 template with Ruby on Rails support.' name='description'>
+    <link href='assets/images/meta_icons/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+    <link href='assets/images/meta_icons/apple-touch-icon.png' rel='apple-touch-icon-precomposed'>
+    <link href='assets/images/meta_icons/apple-touch-icon-57x57.png' rel='apple-touch-icon-precomposed' sizes='57x57'>
+    <link href='assets/images/meta_icons/apple-touch-icon-72x72.png' rel='apple-touch-icon-precomposed' sizes='72x72'>
+    <link href='assets/images/meta_icons/apple-touch-icon-114x114.png' rel='apple-touch-icon-precomposed' sizes='114x114'>
+    <link href='assets/images/meta_icons/apple-touch-icon-144x144.png' rel='apple-touch-icon-precomposed' sizes='144x144'>
+    <!-- / START - page related stylesheets [optional] -->
+    <link href="assets/stylesheets/plugins/datatables/bootstrap-datatable.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="css/plugins/bootstrap_daterangepicker/bootstrap-daterangepicker.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="css/plugins/fullcalendar/fullcalendar.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="css/plugins/common/bootstrap-wysihtml5.css" media="all" rel="stylesheet" type="text/css" />
+    <!-- / END - page related stylesheets [optional] -->
+    <!-- / bootstrap [required] -->
+    <link href="assets/stylesheets/bootstrap/bootstrap.css" media="all" rel="stylesheet" type="text/css" />
+    <!-- / theme file [required] -->
+    <link href="assets/stylesheets/dark-theme.css" media="all" id="color-settings-body-color" rel="stylesheet" type="text/css" />
+    <!-- / coloring file [optional] (if you are going to use custom contrast color) -->
+    <link href="assets/stylesheets/theme-colors.css" media="all" rel="stylesheet" type="text/css" />
+    <!-- / demo file [not required!] -->
+    <link href="assets/stylesheets/demo.css" media="all" rel="stylesheet" type="text/css" />
+    <!--[if lt IE 9]>
+      <script src="assets/javascripts/ie/html5shiv.js" type="text/javascript"></script>
+      <script src="assets/javascripts/ie/respond.min.js" type="text/javascript"></script>
+    <![endif]-->
+  </head>
+  <body class='contrast-banana'>
+    <header>
+      <nav class='navbar navbar-default'>
+        <a class='navbar-brand' href='index.html'>
+          <img width="81" height="21" class="logo" alt="Go Knights!" src="imgs/logo.png" />
+          <img width="21" height="21" class="logo-xs" alt="Go Knights!" src="imgs/logo_xs.svg" />
+        </a>
+        <a class='toggle-nav btn pull-left' href='#'>
+          <i class='icon-reorder'></i>
+        </a>
+        <ul class='nav'>
+  <li class='dropdown light only-icon'>
+            <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+              <i class='icon-cog'></i>
+            </a>
+            <ul class='dropdown-menu'>
+              <li>
+                <div class='label'>Change User</div>
+                <a href='#' onClick='testMode(0); putInfo(); window.location.reload();'>
+                  John Doe - Manager
+                  <small>(default)</small>
+                </a>
+                <a href='#' onClick='testMode(1); putInfo(); window.location.reload();'>
+                  Granny G - User
+                </a>
+                <a href='#' onClick='testMode(2); putInfo(); window.location.reload();'>
+                  Aang - Manager
+                </a>
+              </li>
+    </ul></li>
+          <li class='dropdown dark user-menu'>
+            <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+              <img width="23" height="23" class='putprofilepic'/>
+              <span class='user-name'></span>
+              <b class='caret'></b>
+            </a>
+            <ul class='dropdown-menu'>
+              <li>
+                <a href='user_profile.html'>
+                  <i class='icon-user'></i>
+                  Profile
+                </a>
+              </li>
+              <li>
+                <a href='user_profile.html'>
+                  <i class='icon-cog'></i>
+                  Settings
+                </a>
+              </li>
+              <li class='divider'></li>
+              <li>
+                <a href='sign_in.html'>
+                  <i class='icon-signout'></i>
+                  Sign out
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <form action='search_results.html' class='navbar-form navbar-right hidden-xs' method='get'>
+          <button class='btn btn-link icon-search' name='button' type='submit'></button>
+          <div class='form-group'>
+            <input value="" class="form-control" placeholder="Search..." autocomplete="off" id="q_header" name="q" type="text" />
+          </div>
+        </form>
+      </nav>
+    </header>
+    <div id='wrapper'>
+      <div id='main-nav-bg'></div>
+      <nav id='main-nav'>
+        <div class='navigation'>
+          <div class='search'>
+            <form action='search_results.html' method='get'>
+              <div class='search-wrapper'>
+                <input value="" class="search-query form-control" placeholder="Search..." autocomplete="off" name="q" type="text" />
+                <button class='btn btn-link icon-search' name='button' type='submit'></button>
+              </div>
+            </form>
+          </div>
+          <ul class='nav nav-stacked'>
+            <li class='active'>
+              <a href='dashboard.html'>
+                <i class='icon-dashboard'></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li class=''>
+              <a class="dropdown-collapse" href="#"><i class='icon-edit'></i>
+              <span>Projects</span>
+              <i class='icon-angle-down angle-down'></i>
+              </a>
+      
+              <ul id='projects' class='nav nav-stacked'>
+                
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <section id='content'>
+        <div class='container'>
+          <div class='row' id='content-wrapper'>
+            <div class='col-xs-12'>
+              <div class='row'>
+                <div class='col-sm-12'>
+                  <div class='page-header'>
+                    <h1 class='pull-left'>
+                      <i class='icon-dashboard'></i>
+                      <span>Project Name goes Here</span>
+                    </h1>
+                </div>
+                </div>
+              </div>
+              <br>
+              <div class='row'>
+                <div class='col-sm-12 box' style='margin-bottom: 20px'>
+                  <div class='box-header banana-background'>
+                    <div class='title'>Waterfall</div>
+                    <div class='actions'>
+                      <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
+                      </a>
+                      
+                      <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                      </a>
+                    </div>
+                  </div>
+                  <div class='box-content'>
+                    <strong>Resize window to see responsive tabs.</strong>
+                    <div class='tabbable' style='margin-top: 20px'>
+                      <ul class='nav nav-responsive nav-tabs'>
+                        <li class='active'>
+                          <a data-toggle='tab' href='#retab1'>
+                            Requirements
+                          </a>
+                        </li>
+                        <li class=''>
+                          <a data-toggle='tab' href='#retab2'>
+                            Design
+                          </a>
+                        </li>
+                        <li class=''>
+                          <a data-toggle='tab' href='#retab3'>
+                            Implementation
+                          </a>
+                        </li>
+                        <li class=''>
+                          <a data-toggle='tab' href='#retab4'>
+                            Verification
+                          </a>
+                        </li>
+                        <li class=''>
+                          <a data-toggle='tab' href='#retab5'>
+                            Maintanence
+                          </a>
+                        </li>
+                        
+                      </ul>
+                      <div class='tab-content'>
+                                  <div id="retab1" class="tab-pane active">
+
+              <div class='row'>
+                <div class='col-sm-12'>
+                  <div class='box bordered-box orange-border' style='margin-bottom:0;'>
+                    <div class='box-header dark-background'>
+                      <div class='title'>Requirements</div>
+                      <div class='actions'>
+                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
+                        </a>
+                        
+                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                        </a>
+                      </div>
+                    </div>
+                    <div class='box-content box-no-padding'>
+                      <div class='responsive-table'>
+                        <div class='scrollable-area'>
+                          <table class='data-table-column-filter table table-bordered table-striped' style='margin-bottom:0;'>
+                            <thead>
+                              <tr>
+                                <th>
+                                  Name
+                                </th>
+                                <th>
+                                  E-mail
+                                </th>
+                                <th>
+                                  Status
+                                </th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Gabrielle Fritsch</td>
+                                <td>marjory@gmail.com</td>
+                                <td>
+                                  <span class='label label-warning'>Warning</span>
+                                </td>
+                                <td>
+                                  <div class='text-right'>
+                                    <a class='btn btn-success btn-xs' href='#'>
+                                      <i class='icon-ok'></i>
+                                    </a>
+                                    <a class='btn btn-danger btn-xs' href='#'>
+                                      <i class='icon-remove'></i>
+                                    </a>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <th>Name</th>
+                                <th>E-mail</th>
+                                <th colspan='2'>Status</th>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                                  </div>
+              
+                                  <div id="retab2" class="tab-pane ">
+
+                                     <div class='row'>
+                <div class='col-sm-12'>
+                  <div class='box bordered-box orange-border' style='margin-bottom:0;'>
+                    <div class='box-header dark-background'>
+                      <div class='title'>Design</div>
+                      <div class='actions'>
+                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
+                        </a>
+                        
+                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                        </a>
+                      </div>
+                    </div>
+                    <div class='box-content box-no-padding'>
+                      <div class='responsive-table'>
+                        <div class='scrollable-area'>
+                          <table class='data-table-column-filter table table-bordered table-striped' style='margin-bottom:0;'>
+                            <thead>
+                              <tr>
+                                <th>
+                                  Name
+                                </th>
+                                <th>
+                                  E-mail
+                                </th>
+                                <th>
+                                  Status
+                                </th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Gabrielle Fritsch</td>
+                                <td>marjory@gmail.com</td>
+                                <td>
+                                  <span class='label label-warning'>Warning</span>
+                                </td>
+                                <td>
+                                  <div class='text-right'>
+                                    <a class='btn btn-success btn-xs' href='#'>
+                                      <i class='icon-ok'></i>
+                                    </a>
+                                    <a class='btn btn-danger btn-xs' href='#'>
+                                      <i class='icon-remove'></i>
+                                    </a>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <th>Name</th>
+                                <th>E-mail</th>
+                                <th colspan='2'>Status</th>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+                        </div>
+              
+                                  <div id="retab3" class="tab-pane ">
+
+                                     <div class='row'>
+                <div class='col-sm-12'>
+                  <div class='box bordered-box orange-border' style='margin-bottom:0;'>
+                    <div class='box-header dark-background'>
+                      <div class='title'>Implementation</div>
+                      <div class='actions'>
+                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
+                        </a>
+                        
+                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                        </a>
+                      </div>
+                    </div>
+                    <div class='box-content box-no-padding'>
+                      <div class='responsive-table'>
+                        <div class='scrollable-area'>
+                          <table class='data-table-column-filter table table-bordered table-striped' style='margin-bottom:0;'>
+                            <thead>
+                              <tr>
+                                <th>
+                                  Name
+                                </th>
+                                <th>
+                                  E-mail
+                                </th>
+                                <th>
+                                  Status
+                                </th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Gabrielle Fritsch</td>
+                                <td>marjory@gmail.com</td>
+                                <td>
+                                  <span class='label label-warning'>Warning</span>
+                                </td>
+                                <td>
+                                  <div class='text-right'>
+                                    <a class='btn btn-success btn-xs' href='#'>
+                                      <i class='icon-ok'></i>
+                                    </a>
+                                    <a class='btn btn-danger btn-xs' href='#'>
+                                      <i class='icon-remove'></i>
+                                    </a>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <th>Name</th>
+                                <th>E-mail</th>
+                                <th colspan='2'>Status</th>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+                        </div>
+              
+                                  <div id="retab4" class="tab-pane ">
+
+                                     <div class='row'>
+                <div class='col-sm-12'>
+                  <div class='box bordered-box orange-border' style='margin-bottom:0;'>
+                    <div class='box-header dark-background'>
+                      <div class='title'>Verification</div>
+                      <div class='actions'>
+                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
+                        </a>
+                        
+                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                        </a>
+                      </div>
+                    </div>
+                    <div class='box-content box-no-padding'>
+                      <div class='responsive-table'>
+                        <div class='scrollable-area'>
+                          <table class='data-table-column-filter table table-bordered table-striped' style='margin-bottom:0;'>
+                            <thead>
+                              <tr>
+                                <th>
+                                  Name
+                                </th>
+                                <th>
+                                  E-mail
+                                </th>
+                                <th>
+                                  Status
+                                </th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Gabrielle Fritsch</td>
+                                <td>marjory@gmail.com</td>
+                                <td>
+                                  <span class='label label-warning'>Warning</span>
+                                </td>
+                                <td>
+                                  <div class='text-right'>
+                                    <a class='btn btn-success btn-xs' href='#'>
+                                      <i class='icon-ok'></i>
+                                    </a>
+                                    <a class='btn btn-danger btn-xs' href='#'>
+                                      <i class='icon-remove'></i>
+                                    </a>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <th>Name</th>
+                                <th>E-mail</th>
+                                <th colspan='2'>Status</th>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+                        </div>
+              
+                                  <div id="retab5" class="tab-pane ">
+
+                                     <div class='row'>
+                <div class='col-sm-12'>
+                  <div class='box bordered-box orange-border' style='margin-bottom:0;'>
+                    <div class='box-header dark-background'>
+                      <div class='title'>Maintenance</div>
+                      <div class='actions'>
+                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
+                        </a>
+                        
+                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                        </a>
+                      </div>
+                    </div>
+                    <div class='box-content box-no-padding'>
+                      <div class='responsive-table'>
+                        <div class='scrollable-area'>
+                          <table class='data-table-column-filter table table-bordered table-striped' style='margin-bottom:0;'>
+                            <thead>
+                              <tr>
+                                <th>
+                                  Name
+                                </th>
+                                <th>
+                                  E-mail
+                                </th>
+                                <th>
+                                  Status
+                                </th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Gabrielle Fritsch</td>
+                                <td>marjory@gmail.com</td>
+                                <td>
+                                  <span class='label label-warning'>Warning</span>
+                                </td>
+                                <td>
+                                  <div class='text-right'>
+                                    <a class='btn btn-success btn-xs' href='#'>
+                                      <i class='icon-ok'></i>
+                                    </a>
+                                    <a class='btn btn-danger btn-xs' href='#'>
+                                      <i class='icon-remove'></i>
+                                    </a>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <th>Name</th>
+                                <th>E-mail</th>
+                                <th colspan='2'>Status</th>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+                        </div>
+                                  
+                      
+                      </div>
+                    </div>
+                  </div>
+                 </div>
+                  <!--Chat box here -->
+              <div class = 'col-sm-12 box'>
+               <div class='row'>
+                <div class='col-sm-6'>
+                  <div class='row'>
+                    <div class='chat'>
+                      <div class='col-sm-12'>
+                        <div class='box'>
+                          <div class='box-header orange-background'>
+                            <div class='title'>
+                              <i class='icon-comments-alt'></i>
+                              Chat
+                            </div>
+                            <div class='actions'>
+                              <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
+                              </a>
+                              
+                              <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                              </a>
+                            </div>
+                          </div>
+                          <div class='box-content box-no-padding'>
+                            <div class='scrollable' data-scrollable-height='300' data-scrollable-start='bottom'>
+                              <ul class='list-unstyled list-hover list-striped'>
+                                <li class='message'>
+                                  <div class='avatar'>
+                                    <img alt='Avatar' height='23' src='imgs/logoKT.png' width='23'>
+                                  </div>
+                                  <div class='name-and-time'>
+                                    <div class='name pull-left'>
+                                      <small>
+                                        <a class="text-contrast" href="#">Knight Tracker</a>
+                                      </small>
+                                    </div>
+                                    <div class='time pull-right'>
+                                      <small class='date pull-right text-muted'>
+                                        <span class='timeago fade has-tooltip' data-placement='top' title='2015-10-16 11:00:00 -0400'>September 15, 2013 - 17:42</span>
+                                        <i class='icon-time'></i>
+                                      </small>
+                                    </div>
+                                  </div>
+                                  <div class='body'>
+                                    This chat is to communicate with the partners in your group! Just type something in the field below and press enter!
+                                  </div>
+                                </li>
+                             
+                              </ul>
+                            </div>
+                                      <form class="new-message" method="post" action="#" accept-charset="UTF-8"><input name="authenticity_token" type="hidden" /><input class='form-control' id='message_body' name='message[body]' placeholder='Type your message here...' type='text'>
+                            <button class='btn btn-success' type='submit'>
+                              <i class='icon-plus'></i>
+                            </button>
+                            </form>
+                  
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<div class='col-sm-6'>
+                  <div class='row'>
+                    <div class='col-sm-12'>
+                      <div class='box'>
+                        <div class='box-header green-background'>
+                          <div class='title'>
+                            <div class='icon-tasks'></div>
+                            Tasks
+                          </div>
+                          <div class='actions'>
+                            <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
+                            </a>
+                            
+                            <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                            </a>
+                          </div>
+                        </div>
+                        <div class='box-content'>
+                          <ul class='list-unstyled tasks'>
+                            <li>
+                              <div class='task'>
+                                <span class='pull-left'>
+                                  <a href='#'>Cras sed tellus velit</a>
+                                </span>
+                                <small class='pull-right'>40%</small>
+                              </div>
+                              <div class='progress progress-small'>
+                                <div class='progress-bar' style='width: 40%'></div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class='task'>
+                                <span class='pull-left'>
+                                  <a href='#'>Quis posuere tortor - maecenas in risus</a>
+                                </span>
+                                <small class='pull-right'>80%</small>
+                              </div>
+                              <div class='progress progress-small'>
+                                <div class='progress-bar progress-bar-danger' style='width: 80%'></div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class='task'>
+                                <span class='pull-left'>
+                                  <a href='#'>Donec sodales justo in lacus sagittis</a>
+                                </span>
+                                <small class='pull-right'>58%</small>
+                              </div>
+                              <div class='progress progress-small'>
+                                <div class='progress-bar-success progress-bar' style='width: 68%'></div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class='task'>
+                                <span class='pull-left'>
+                                  <a href='#'>Etiam condimentum sem nec</a>
+                                </span>
+                                <small class='pull-right'>100%</small>
+                              </div>
+                              <div class='progress progress-small'>
+                                <div class='progress-bar progress-bar-warning' style='width: 100%'></div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class='task'>
+                                <span class='pull-left'>
+                                  <a href='#'>Etiam condimentum sem nec</a>
+                                </span>
+                                <small class='pull-right'>24%</small>
+                              </div>
+                              <div class='progress progress-small'>
+                                <div class='progress-bar progress-bar-info' style='width: 24%'></div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class='task'>
+                                <span class='pull-left'>
+                                  <a href='#'>Id mi placerat</a>
+                                </span>
+                                <small class='pull-right'>10%</small>
+                              </div>
+                              <div class='progress progress-small'>
+                                <div class='progress-bar progress-bar-success' style='width: 10%'></div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+                  <!--code collab here-->
+                            <div id="retab6" class="tab-pane ">
+                                    <h2>Code Editor</h2>
+                                      <div class="tabbable">
+                                        <ul id='tabs' class="nav nav-tabs">
+                                          
+                                        </ul>
+                                      </div>
+                                <iframe id='texteditholder' src='firepad.html' width='100%' height='500px' frameBorder='0'></iframe>
+                               </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <footer id='footer'>
+            <div class='footer-wrapper'>
+              <div class='row'>
+                <div class='col-sm-6 text'>
+                  Copyright © 2015 Knight Tracker
+                </div>
+            
+              </div>
+            </div>
+          </footer>
+        </div>
+      </section>
+    </div>
+    <!-- / jquery [required] -->
+    <script src="assets/javascripts/jquery/jquery.min.js" type="text/javascript"></script>
+    <!-- / jquery mobile (for touch events) -->
+     <script src="js/putinfo.js" type="text/javascript"></script>
+    <script src="assets/javascripts/jquery/jquery.mobile.custom.min.js" type="text/javascript"></script>
+    <!-- / jquery migrate (for compatibility with new jquery) [required] -->
+    <script src="assets/javascripts/jquery/jquery-migrate.min.js" type="text/javascript"></script>
+    <!-- / jquery ui -->
+    <script src="assets/javascripts/jquery/jquery-ui.min.js" type="text/javascript"></script>
+    <!-- / jQuery UI Touch Punch -->
+    <script src="assets/javascripts/plugins/jquery_ui_touch_punch/jquery.ui.touch-punch.min.js" type="text/javascript"></script>
+    <!-- / bootstrap [required] -->
+    <script src="assets/javascripts/bootstrap/bootstrap.js" type="text/javascript"></script>
+    <!-- / modernizr -->
+    <script src="assets/javascripts/plugins/modernizr/modernizr.min.js" type="text/javascript"></script>
+    <!-- / retina -->
+    <script src="assets/javascripts/plugins/retina/retina.js" type="text/javascript"></script>
+    <!-- / theme file [required] -->
+    <script src="assets/javascripts/theme.js" type="text/javascript"></script>
+    <!-- / demo file [not required!] -->
+    <script src="assets/javascripts/demo.js" type="text/javascript"></script>
+    <!-- / START - page related files and scripts [optional] -->
+    <script src="assets/javascripts/plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="assets/javascripts/plugins/datatables/jquery.dataTables.columnFilter.js" type="text/javascript"></script>
+    <script src="assets/javascripts/plugins/datatables/dataTables.overrides.js" type="text/javascript"></script>
+     <script src="js/plugins/flot/excanvas.js" type="text/javascript"></script>
+    <script src="js/plugins/flot/flot.min.js" type="text/javascript"></script>
+    <script src="js/plugins/flot/flot.resize.js" type="text/javascript"></script>
+    <script>
+      var data, dataset, gd, options, previousLabel, previousPoint, showTooltip, ticks;
+      var blue, data, datareal, getRandomData, green, i, newOrders, options, orange, orders, placeholder, plot, purple, randNumber, randSmallerNumber, red, series, totalPoints, update, updateInterval;
+      var red = "#f34541";
+      var orange = "#f8a326";
+      var blue = "#00acec";
+      var purple = "#9564e2";
+      var green = "#49bf67";
+      randNumber = function() {
+        return ((Math.floor(Math.random() * (1 + 50 - 20))) + 20) * 800;
+      };
+      randSmallerNumber = function() {
+        return ((Math.floor(Math.random() * (1 + 40 - 20))) + 10) * 200;
+      };
+      if ($("#stats-chart1").length !== 0) {
+        orders = [[1, randNumber() - 10], [2, randNumber() - 10], [3, randNumber() - 10], [4, randNumber()], [5, randNumber()], [6, 4 + randNumber()], [7, 5 + randNumber()], [8, 6 + randNumber()], [9, 6 + randNumber()], [10, 8 + randNumber()], [11, 9 + randNumber()], [12, 10 + randNumber()], [13, 11 + randNumber()], [14, 12 + randNumber()], [15, 13 + randNumber()], [16, 14 + randNumber()], [17, 15 + randNumber()], [18, 15 + randNumber()], [19, 16 + randNumber()], [20, 17 + randNumber()], [21, 18 + randNumber()], [22, 19 + randNumber()], [23, 20 + randNumber()], [24, 21 + randNumber()], [25, 14 + randNumber()], [26, 24 + randNumber()], [27, 25 + randNumber()], [28, 26 + randNumber()], [29, 27 + randNumber()], [30, 31 + randNumber()]];
+        newOrders = [[1, randSmallerNumber() - 10], [2, randSmallerNumber() - 10], [3, randSmallerNumber() - 10], [4, randSmallerNumber()], [5, randSmallerNumber()], [6, 4 + randSmallerNumber()], [7, 5 + randSmallerNumber()], [8, 6 + randSmallerNumber()], [9, 6 + randSmallerNumber()], [10, 8 + randSmallerNumber()], [11, 9 + randSmallerNumber()], [12, 10 + randSmallerNumber()], [13, 11 + randSmallerNumber()], [14, 12 + randSmallerNumber()], [15, 13 + randSmallerNumber()], [16, 14 + randSmallerNumber()], [17, 15 + randSmallerNumber()], [18, 15 + randSmallerNumber()], [19, 16 + randSmallerNumber()], [20, 17 + randSmallerNumber()], [21, 18 + randSmallerNumber()], [22, 19 + randSmallerNumber()], [23, 20 + randSmallerNumber()], [24, 21 + randSmallerNumber()], [25, 14 + randSmallerNumber()], [26, 24 + randSmallerNumber()], [27, 25 + randSmallerNumber()], [28, 26 + randSmallerNumber()], [29, 27 + randSmallerNumber()], [30, 31 + randSmallerNumber()]];
+        plot = $.plot($("#stats-chart1"), [
+          {
+            data: orders,
+            label: "Orders"
+          }, {
+            data: newOrders,
+            label: "New rders"
+          }
+        ], {
+          series: {
+            lines: {
+              show: true,
+              lineWidth: 3
+            },
+            shadowSize: 0
+          },
+          legend: {
+            show: false
+          },
+          grid: {
+            clickable: true,
+            hoverable: true,
+            borderWidth: 0,
+            tickColor: "#f4f7f9"
+          },
+          colors: ["#00acec", "#f8a326"]
+        });
+      }
+      if ($("#stats-chart2").length !== 0) {
+        orders = [[1, randNumber() - 5], [2, randNumber() - 6], [3, randNumber() - 10], [4, randNumber()], [5, randNumber()], [6, 4 + randNumber()], [7, 10 + randNumber()], [8, 12 + randNumber()], [9, 6 + randNumber()], [10, 8 + randNumber()], [11, 9 + randNumber()], [12, 10 + randNumber()], [13, 11 + randNumber()], [14, 12 + randNumber()], [15, 3 + randNumber()], [16, 14 + randNumber()], [17, 14 + randNumber()], [18, 15 + randNumber()], [19, 16 + randNumber()], [20, 17 + randNumber()], [21, 18 + randNumber()], [22, 19 + randNumber()], [23, 20 + randNumber()], [24, 21 + randNumber()], [25, 14 + randNumber()], [26, 24 + randNumber()], [27, 25 + randNumber()], [28, 26 + randNumber()], [29, 27 + randNumber()], [30, 31 + randNumber()]];
+        newOrders = [[1, randSmallerNumber() - 10], [2, randSmallerNumber() - 10], [3, randSmallerNumber() - 10], [4, randSmallerNumber()], [5, randSmallerNumber()], [6, 4 + randSmallerNumber()], [7, 5 + randSmallerNumber()], [8, 6 + randSmallerNumber()], [9, 6 + randSmallerNumber()], [10, 8 + randSmallerNumber()], [11, 9 + randSmallerNumber()], [12, 10 + randSmallerNumber()], [13, 11 + randSmallerNumber()], [14, 12 + randSmallerNumber()], [15, 13 + randSmallerNumber()], [16, 14 + randSmallerNumber()], [17, 15 + randSmallerNumber()], [18, 15 + randSmallerNumber()], [19, 16 + randSmallerNumber()], [20, 17 + randSmallerNumber()], [21, 18 + randSmallerNumber()], [22, 19 + randSmallerNumber()], [23, 20 + randSmallerNumber()], [24, 21 + randSmallerNumber()], [25, 14 + randSmallerNumber()], [26, 24 + randSmallerNumber()], [27, 25 + randSmallerNumber()], [28, 26 + randSmallerNumber()], [29, 27 + randSmallerNumber()], [30, 31 + randSmallerNumber()]];
+        plot = $.plot($("#stats-chart2"), [
+          {
+            data: orders,
+            label: "Orders"
+          }, {
+            data: newOrders,
+            label: "New orders"
+          }
+        ], {
+          series: {
+            lines: {
+              show: true,
+              lineWidth: 3
+            },
+            shadowSize: 0
+          },
+          legend: {
+            show: false
+          },
+          grid: {
+            clickable: true,
+            hoverable: true,
+            borderWidth: 0,
+            tickColor: "#f4f7f9"
+          },
+          colors: ["#f34541", "#49bf67"]
+        });
+        $("#stats-chart2").bind("plotclick", function(event, pos, item) {
+          if (item) {
+            return alert("Yeah! You just clicked on point " + item.dataIndex + " in " + item.series.label + ".");
+          }
+        });
+      }
+    </script>
+    <script src="js/plugins/bootstrap_daterangepicker/bootstrap-daterangepicker.js" type="text/javascript"></script>
+    <script src="js/plugins/common/moment.min.js" type="text/javascript"></script>
+    <script src="js/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <script src="js/plugins/timeago/jquery.timeago.js" type="text/javascript"></script>
+    <script src="js/plugins/common/wysihtml5.min.js" type="text/javascript"></script>
+    <script src="js/plugins/common/bootstrap-wysihtml5.js" type="text/javascript"></script>
+    <script src="js/plugins/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
+    <script src="js/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
+    <script src='js/date.js'></script>
+    <script src='js/calendar.js'></script>
+    <script>
+      $(".chat .new-message").live('submit', function(e) {
+        var chat, date, li, message, months, reply, scrollable, sender, timeago;
+        date = new Date();
+        months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        chat = $(this).parents(".chat");
+        message = $(this).find("#message_body").val();
+        $(this).find("#message_body").val("");
+        if (message.length !== 0) {
+          li = chat.find("li.message").first().clone();
+          li.find(".body").text(message);
+          timeago = li.find(".timeago");
+          timeago.removeClass("in");
+          var month = (date.getMonth() + 1);
+          var date_day = (date.getDate());
+          timeago.attr("title", "" + (date.getFullYear()) + "-" + (month<10 ? '0' : '') + month + "-" + (date_day<10 ? '0' : '' ) + date_day + " " + (date.getHours()) + ":" + (date.getMinutes()) + ":" + (date.getSeconds()) + " -0400");
+          timeago.text("" + months[date.getMonth()] + " " + (date.getDate()) + ", " + (date.getFullYear()) + " " + (date.getHours()) + ":" + (date.getMinutes()));
+          setTimeAgo(timeago);
+          li.find(".name").find("a").html(name);
+          li.find(".avatar").find("img").attr('src', profilepic);
+	  sender = li.find(".name").text().trim();
+	  chat.find("ul").append(li);
+          scrollable = li.parents(".scrollable");
+          $(scrollable).slimScroll({
+            scrollTo: scrollable.prop('scrollHeight') + "px"
+          });
+          li.effect("highlight", {}, 500);
+          reply = scrollable.find("li").not(":contains('" + sender + "')").first().clone();
+        }
+        return e.preventDefault();
+      });
+    </script>
+    <script>
+      (function() {
+        $("#daterange").daterangepicker({
+          ranges: {
+            Yesterday: [moment().subtract("days", 1), moment().subtract("days", 1)],
+            "Last 30 Days": [moment().subtract("days", 29), moment()],
+            "This Month": [moment().startOf("month"), moment().endOf("month")]
+          },
+          startDate: moment().subtract("days", 29),
+          endDate: moment(),
+          opens: "left",
+          cancelClass: "btn-danger",
+          buttonClasses: ['btn', 'btn-sm']
+        }, function(start, end) {
+          return $("#daterange span").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
+        });
+      
+      }).call(this);
+    </script>
+    <script>
+      $(".todo-list .new-todo").live('submit', function(e) {
+        var li, todo_name;
+        todo_name = $(this).find("#todo_name").val();
+        $(this).find("#todo_name").val("");
+        if (todo_name.length !== 0) {
+          li = $(this).parents(".todo-list").find("li.item").first().clone();
+          li.find("input[type='checkbox']").attr("checked", false);
+          li.removeClass("important").removeClass("done");
+          li.find("label.todo span").text(todo_name);
+          $(".todo-list ul").first().append(li);
+          li.effect("highlight", {}, 500);
+        }
+        todo+=";"+todo_name;
+        updateTodoList();
+        return e.preventDefault();
+      });
+      
+      $(".todo-list .actions .remove").live("click", function(e) {
+        $(this).tooltip("hide");
+        $(this).parents("li").fadeOut(500, function() {
+          return $(this).remove();
+        });
+        e.stopPropagation();
+        e.preventDefault();
+        return false;
+      });
+      
+      $(".todo-list .actions .important").live("click", function(e) {
+        $(this).parents("li").toggleClass("important");
+        e.stopPropagation();
+        e.preventDefault();
+        return false;
+      });
+      
+      $(".todo-list .check").live("click", function() {
+        var checkbox;
+        checkbox = $(this).find("input[type='checkbox']");
+        if (checkbox.is(":checked")) {
+          return $(this).parents("li").addClass("done");
+        } else {
+          return $(this).parents("li").removeClass("done");
+        }
+      });
+    </script>
+    
+    <!-- / END - page related files and scripts [optional] -->
+ <script>
+      $(".chat .new-message").live('submit', function(e) {
+        var chat, date, li, message, months, reply, scrollable, sender, timeago;
+        date = new Date();
+        months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        chat = $(this).parents(".chat");
+        message = $(this).find("#message_body").val();
+        $(this).find("#message_body").val("");
+        if (message.length !== 0) {
+          li = chat.find("li.message").first().clone();
+          li.find(".body").text(message);
+          timeago = li.find(".timeago");
+          timeago.removeClass("in");
+          var month = (date.getMonth() + 1);
+          var date_day = (date.getDate());
+          timeago.attr("title", "" + (date.getFullYear()) + "-" + (month<10 ? '0' : '') + month + "-" + (date_day<10 ? '0' : '' ) + date_day + " " + (date.getHours()) + ":" + (date.getMinutes()) + ":" + (date.getSeconds()) + " -0400");
+          timeago.text("" + months[date.getMonth()] + " " + (date.getDate()) + ", " + (date.getFullYear()) + " " + (date.getHours()) + ":" + (date.getMinutes()));
+          setTimeAgo(timeago);
+          li.find(".name").find("a").html(name);
+          li.find(".avatar").find("img").attr('src', profilepic);
+	  sender = li.find(".name").text().trim();
+	  chat.find("ul").append(li);
+          scrollable = li.parents(".scrollable");
+          $(scrollable).slimScroll({
+            scrollTo: scrollable.prop('scrollHeight') + "px"
+          });
+          li.effect("highlight", {}, 500);
+          reply = scrollable.find("li").not(":contains('" + sender + "')").first().clone();
+        }
+        return e.preventDefault();
+      });
+    </script>
+
+    <script>
+    $('document').ready(function(){
+      //$('#texteditholder').height(parseInt($('window').height())-50);
+      $('#texteditholder').attr('height', (parseInt($(document).height())-70)+"px");
+    });
+  </script>
+<script>
+$('document').ready(function(){
+    
+  var tab1beg = '<li class="active filetab"><a data-toggle="tab"></i>';
+  var tabbeg = '<li class="filetab"><a data-toggle="tab"></i>';
+  var tabend = "</a></li>";
+  for(var i = 0; i<projectfiles.length; i++){
+    if(i==0){
+      if(getCookie('FileEditing')==="Need"||getCookie('FileEditing')===projectfiles[i]){
+        setCookie('FileEditing',projectfiles[i], 1);
+        $('#tabs').append(tab1beg+projectfiles[i]+tabend);
+      } else {
+        $('#tabs').append(tabbeg+projectfiles[i]+tabend);
+      }   
+    } else {
+      if(getCookie('FileEditing')===projectfiles[i]){
+        $('#tabs').append(tab1beg+projectfiles[i]+tabend);
+      } else {
+        $('#tabs').append(tabbeg+projectfiles[i]+tabend);
+      }
+    } 
+  }
+  $('.filetab').click(function(){
+    setCookie('FileEditing', $(this).find('a').html(), 1);
+    var iframe = document.getElementById('texteditholder');
+    iframe.src = iframe.src;
+  });
+});
+      </script>
+    <!-- / END - page related files and scripts [optional] -->
+
+
+
+  </body>
+</html>
