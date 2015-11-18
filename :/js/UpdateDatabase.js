@@ -7,6 +7,7 @@ function getToken(){
 	});
 } 
 
+getToken();
 function getTodoList(){        
 	$.ajax({
 		type:"POST",
@@ -14,7 +15,7 @@ function getTodoList(){
 		url:"http://localhost:8081/gettodo",
 		data: {userid: useridtoken},
 		success: function(result){
-			alert("It updated! "+result.tasklist);
+			todo = result.tasklist;
 		},
 		error:function(result){
 			alert("fail " + result.responseText);
@@ -51,11 +52,14 @@ function updateCalendar(){
 		temp2.allDay = calendarinfo[i].allDay;
 		reformattedcalendar.push(temp2);
 	}
+	var objectholder = new Object();
+	objectholder.info = reformattedcalendar;
+	var objstring = JSON.stringify(objectholder);
 	$.ajax({
 		type:"POST",
 		cache:false,
 		url:"http://localhost:8081/calendar",
-		data: {userid: userid, calendarinfo: reformattedcalendar},
+		data: {userid: userid, calendarinfo: objstring},
 		success: function(result){
 			alert("It updated!");
 		},
@@ -65,4 +69,21 @@ function updateCalendar(){
 
 	});
 }
+
+function getCalendar(){        
+	$.ajax({
+		type:"POST",
+		cache:false,
+		url:"http://localhost:8081/getcalendar",
+		data: {userid: useridtoken},
+		success: function(result){
+			
+			temp = JSON.parse(result.calendarinfo);
+			calendarevents = temp.info;
+		},
+		error:function(result){
+			alert("fail " + result.responseText);
+		}
+	});
+} 
 

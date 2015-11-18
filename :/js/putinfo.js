@@ -88,6 +88,12 @@ var texteditprojnavend ="</span><i class='icon-angle-down angle-down'></i></a><u
 
 var projectfiles = new Array();
 
+var tablestart = "<tr><td>";
+var tablemiddle = "</td><td>";
+var tableend = "</td><td><span class='label label-warning'>Warning</span></td><td><div class='text-right'><a class='btn btn-success btn-xs' href='#'><i class='icon-ok'></i></a><a class='btn btn-danger btn-xs' href='#'><i class='icon-remove'></i></a></div></td></tr>";
+
+tableinfo = new Object();
+
 function setProject(projname){
 	setCookie("ProjectSelected", projname, 1);
 	setCookie('FileEditing', 'Need', 1)
