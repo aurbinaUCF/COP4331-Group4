@@ -307,10 +307,13 @@ function putInfo(){
 	$('#newprojsubmit').click(function(){
 		
 		var newprojname = $("#newprojname").val();
+		var newprojdesc = $("#newprojdesc").val();
 		var temp = "<li class='active'><a data-toggle='tab' href='#"+newprojname+"'>"+newprojname+"</a></li>";
 		var temp2 = "<div class='tab-content'> <div id="+newprojname+" class='tab-pane'> <div class='row'><div class='col-sm-12'> <div class='box bordered-box orange-border' style='margin-bottom:0;'> <div class='box-header dark-background'> <div class='title'>Users</div><div class='actions'><a class='btn box-remove btn-xs btn-link' href='#'><i class='icon-remove'></i></a><a class='btn box-collapse btn-xs btn-link' href='#'><i></i></a> </div></div><div class='box-content box-no-padding putprojusers'> </div></div></div></div></div></div>";
 		$('#tabss').append(temp2);
 		$('.nav-tabs').append(temp);
+		
+		newProject(newprojname, newprojdesc);
 		//I'll have to refresh here
 	});
 	
@@ -342,4 +345,24 @@ function getHash(file){
 		hash+= String.fromCharCode('a'.charCodeAt(0) + file.charCodeAt(i)%11);
 	}
     return hash;
+}
+	
+
+function newProject(pn, pd){
+	$.getJSON('http://localhost:8081/login', function(results){
+    		useridtoken = results.userID;
+    		$.ajax({
+			type:"POST",
+			cache:false,
+			url:"http://localhost:8081/createProject",
+			data: {userID: useridtoken, projectName: pn, projectDescription: pd},
+			success: function(result){
+				alert("It updated!");
+			},
+			error:function(result){
+				alert("fail " + result.responseText);
+			}
+
+		});
+	});
 }
