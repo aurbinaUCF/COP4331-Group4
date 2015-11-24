@@ -51,10 +51,10 @@
 	</script>
 	<script>
 	if(getCookie('FileEditing')==="Need"){
-	  var firepadRef = new Firebase('blistering-inferno-7454.firebaseIO.com/'+token+'/'+getCookie("ProjectSelected")+'/trial');
+	  var firepadRef = new Firebase('blistering-inferno-7454.firebaseIO.com/'+"token"+'/'+getCookie("ProjectSelected")+'/trial');
 	} else {
-		console.log('blistering-inferno-7454.firebaseIO.com/'+token+'/'+getCookie("ProjectSelected")+'/'+getHash(getCookie("FileEditing")));
-	var firepadRef = new Firebase('blistering-inferno-7454.firebaseIO.com/'+token+'/'+getCookie("ProjectSelected")+'/'+getHash(getCookie('FileEditing')));
+		console.log('blistering-inferno-7454.firebaseIO.com/'+"token"+'/'+getCookie("ProjectSelected")+'/'+getHash(getCookie("FileEditing")));
+	var firepadRef = new Firebase('blistering-inferno-7454.firebaseIO.com/'+"token"+'/'+getCookie("ProjectSelected")+'/'+getHash(getCookie('FileEditing')));
 	}
 	  var editor = ace.edit('firepad-container');
 	  var firepad = Firepad.fromACE(firepadRef, editor);

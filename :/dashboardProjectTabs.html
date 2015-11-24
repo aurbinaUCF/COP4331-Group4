@@ -462,7 +462,8 @@
                 </div>
               </div>
             </div>
-          </div>
+	<div style='display: hidden;' id='firepadcontain'></div>
+
           <footer id='footer'>
             <div class='footer-wrapper'>
               <div class='row'>
@@ -480,6 +481,7 @@
     <script src="assets/javascripts/jquery/jquery.min.js" type="text/javascript"></script>
     <!-- / jquery mobile (for touch events) -->
      <script src="js/putinfo.js" type="text/javascript"></script>
+     <script src="js/UpdateDatabase.js" type="text/javascript"></script>
     <script src="assets/javascripts/jquery/jquery.mobile.custom.min.js" type="text/javascript"></script>
     <!-- / jquery migrate (for compatibility with new jquery) [required] -->
     <script src="assets/javascripts/jquery/jquery-migrate.min.js" type="text/javascript"></script>
@@ -612,7 +614,7 @@
           timeago.removeClass("in");
           var month = (date.getMonth() + 1);
           var date_day = (date.getDate());
-          timeago.attr("title", "" + (date.getFullYear()) + "-" + (month<10 ? '0' : '') + month + "-" + (date_day<10 ? '0' : '' ) + date_day + " " + (date.getHours()) + ":" + (date.getMinutes()) + ":" + (date.getSeconds()) + " -0400");
+          timeago.attr("title", "" + (date.getFullYear()) + "-" + (month<10 ? '0' : '') + month + "-" + (date_day<10 ? '0' : '' ) + date_day + " " + (date.getHours()) + ":" + (date.getMinutes()) + ":" + (date.getSeconds()) + " -0500");
           timeago.text("" + months[date.getMonth()] + " " + (date.getDate()) + ", " + (date.getFullYear()) + " " + (date.getHours()) + ":" + (date.getMinutes()));
           setTimeAgo(timeago);
           li.find(".name").find("a").html(name);
@@ -623,7 +625,7 @@
           $(scrollable).slimScroll({
             scrollTo: scrollable.prop('scrollHeight') + "px"
           });
-          li.effect("highlight", {}, 500);
+          //li.effect("highlight", {}, 500);
           reply = scrollable.find("li").not(":contains('" + sender + "')").first().clone();
         }
         return e.preventDefault();
@@ -695,43 +697,11 @@
     </script>
     
     <!-- / END - page related files and scripts [optional] -->
- <script>
-      $(".chat .new-message").live('submit', function(e) {
-        var chat, date, li, message, months, reply, scrollable, sender, timeago;
-        date = new Date();
-        months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        chat = $(this).parents(".chat");
-        message = $(this).find("#message_body").val();
-        $(this).find("#message_body").val("");
-        if (message.length !== 0) {
-          li = chat.find("li.message").first().clone();
-          li.find(".body").text(message);
-          timeago = li.find(".timeago");
-          timeago.removeClass("in");
-          var month = (date.getMonth() + 1);
-          var date_day = (date.getDate());
-          timeago.attr("title", "" + (date.getFullYear()) + "-" + (month<10 ? '0' : '') + month + "-" + (date_day<10 ? '0' : '' ) + date_day + " " + (date.getHours()) + ":" + (date.getMinutes()) + ":" + (date.getSeconds()) + " -0400");
-          timeago.text("" + months[date.getMonth()] + " " + (date.getDate()) + ", " + (date.getFullYear()) + " " + (date.getHours()) + ":" + (date.getMinutes()));
-          setTimeAgo(timeago);
-          li.find(".name").find("a").html(name);
-          li.find(".avatar").find("img").attr('src', profilepic);
-	  sender = li.find(".name").text().trim();
-	  chat.find("ul").append(li);
-          scrollable = li.parents(".scrollable");
-          $(scrollable).slimScroll({
-            scrollTo: scrollable.prop('scrollHeight') + "px"
-          });
-          li.effect("highlight", {}, 500);
-          reply = scrollable.find("li").not(":contains('" + sender + "')").first().clone();
-        }
-        return e.preventDefault();
-      });
-    </script>
 
     <script>
     $('document').ready(function(){
       //$('#texteditholder').height(parseInt($('window').height())-50);
-      $('#texteditholder').attr('height', (parseInt($(document).height())-70)+"px");
+      //$('#texteditholder').attr('height', (parseInt($(document).height())-70)+"px");
     });
   </script>
 <script>
@@ -763,9 +733,44 @@ $('document').ready(function(){
   });
 });
       </script>
-    <!-- / END - page related files and scripts [optional] -->
+	<!-- / END - page related files and scripts [optional] -->
+	
+	<script src="js/firepad/firebase.js"></script>
 
+	<!-- Ace -->
+	<script src="js/firepad/ace.js"></script>
 
-
+	<!-- Firepad -->
+	<script src="js/firepad/firepad.min.js"></script>
+	<script>
+		var firepadRef = new Firebase('blistering-inferno-7454.firebaseIO.com/'+getCookie("ProjectSelected")+'/chat/trial');
+		var editor = ace.edit('firepadcontain');
+	  	var firepad = Firepad.fromACE(firepadRef, editor);
+	  	//firepad.getText()
+	  	$('document').ready(function(){
+		  	interval = setInterval(function(){
+		  		if(firepad.getText().length==0){
+		  			firepad.setText("Q");
+		  			console.log("NOTHING");
+				}
+				var inner = $('#chat').html();
+				var outer = firepad.getText();
+				if(inner.length>outer.length){ //newmessagefromself
+					firepad.setText($('#chat').html());
+				} else if(inner.length<outer.length){ //newmessagesomeoneelse
+					$('#chat').html(firepad.getText());
+					$('#chat').parent().scrollTop($('#chat').height());
+					$('.slimScrollBar').css('top', $('#chat').height());
+				} else {
+					//ifsame
+				}
+				
+				//$('#putchathere').html(firepad.getText());
+		  		
+		  		
+		  	}, 20);
+		  	
+	  	});
+	</script>
   </body>
 </html>

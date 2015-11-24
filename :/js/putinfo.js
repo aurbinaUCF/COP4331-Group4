@@ -4,7 +4,7 @@ var name = "John Doe";
 var email = "JohnDoe@Knights.ucf.edu";
 var company = "Random Company Inc";
 var profilepic = "imgs/avatar.jpg";
-var token = "A8asd8DH";
+var companytoken;
 var bio = "This is a quick little bio section about me John Doe.";
 //redo textprojects
 var textprojects = "Project1-readme.txt-anothersampletext.txt-text3.txt;Project2-textfile.txt";
@@ -66,7 +66,7 @@ function testMode(which){
 			email = "JohnDoe@Knights.ucf.edu";
 			company = "Random Company Inc";
 			profilepic = "imgs/avatar.jpg";
-			token = "A8asd8DH";
+			companytoken = "A8asd8DH";
 			bio = "This is a quick little bio section about me John Doe.";	
 			textprojects = "Project1-readme.txt-anothersampletext.txt-text3.txt;TheseAreDynammic-textfile.txt;Project3-textfile.txt";
 			todo = "This is all put in from the javascript;Another Todo;The Last Todo";			
@@ -77,7 +77,7 @@ function testMode(which){
 			name = "Granny G";
 			email = "GrannyG@knights.ucf.edu";
 			profilepic = "http://www.smartsandstamina.com/wp-content/uploads/2013/07/Grandma.jpg";
-			token = "Casd41C";
+			companytoken = "Casd41C";
 			bio = "This is a quick little bio section about me Granny G.";
 			textprojects = "CatTakeover-HowToDealWith20Cats.txt-MyLifeWithTheCats.txt";
 			setCookie("User", "1", 1);	
@@ -88,7 +88,7 @@ function testMode(which){
 			name = "Aang";
 			email = "Aang@knights.ucf.edu";
 			profilepic = "http://farm3.static.flickr.com/2567/3711527781_db9987ee83_o.jpg";
-			token = "A8asd8DH";
+			companytoken = "A8asd8DH";
 			bio = "While I still have a lot to learn before I save anyone, I believe I can save the world... through programming projects.";
 			todo = "Master the elements;Defeat Fire Lord;Eat Egg Custard Tart";			
 			setCookie("User", "2", 1);
@@ -162,6 +162,8 @@ projusers.push("Developer;User3;Email");
 var projtags = "";
 var projdata = "";
 
+var selectedproj = "";
+
 function putInfo(){
 
 	if(getCookie("User")===undefined){
@@ -181,8 +183,8 @@ function putInfo(){
 	$('.putcompany:not(div, span, p, h1,h2,h3,h4,h5,h6)').val(company);
 	$('.putcompany:not(input)').html(company);
 
-	$('.puttoken:not(div, span, p, h1,h2,h3,h4,h5,h6)').val(token);
-	$('.puttoken:not(input)').html(token);
+	$('.puttoken:not(div, span, p, h1,h2,h3,h4,h5,h6)').val(companytoken);
+	$('.puttoken:not(input)').html(companytoken);
 	
 	$('.profilepic').attr('src', profilepic);
 	$('.putprofilepic').attr('src', profilepic);
@@ -300,21 +302,27 @@ function putInfo(){
 	$('#putprojnames').html(temp);
 	
 	$('.editprojlink').click(function(){
-		$('.editproj').html($(this).html()+"<span class='caret'></span>");
+		selectedproj = $(this).html();
+		$('.editproj').html(selectedproj+"<span class='caret'></span>");
 		$('.editprojhide').slideDown( "slow", function() {});
+		$('.editselectedproj').html(selectedproj);
 	});
 	
 	$('#newprojsubmit').click(function(){
 		
 		var newprojname = $("#newprojname").val();
 		var newprojdesc = $("#newprojdesc").val();
-		var temp = "<li class='active'><a data-toggle='tab' href='#"+newprojname+"'>"+newprojname+"</a></li>";
+		var temp = "<li class=''><a data-toggle='tab' href='#"+newprojname+"'>"+newprojname+"</a></li>";
 		var temp2 = "<div class='tab-content'> <div id="+newprojname+" class='tab-pane'> <div class='row'><div class='col-sm-12'> <div class='box bordered-box orange-border' style='margin-bottom:0;'> <div class='box-header dark-background'> <div class='title'>Users</div><div class='actions'><a class='btn box-remove btn-xs btn-link' href='#'><i class='icon-remove'></i></a><a class='btn box-collapse btn-xs btn-link' href='#'><i></i></a> </div></div><div class='box-content box-no-padding putprojusers'> </div></div></div></div></div></div>";
 		$('#tabss').append(temp2);
 		$('.nav-tabs').append(temp);
 		
 		newProject(newprojname, newprojdesc);
 		//I'll have to refresh here
+	});
+	
+	$('#deleteproject').click(function(){
+		deleteProject();
 	});
 	
 }
@@ -348,21 +356,4 @@ function getHash(file){
 }
 	
 
-function newProject(pn, pd){
-	$.getJSON('http://localhost:8081/login', function(results){
-    		useridtoken = results.userID;
-    		$.ajax({
-			type:"POST",
-			cache:false,
-			url:"http://localhost:8081/createProject",
-			data: {userID: useridtoken, projectName: pn, projectDescription: pd},
-			success: function(result){
-				alert("It updated!");
-			},
-			error:function(result){
-				alert("fail " + result.responseText);
-			}
 
-		});
-	});
-}
