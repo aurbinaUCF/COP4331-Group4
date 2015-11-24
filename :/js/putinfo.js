@@ -252,12 +252,14 @@ function putInfo(){
 		//$('.nav-tabs').append(temp);
 	}
 	$('#tabss').html("<ul class='nav nav-responsive nav-tabs'><li class='active'>"+projtags+"</li></ul>"+projdata+"</div>");
-	console.log(projtags);
-	console.log(projdata);
+	//console.log(projtags);
+	//console.log(projdata);
 	//Put Requirements
 	var temp = "";
+	var tasks = new Array(); 
 	for(var i = 0; i<requirements.length; i++){
 		var rtemp = requirements[i].split(";");
+		tasks.push({name: rtemp[0], level: 0});
 		temp += "<tr> <td>"+rtemp[0]+"</td><td>"+rtemp[1]+"</td><td> <span class='label label-"+rtemp[2]+"'>"+rtemp[2]+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs' href='#'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs' href='#'> <i class='icon-remove'></i> </a> </div></td></tr>";
 	}
 	$('#putrequirements').html(tablebefore+temp+tableafter);
@@ -266,6 +268,7 @@ function putInfo(){
 	temp = "";
 	for(var i = 0; i<design.length; i++){
 		var rtemp = design[i].split(";");
+		tasks.push({name: rtemp[0], level: 1});
 		temp += "<tr> <td>"+rtemp[0]+"</td><td>"+rtemp[1]+"</td><td> <span class='label label-"+rtemp[2]+"'>"+rtemp[2]+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs' href='#'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs' href='#'> <i class='icon-remove'></i> </a> </div></td></tr>";
 	}
 	$('#putdesign').html(tablebefore+temp+tableafter);
@@ -274,6 +277,7 @@ function putInfo(){
 	temp = "";
 	for(var i = 0; i<implementation.length; i++){
 		var rtemp = implementation[i].split(";");
+		tasks.push({name: rtemp[0], level: 2});
 		temp += "<tr> <td>"+rtemp[0]+"</td><td>"+rtemp[1]+"</td><td> <span class='label label-"+rtemp[2]+"'>"+rtemp[2]+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs' href='#'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs' href='#'> <i class='icon-remove'></i> </a> </div></td></tr>";
 	}
 	$('#putimplementation').html(tablebefore+temp+tableafter);
@@ -282,6 +286,7 @@ function putInfo(){
 	temp = "";
 	for(var i = 0; i<verification.length; i++){
 		var rtemp = verification[i].split(";");
+		tasks.push({name: rtemp[0], level: 3});
 		temp += "<tr> <td>"+rtemp[0]+"</td><td>"+rtemp[1]+"</td><td> <span class='label label-"+rtemp[2]+"'>"+rtemp[2]+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs' href='#'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs' href='#'> <i class='icon-remove'></i> </a> </div></td></tr>";
 	}
 	$('#putverification').html(tablebefore+temp+tableafter);
@@ -290,9 +295,24 @@ function putInfo(){
 	temp = "";
 	for(var i = 0; i<maintenance.length; i++){
 		var rtemp = maintenance[i].split(";");
+		tasks.push({name: rtemp[0], level: 4});
 		temp += "<tr> <td>"+rtemp[0]+"</td><td>"+rtemp[1]+"</td><td> <span class='label label-"+rtemp[2]+"'>"+rtemp[2]+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs' href='#'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs' href='#'> <i class='icon-remove'></i> </a> </div></td></tr>";
 	}
 	$('#putmaintenance').html(tablebefore+temp+tableafter);
+	
+	console.log(tasks);
+	temp = "";
+	for(var i = 0; i<tasks.length; i++){
+		temp+="<li><div class='task'><span class='pull-left'><a href='#'>";
+		temp+=tasks[i].name;
+		temp+="</a></span><small class='pull-right'>";
+		temp+=tasks[i].level*20+"%";
+		temp+="</small></div><div class='progress progress-small'><div class='progress-bar-success progress-bar' style='width:";
+		temp+=tasks[i].level*20+"%";
+		temp+= "'></div></div></li>";
+	}
+	$('.tasks').html(temp);
+	
 	
 	var temp = "";
 	for(var i = 0; i<projects.length; i++){

@@ -1,13 +1,11 @@
 var useridtoken = null;
 var token = null;
 
-alert("thisisworking");
 function getToken(){        
 	var URI = 'http://localhost:8081/login';
 	$.getJSON(URI, function(results){
     		useridtoken = results.userID;
     		token = results;
-    		console.log("asd");
 	});
 } 
 
