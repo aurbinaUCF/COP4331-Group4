@@ -164,12 +164,21 @@ var projdata = "";
 
 var selectedproj = "";
 
+function updateTodoHtml(){
+	var todosplit = todo.split(";");
+	var todoelements="";	
+	for(var i = 0; i<todosplit.length; i++){
+		todoelements+=(todobeginning+" "+todosplit[i]+todoending);
+	}
+	$('#todoelements').html(todoelements);	
+}
+
 function putInfo(){
 
-	if(getCookie("User")===undefined){
-		setCookie("User", "2", 1);
-	}
-	testMode(parseInt(getCookie("User")));	
+	//if(getCookie("User")===undefined){
+	//	setCookie("User", "2", 1);
+	//}
+	//testMode(parseInt(getCookie("User")));	
 	
 	$('.user-name:not(div, span, p, h1,h2,h3,h4,h5,h6)').val(name);
 	$('.user-name:not(input)').html(name);	
@@ -195,12 +204,7 @@ function putInfo(){
 	if(!ismanager)
 		$('.manageronly').hide();
 	
-	var todosplit = todo.split(";");
-	var todoelements="";	
-	for(var i = 0; i<todosplit.length; i++){
-		todoelements+=(todobeginning+" "+todosplit[i]+todoending);
-	}
-	$('#todoelements').html(todoelements);
+	updateTodoHtml();
 
 	var projectssplit = textprojects.split(";");
 	var normalprojects="", texteditorprojects = "";	
@@ -232,7 +236,8 @@ function putInfo(){
 	}	
 	
 	//Put
-	
+	projtags = "";
+	projdata = "";
 	for(var i = 0; i<projects.length; i++){
 		var newprojname = projects[i].name;
 		var temp = "<li class='"+((i==0)?"active":"")+"'><a data-toggle='tab' href='#"+newprojname+"'>"+newprojname+"</a></li>";

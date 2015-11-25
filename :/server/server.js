@@ -60,7 +60,6 @@ app.get('/login',function(req,res){
 			}
 			else{
 					res.json(results);
-					console.log(results);
 			}
 		});
 	}
@@ -117,21 +116,28 @@ app.post('/logout', function(req,res){
 });
 app.post('/todo',function(req, res){
 	
-	var submitTask = 'INSERT INTO todo (userID, tasklist) VALUES' + "('"+req.body.userid+ "','" +req.body.todolist+ "')";
+	//var submitTask = 'INSERT INTO todo (userID, tasklist) VALUES' + "('"+req.body.userid+ "','" +req.body.todolist+ "')";
+	var submitTask = "UPDATE todo SET tasklist='" + req.body.todolist+"' WHERE userID = '"+ req.body.userid+"'";
 	companyDb.run(submitTask);	
+	res.redirect(200,'http://localhost/dashboard.html');
 
 }),
 
 app.post('/gettodo', function(req,res){
-	var getToDo = "SELECT tasklist FROM todo WHERE userID ='"+req.body.ID+"'";
+	var getToDo = "SELECT tasklist FROM todo WHERE userID ='"+req.body.userid+"'";
+	console.log(getToDo);
 	companyDb.get(getToDo, function(err, row){
+			console.log("/getTODO RAN"); 
+			console.log(row);
 			res.json(row);
 		}); 
 
 }), 
 app.post('/calendar', function(req,res){
-	var submitCalendar = 'INSERT INTO calendar (userID, calendarInformation) VALUES' + "('"+ req.body.userid + "','"+req.body.calendarinfo +"')";
+	//var submitCalendar = 'INSERT INTO calendar (userID, calendarInformation) VALUES' + "('"+ req.body.userid + "','"+req.body.calendarinfo +"')";
+	var submitCalendar = "'UPDATE calendar SET calendarInformation='" +req.body.calendarinfo+"' WHERE userID = '"+ req.body.userid+"'";
 	companyDb.run(submitCalendar);
+	res.redirect(200,'http://localhost/dashboard.html');
 }),
 app.post('/getCalendar', function(req, res){
 	var getCalendar = "SELECT calendarInformation FROM calendar WHERE userID ='" +req.body.userid+ "'";
@@ -150,6 +156,10 @@ app.post('/register', function(req, res) {
 
 		var createuser = 'INSERT INTO users (name, email, password, role, userID, companyToken) VALUES' +  "('" + req.body.name + "','" + req.body.email + "','" + hash + "','" +req.body.title+"','" + userHash+ "','"+ req.body.token+ "')";
 		companyDb.run(createuser);
+		var todoInsert = "INSERT INTO todo (userID) VALUES ('"+ req.body.userHash+"')";
+		var calendarInsert = "INSERT INTO calendar (userID) VALUES ('"+ req.body.userHash+"')";  
+		companyDb.run(todoInsert);
+		companyDb.run(calendarInsert);
 		res.redirect('http://localhost/dashboard.html');
 
 	}
@@ -166,7 +176,10 @@ app.post('/register', function(req, res) {
 		var createManager = 'INSERT INTO users (name, email, password, role, userID,companyToken) VALUES' +  "('" + req.body.name + "','" + req.body.email + "','" + hash + "','" +req.body.title+"','" + managerHash+"','" +companyTokenHash+"')";
 		console.log("\n\n\n"+createManager);
 		companyDb.run(createManager);
-
+		var todoInsert = "INSERT INTO todo (userID) VALUES ('"+ req.body.userHash+"')";
+		var calendarInsert = "INSERT INTO calendar (userID) VALUES ('"+ req.body.userHash+"')";  
+		companyDb.run(todoInsert);
+		companyDb.run(calendarInsert);
 		var createCompany = 'INSERT INTO accounts(companyName, managerID,companyToken) VALUES'+ "('" +req.body.company + "','"+ managerHash +"','"+ companyTokenHash+"')";
 
 		companyDb.run(createCompany);
@@ -196,7 +209,7 @@ app.get('/getProjects', function(req,res){
 			co(function*() {
 				var db = yield sqliteConnect(projectName+".db");
 				var userResult = yield db.all('SELECT * FROM users');
-				for(int x = 0; x<row.length;x++){
+				for(var x = 0; x<row.length;x++){
 					projectUserList[x][0] = row[x].userID; 
 					projectUserList[x][1] = row[x].name;
 					projectUserList[x][2] = row[x].email;
