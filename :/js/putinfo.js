@@ -239,7 +239,8 @@ function putInfo(){
 	projtags = "";
 	projdata = "";
 	for(var i = 0; i<projects.length; i++){
-		var newprojname = projects[i].name;
+		var newprojname = projects[i].name.trim();
+		console.log(newprojname);
 		var temp = "<li class='"+((i==0)?"active":"")+"'><a data-toggle='tab' href='#"+newprojname+"'>"+newprojname+"</a></li>";
 		var temp2 = ((i==0)?"<div class='tab-content'>":"")+"<div id="+newprojname+" class='tab-pane "+((i==0)?"active":"")+"'> <div class='row'><div class='col-sm-12'> <div class='box bordered-box orange-border' style='margin-bottom:0;'> <div class='box-header dark-background'> <div class='title'>Users</div><div class='actions'><a class='btn box-remove btn-xs btn-link' href='#'><i class='icon-remove'></i></a><a class='btn box-collapse btn-xs btn-link' href='#'><i></i></a> </div></div><div class='box-content box-no-padding'>"; 
 		//users

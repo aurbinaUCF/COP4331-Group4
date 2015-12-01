@@ -1,5 +1,7 @@
 var useridtoken = null;
 var token = "Notsetyet";
+getToken();
+
 
 function getToken(){        
 	var URI = 'http://localhost:8081/login';
@@ -9,10 +11,10 @@ function getToken(){
     		if(token==null){
     			token="Notsetyet";
     		}
-    		companytoken = token.companyToken;
+    	companytoken = token.companyToken;
 	    getTodoList(); 
-	    getCalendar();
-	    getProjects();
+	   	getCalendar();
+	   	getProjects();
 	    name = token.name;
 	    email = token.email;
 	    ismanager = (token.role=="manager")?true:false;
@@ -28,17 +30,22 @@ function getProjects(){
 		url:"http://localhost:8081/getProjects/users",
 		data: {userID: useridtoken, companyToken: companytoken},
 		success: function(result){
-			var temp = results;
+			var temp = result;
 	    		projects = new Array();
 	    		for(var i =0; i<temp.proj.length; i++){
+	    			if(temp.projusers[i]===null)
+	    			 		continue;
 	    			 var temp2 = new Object();
 	    			 temp2.name = temp.proj[i];
 	    			 temp2.users = new Array();
 	    			 for(var y =0; y<temp.projusers.length; y++){
-	    			 	temp2.users.push(temp.projusers[y][1]+";"+temp.projusers[y][2]+";"+temp.projusers[y][4]);
+	    			 	if(temp.projusers[i][y]===null||temp.projusers[i][y][1]===null)
+	    			 		continue;
+	    			 	temp2.users.push(temp.projusers[i][y][1]+";"+temp.projusers[i][y][2]+";"+temp.projusers[i][y][4]);
 	    			 }
 	    			 projects.push(temp2);
 	    		}
+	    		putInfo();
 		},
 		error:function(result){
 			alert("fail " + result.responseText);
@@ -46,7 +53,7 @@ function getProjects(){
 	});
 } 
 
-getToken();
+
 function getTodoList(){        
 	$.ajax({
 		type:"POST",
@@ -70,7 +77,7 @@ function updateTodoList(){
 		url:"http://localhost:8081/todo",
 		data: {userid: useridtoken, todolist: todo},
 		success: function(result){
-			alert("It updated!");
+			
 		},
 		error:function(result){
 			alert("fail " + result.responseText);
@@ -114,7 +121,7 @@ function getCalendar(){
 	$.ajax({
 		type:"POST",
 		cache:false,
-		url:"http://localhost:8081/getcalendar",
+		url:"http://localhost:8081/getCalendar",
 		data: {userid: useridtoken},
 		success: function(result){
 			temp = JSON.parse(result.calendarInformation);
