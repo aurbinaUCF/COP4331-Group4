@@ -9,10 +9,10 @@ function getToken(){
     		if(token==null){
     			token="Notsetyet";
     		}
+    		companytoken = token.companyToken;
 	    getTodoList(); 
 	    getCalendar();
 	    getProjects();
-	    companytoken = token.companyToken;
 	    name = token.name;
 	    email = token.email;
 	    ismanager = (token.role=="manager")?true:false;
