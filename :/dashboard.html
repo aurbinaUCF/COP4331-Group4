@@ -44,7 +44,7 @@
 <body class='contrast-banana'>
     <header>
         <nav class='navbar navbar-default'>
-            <a class='navbar-brand' href='index.html'>
+            <a class='navbar-brand' href='dashboard.html'>
                 <img width="81" height="21" class="logo" alt="Go Knights!" src="imgs/logo.png" />
                 <img width="21" height="21" class="logo-xs" alt="Go Knights!" src="imgs/logo_xs.svg" />
             </a>
@@ -53,9 +53,7 @@
             </a>
             <ul class='nav'>
                 <li class='dropdown light only-icon'>
-                    <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
-                        <i class='icon-cog'></i>
-                    </a>
+                    
                     <ul class='dropdown-menu'>
                         <li>
                             <div class='label'>Change User</div>
@@ -74,50 +72,27 @@
                 </li>
                 <li class='dropdown dark user-menu'>
                     <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
-                        <img width="23" height="23" class='putprofilepic' />
+                        
                         <span class='user-name'></span>
                         <b class='caret'></b>
                     </a>
                     <ul class='dropdown-menu'>
                         <li>
-                            <a href='user_profile.html'>
-                                <i class='icon-user'></i> Profile
-                            </a>
-                        </li>
-                        <li>
-                            <a href='user_profile.html'>
-                                <i class='icon-cog'></i> Settings
-                            </a>
-                        </li>
-                        <li class='divider'></li>
-                        <li>
-                            <a href='sign_in.html'>
+                            <a href='index.html'>
                                 <i class='icon-signout'></i> Sign out
                             </a>
                         </li>
                     </ul>
                 </li>
             </ul>
-            <form action='search_results.html' class='navbar-form navbar-right hidden-xs' method='get'>
-                <button class='btn btn-link icon-search' name='button' type='submit'></button>
-                <div class='form-group'>
-                    <input value="" class="form-control" placeholder="Search..." autocomplete="off" id="q_header" name="q" type="text" />
-                </div>
-            </form>
+            
         </nav>
     </header>
     <div id='wrapper'>
         <div id='main-nav-bg'></div>
         <nav id='main-nav'>
             <div class='navigation'>
-                <div class='search'>
-                    <form action='search_results.html' method='get'>
-                        <div class='search-wrapper'>
-                            <input value="" class="search-query form-control" placeholder="Search..." autocomplete="off" name="q" type="text" />
-                            <button class='btn btn-link icon-search' name='button' type='submit'></button>
-                        </div>
-                    </form>
-                </div>
+                
                 <ul class='nav nav-stacked' id='projects'>
 
                 </ul>
@@ -143,11 +118,8 @@
                                 <div class='box-header banana-background'>
                                     <div class='title'>Project List</div>
                                     <div class='actions'>
-                                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
-                      </a>
-
-                                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
-                      </a>
+						<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>
+                          
                                     </div>
                                 </div>
                                 <div class='box-content'>
@@ -216,7 +188,7 @@
                                     </div>
 
                                     <!-- Trigger the Update Project modal with a button -->
-                                    <button type="button" class="btn btn-med" data-toggle="modal" data-target="#myModal">Edit/Delete Current Project</button>
+                                    <button type="button" class="btn btn-med" data-toggle="modal" data-target="#myModal">Edit/Delete a Project</button>
 
                                     <!-- Update Project Modal -->
                                     <div id="myModal" class="modal fade" role="dialog">
@@ -296,7 +268,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!--Chat box here -->
+                        <!--ToDo List here -->
                         <div class='col-sm-12 box'>
                             <div class='row'>
                                 <div class='col-sm-12 col-md-6'>
@@ -308,11 +280,8 @@
                                                         <i class='icon-list-alt'></i> Todo lists
                                                     </div>
                                                     <div class='actions'>
-                                                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
-                            </a>
-
-                                                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
-                            </a>
+						<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>
+                            
                                                     </div>
                                                 </div>
                                                 <div class='box-content box-no-padding'>
@@ -356,14 +325,11 @@
 					    <div class="box-header orange-background">
 					      <div class="title">Company Token</div>
 					      <div class="actions">
-						<a class="btn box-remove btn-xs btn-link" href="#"><i class="icon-remove"></i>
-						</a>
 						
-						<a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
-						</a>
+						<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>
 					      </div>
 					    </div>
-					   <div class="box-content"> You're Company Id is <input type='text' class='selectable form-control puttoken' readonly/>
+					   <div class="box-content"> Your Company Id is <input type='text' class='selectable form-control puttoken' readonly/>
 					    </div>
 					  </div>
 					</div>
@@ -373,9 +339,11 @@
                                         <div class='col-sm-12'>
                                             <div class='box box-bordered purple-border'>
                                                 <div class='box-header purple-background'>
-                                                    <div class='title'>
-                                                        <i class='icon-calendar'></i> Calendar
+                                                    <div class='title'>Calendar</div>
+                                                    <div class="actions">
+                                                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>     
                                                     </div>
+                                                      
                                                 </div>
                                                 <div class='box-content'>
                                                     <div class='full-calendar-demo'></div>

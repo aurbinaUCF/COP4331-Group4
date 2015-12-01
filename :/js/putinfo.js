@@ -231,8 +231,8 @@ function putInfo(){
 			normalprojects += (projnavbegin+textsplit[0]+projnavmiddle+" "+textsplit[0]+projnavend);
 		}
 		$('#texteditorprojects').html(texteditorprojects);
-		$('#projects').html("<li class='active'><a href='dashboard.html'><i class='icon-dashboard'></i><span>Dashboard</span></a></li>"+normalprojects);
-			
+		$('#projects').html("<li class='active'><a href='dashboard.html'><i class='icon-dashboard'></i><span>Dashboard</span></a></li> <li class='active'><a href='company_page.html'><i class='icon-table'></i><span>Company Info</span></a></li>"+normalprojects);
+		
 	}	
 	
 	//Put
