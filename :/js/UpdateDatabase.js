@@ -20,20 +20,29 @@ function getToken(){
 	});
 } 
 
-function getProjects(){        
-	var URI = 'http://localhost:8081/getProjects/users';
-	$.getJSON(URI, function(results){
-    		var temp = results;
-    		projects = new Array();
-    		for(var i =0; i<temp.proj.length; i++){
-    			 var temp2 = new Object();
-    			 temp2.name = temp.proj[i];
-    			 temp2.users = new Array();
-    			 for(var y =0; y<temp.projusers.length; y++){
-    			 	temp2.users.push(temp.projusers[y][1]+";"+temp.projusers[y][2]+";"+temp.projusers[y][4]);
-    			 }
-    			 projects.push(temp2);
-    		}
+function getProjects(){  
+
+	$.ajax({
+		type:"POST",
+		cache:false,
+		url:"http://localhost:8081/getProjects/users",
+		data: {userID: useridtoken, companyToken: companytoken},
+		success: function(result){
+			var temp = results;
+	    		projects = new Array();
+	    		for(var i =0; i<temp.proj.length; i++){
+	    			 var temp2 = new Object();
+	    			 temp2.name = temp.proj[i];
+	    			 temp2.users = new Array();
+	    			 for(var y =0; y<temp.projusers.length; y++){
+	    			 	temp2.users.push(temp.projusers[y][1]+";"+temp.projusers[y][2]+";"+temp.projusers[y][4]);
+	    			 }
+	    			 projects.push(temp2);
+	    		}
+		},
+		error:function(result){
+			alert("fail " + result.responseText);
+		}
 	});
 } 
 
