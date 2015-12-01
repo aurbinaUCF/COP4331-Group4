@@ -187,7 +187,8 @@ app.post('/register', function(req, res) {
 
 });
 
-app.get('/getProjects', function(req,res){ 
+
+app.get('/getProjects/users', function(req,res){ 
 	var findProject = "SELECT * FROM projects WHERE userID = " + req.body.userID + " AND companyToken = " + req.body.companyToken;
 	//var findProject = "SELECT * FROM projects WHERE userID IN ('$2a$10$sO7DPkrm6vTA.pg6Vo1VlOhzWmNENoNPSkKthSIiNsdgdjhpzgR3S')";
 	var projectList = new Array(100); 
@@ -287,8 +288,8 @@ app.post('/updateTask/Requirements', function(err,rows){
 
 	co(function*() {
 		var db = yield sqliteConnect(projectName+".db");
-		yield db.run("INSERT INTO Design (taskInfo,userID,status,companyToken) VALUES '" +req.body.taskInfo+"','"+ req.body.userID+ "','"+"Incomplete"+ "','"+ req.body.companyToken+"')");
-		yield db.run("DELETE FROM Requirements WHERE taskInfo = "+ req.body.taskInfo+")";
+		yield db.run("INSERT INTO Design (taskInfo,userID,status,companyToken) VALUES ('" +req.body.taskInfo+"','"+ req.body.userID+ "','"+"Incomplete"+ "','"+ req.body.companyToken+"')");
+		yield db.run("DELETE FROM Requirements WHERE taskInfo = "+ req.body.taskInfo);
 	}).catch(function(err){
 		console.log(err.stack);
 	});
@@ -300,7 +301,7 @@ app.post('/updateTask/design', function(err,rows){
 	co(function*() {
 		var db = yield sqliteConnect(projectName+".db");
 		yield db.run("INSERT INTO Implementation (taskInfo,userID,status,companyToken) VALUES '" +req.body.taskInfo+"','"+ req.body.userID+ "','"+"Incomplete"+ "','"+ req.body.companyToken+"')");
-		yield db.run("DELETE FROM Design WHERE taskInfo = "+ req.body.taskInfo+")";
+		yield db.run("DELETE FROM Design WHERE taskInfo = "+ req.body.taskInfo);
 	}).catch(function(err){
 		console.log(err.stack);
 	});
@@ -310,8 +311,8 @@ app.post('/updateTask/implementation', function(err,rows){
 
 	co(function*() {
 		var db = yield sqliteConnect(projectName+".db");
-		yield db.run("INSERT INTO Verification (taskInfo,userID,status,companyToken) VALUES '" +req.body.taskInfo+"','"+ req.body.userID+ "','"+"Incomplete"+ "','"+ req.body.companyToken+"')");
-		yield db.run("DELETE FROM Implementation WHERE taskInfo = "+ req.body.taskInfo+")";
+		yield db.run("INSERT INTO Verification (taskInfo,userID,status,companyToken) VALUES ('" +req.body.taskInfo+"','"+ req.body.userID+ "','"+"Incomplete"+ "','"+ req.body.companyToken+"')");
+		yield db.run("DELETE FROM Implementation WHERE taskInfo = "+ req.body.taskInfo);
 	}).catch(function(err){
 		console.log(err.stack);
 	});
@@ -322,8 +323,8 @@ app.post('/updateTask/verification', function(err,rows){
 
 	co(function*() {
 		var db = yield sqliteConnect(projectName+".db");
-		yield db.run("INSERT INTO Maintenance (taskInfo,userID,status,companyToken) VALUES '" +req.body.taskInfo+"','"+ req.body.userID+ "','"+"Incomplete"+ "','"+ req.body.companyToken+"')");
-		yield db.run("DELETE FROM Verification WHERE taskInfo = "+ req.body.taskInfo+")";
+		yield db.run("INSERT INTO Maintenance (taskInfo,userID,status,companyToken) VALUES ('" +req.body.taskInfo+"','"+ req.body.userID+ "','"+"Incomplete"+ "','"+ req.body.companyToken+"')");
+		yield db.run("DELETE FROM Verification WHERE taskInfo = "+ req.body.taskInfo);
 	}).catch(function(err){
 		console.log(err.stack);
 	});
@@ -335,7 +336,7 @@ app.delete('/projectDelete', function(err,rows){
 
 		co(function*() {
 			var db = yield sqliteConnect(projectName+".db");
-			yield db.run("DELETE FROM 'Maintanence' WHERE taskInfo = "+ req.body.taskInfo+")";
+			yield db.run("DELETE FROM 'Maintanence' WHERE taskInfo = "+ req.body.taskInfo);
 		}).catch(function(err){
 			console.log(err.stack);
 		});
