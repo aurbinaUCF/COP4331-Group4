@@ -107,7 +107,7 @@ var todoending = "</span></label><div class='actions pull-right'><a class='btn b
 //files are designated by -
 var projnavbegin = "<li class=''><a onClick='setProject(\"";
 // href=''><i class='icon-edit'></i><span>Proj2</span></a></li>
-var projnavmiddle = "\")' href='dashboardProjectTabs.html'><i class='icon-edit'></i><span>";
+var projnavmiddle = "\")' href='projects.html'><i class='icon-edit'></i><span>";
 var projnavend =  "</span></a></li>";
 //var projnavbegin = "<li class=''><a class='dropdown-collapse' onClick='setProject(\"";
 var texteditprojnavbegin = "<li class='active'><a class='dropdown-collapse' onClick='setProject(\"";
@@ -119,7 +119,7 @@ var projectfiles = new Array();
 
 function setProject(projname){
 	setCookie("ProjectSelected", projname, 1);
-	setCookie('FileEditing', 'Need', 1)
+	setCookie('FileEditing', 'Need', 1);
 }
 
 $('document').ready(function(){
@@ -231,7 +231,7 @@ function putInfo(){
 			normalprojects += (projnavbegin+textsplit[0]+projnavmiddle+" "+textsplit[0]+projnavend);
 		}
 		$('#texteditorprojects').html(texteditorprojects);
-		$('#projects').html("<li class='active'><a href='dashboard.html'><i class='icon-dashboard'></i><span>Dashboard</span></a></li> <li class='active'><a href='company_page.html'><i class='icon-table'></i><span>Company Info</span></a></li>"+normalprojects);
+		$('#projects').html("<li class='active'><a href='dashboard.html'><i class='icon-dashboard'></i><span>Dashboard</span></a></li> <li class=''><a href='company_page.html'><i class='icon-table'></i><span>Company Info</span></a></li>"+normalprojects);
 		
 	}	
 	
