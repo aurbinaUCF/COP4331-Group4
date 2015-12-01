@@ -50,6 +50,7 @@
 		});
 	</script>
 	<script>
+	console.log(getCookie("ProjectSelected"));
 	if(getCookie('FileEditing')==="Need"){
 	  var firepadRef = new Firebase('blistering-inferno-7454.firebaseIO.com/'+"token"+'/'+getCookie("ProjectSelected")+'/trial');
 	} else {

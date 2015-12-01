@@ -23,9 +23,9 @@ projects.push(temporary);
 temporary = new Object();
 temporary.name = "Project2";
 temporary.users = new Array();
-temporary.users.push("Jim2;Jim@knights;warning");
-temporary.users.push("Jimbo2;Jimbo@knights;warning");
-temporary.users.push("Jimba2;Jimba@knights;warning");
+temporary.users.push("Jim2;Jim@knights;manager");
+temporary.users.push("Jimbo2;Jimbo@knights;developer");
+temporary.users.push("Jimba2;Jimba@knights;developer");
 temporary.files = new Array();
 temporary.files.push("textfile.txt");
 projects.push(temporary);
@@ -344,6 +344,11 @@ function putInfo(){
 		
 		newProject(newprojname, newprojdesc);
 		//I'll have to refresh here
+	});
+	
+	$('#newusersubmit').click(function(){
+		var newusername = $("#newusername").val();
+		newUser(newusername);
 	});
 	
 	$('#deleteproject').click(function(){

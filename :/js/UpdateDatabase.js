@@ -1,17 +1,39 @@
 var useridtoken = null;
-var token = null;
+var token = "Notsetyet";
 
 function getToken(){        
 	var URI = 'http://localhost:8081/login';
 	$.getJSON(URI, function(results){
     		useridtoken = results.userID;
     		token = results;
+    		if(token==null){
+    			token="Notsetyet";
+    		}
 	    getTodoList(); 
-	    getCalendar(); 
+	    getCalendar();
+	    getProjects();
 	    companytoken = token.companyToken;
 	    name = token.name;
 	    email = token.email;
+	    ismanager = (token.role=="manager")?true:false;
 	    putInfo();
+	});
+} 
+
+function getProjects(){        
+	var URI = 'http://localhost:8081/getProjects/users';
+	$.getJSON(URI, function(results){
+    		var temp = results;
+    		projects = new Array();
+    		for(var i =0; i<temp.proj.length; i++){
+    			 var temp2 = new Object();
+    			 temp2.name = temp.proj[i];
+    			 temp2.users = new Array();
+    			 for(var y =0; y<temp.projusers.length; y++){
+    			 	temp2.users.push(temp.projusers[y][1]+";"+temp.projusers[y][2]+";"+temp.projusers[y][4]);
+    			 }
+    			 projects.push(temp2);
+    		}
 	});
 } 
 
@@ -96,6 +118,22 @@ function getCalendar(){
 	});
 } 
 
+function newTask(pn, pd){
+	$.ajax({
+		type:"POST",
+		cache:false,
+		url:"http://localhost:8081/createProject",
+		data: {userID: useridtoken, name: token.name, email: token.email, companyToken: token.companyToken, projectName: pn, projectDescription: pd},
+		success: function(result){
+			alert("It updated!");
+		},
+		error:function(result){
+			alert("fail " + result.responseText);
+		}
+
+	});
+}
+
 function newProject(pn, pd){
 	$.ajax({
 		type:"POST",
@@ -107,6 +145,23 @@ function newProject(pn, pd){
 		},
 		error:function(result){
 			alert("fail " + result.responseText);
+		}
+
+	});
+}
+
+function newUser(pn){
+	$.ajax({
+		type:"POST",
+		cache:false,
+		url:"http://localhost:8081/createProject/addUser",
+		data: {userID: useridtoken, name: token.name, companyToken: token.companyToken, projectName: pn},
+		success: function(result){
+			alert("It updated!");
+			window.location.reload();
+		},
+		error:function(result){
+			alert("There is no user with that name"); //fix later
 		}
 
 	});
