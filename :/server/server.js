@@ -243,7 +243,7 @@ app.post('/getProjects/users', function(req,res){
 function checkIfDone(rows, res){
 	if(howmanyfunc>=rows.length){
 		var obj = {proj: projectList, projusers: projectUserList};
-		
+		howmanyfunc = 0;
 		res.json(obj);
 	}
 }

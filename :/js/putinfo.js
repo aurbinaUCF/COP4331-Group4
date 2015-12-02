@@ -107,7 +107,7 @@ var todoending = "</span></label><div class='actions pull-right'><a class='btn b
 //files are designated by -
 var projnavbegin = "<li class=''><a onClick='setProject(\"";
 // href=''><i class='icon-edit'></i><span>Proj2</span></a></li>
-var projnavmiddle = "\")' href='projects.html'><i class='icon-edit'></i><span>";
+var projnavmiddle = "\")' href='dashboardProjectTabs.html'><i class='icon-edit'></i><span>";
 var projnavend =  "</span></a></li>";
 //var projnavbegin = "<li class=''><a class='dropdown-collapse' onClick='setProject(\"";
 var texteditprojnavbegin = "<li class='active'><a class='dropdown-collapse' onClick='setProject(\"";
@@ -119,7 +119,7 @@ var projectfiles = new Array();
 
 function setProject(projname){
 	setCookie("ProjectSelected", projname, 1);
-	setCookie('FileEditing', 'Need', 1);
+	setCookie('FileEditing', 'Need', 1)
 }
 
 $('document').ready(function(){
@@ -231,8 +231,8 @@ function putInfo(){
 			normalprojects += (projnavbegin+textsplit[0]+projnavmiddle+" "+textsplit[0]+projnavend);
 		}
 		$('#texteditorprojects').html(texteditorprojects);
-		$('#projects').html("<li class='active'><a href='dashboard.html'><i class='icon-dashboard'></i><span>Dashboard</span></a></li> <li class=''><a href='company_page.html'><i class='icon-table'></i><span>Company Info</span></a></li>"+normalprojects);
-		
+		$('#projects').html("<li class='active'><a href='dashboard.html'><i class='icon-dashboard'></i><span>Dashboard</span></a></li>"+normalprojects);
+			
 	}	
 	
 	//Put
@@ -266,7 +266,7 @@ function putInfo(){
 	for(var i = 0; i<requirements.length; i++){
 		var rtemp = requirements[i].split(";");
 		tasks.push({name: rtemp[0], level: 0});
-		temp += "<tr> <td>"+rtemp[0]+"</td><td>"+rtemp[1]+"</td><td> <span class='label label-"+rtemp[2]+"'>"+rtemp[2]+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs requiremove' href='#'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs' href='#'> <i class='icon-remove'></i> </a> </div></td></tr>";
+		temp += "<tr> <td>"+rtemp[0]+"</td><td>"+rtemp[1]+"</td><td> <span class='label label-"+rtemp[2]+"'>"+rtemp[2]+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs' href='#'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs' href='#'> <i class='icon-remove'></i> </a> </div></td></tr>";
 	}
 	$('#putrequirements').html(tablebefore+temp+tableafter);
 	
@@ -275,7 +275,7 @@ function putInfo(){
 	for(var i = 0; i<design.length; i++){
 		var rtemp = design[i].split(";");
 		tasks.push({name: rtemp[0], level: 1});
-		temp += "<tr> <td>"+rtemp[0]+"</td><td>"+rtemp[1]+"</td><td> <span class='label label-"+rtemp[2]+"'>"+rtemp[2]+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs designmove' href='#'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs' href='#'> <i class='icon-remove'></i> </a> </div></td></tr>";
+		temp += "<tr> <td>"+rtemp[0]+"</td><td>"+rtemp[1]+"</td><td> <span class='label label-"+rtemp[2]+"'>"+rtemp[2]+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs' href='#'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs' href='#'> <i class='icon-remove'></i> </a> </div></td></tr>";
 	}
 	$('#putdesign').html(tablebefore+temp+tableafter);
 	
@@ -284,7 +284,7 @@ function putInfo(){
 	for(var i = 0; i<implementation.length; i++){
 		var rtemp = implementation[i].split(";");
 		tasks.push({name: rtemp[0], level: 2});
-		temp += "<tr> <td>"+rtemp[0]+"</td><td>"+rtemp[1]+"</td><td> <span class='label label-"+rtemp[2]+"'>"+rtemp[2]+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs implementmove' href='#'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs' href='#'> <i class='icon-remove'></i> </a> </div></td></tr>";
+		temp += "<tr> <td>"+rtemp[0]+"</td><td>"+rtemp[1]+"</td><td> <span class='label label-"+rtemp[2]+"'>"+rtemp[2]+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs' href='#'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs' href='#'> <i class='icon-remove'></i> </a> </div></td></tr>";
 	}
 	$('#putimplementation').html(tablebefore+temp+tableafter);
 	
@@ -293,7 +293,7 @@ function putInfo(){
 	for(var i = 0; i<verification.length; i++){
 		var rtemp = verification[i].split(";");
 		tasks.push({name: rtemp[0], level: 3});
-		temp += "<tr> <td>"+rtemp[0]+"</td><td>"+rtemp[1]+"</td><td> <span class='label label-"+rtemp[2]+"'>"+rtemp[2]+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs verifmove' href='#'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs' href='#'> <i class='icon-remove'></i> </a> </div></td></tr>";
+		temp += "<tr> <td>"+rtemp[0]+"</td><td>"+rtemp[1]+"</td><td> <span class='label label-"+rtemp[2]+"'>"+rtemp[2]+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs' href='#'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs' href='#'> <i class='icon-remove'></i> </a> </div></td></tr>";
 	}
 	$('#putverification').html(tablebefore+temp+tableafter);
 	
@@ -302,7 +302,7 @@ function putInfo(){
 	for(var i = 0; i<maintenance.length; i++){
 		var rtemp = maintenance[i].split(";");
 		tasks.push({name: rtemp[0], level: 4});
-		temp += "<tr> <td>"+rtemp[0]+"</td><td>"+rtemp[1]+"</td><td> <span class='label label-"+rtemp[2]+"'>"+rtemp[2]+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs maintainmove' href='#'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs' href='#'> <i class='icon-remove'></i> </a> </div></td></tr>";
+		temp += "<tr> <td>"+rtemp[0]+"</td><td>"+rtemp[1]+"</td><td> <span class='label label-"+rtemp[2]+"'>"+rtemp[2]+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs' href='#'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs' href='#'> <i class='icon-remove'></i> </a> </div></td></tr>";
 	}
 	$('#putmaintenance').html(tablebefore+temp+tableafter);
 	
@@ -352,51 +352,9 @@ function putInfo(){
 		newUser(newusername);
 	});
 	
-	$('#newtasksubmit').click(function(){
-		var newtaskname = $("#newtaskname").val();
-		var newtaskusername = $("#newtaskusername").val();
-		newTask(newtaskname, newtaskusername);
-	});
-	
 	$('#deleteproject').click(function(){
 		deleteProject();
 	});
-	
-	$('.requiremove').click(function(){
-		var taskname = ($(this).parent().parent().parent().find("td").eq(0).html());
-		var taskusername = ($(this).parent().parent().parent().find("td").eq(1).html());
-		var taskstatus = ($(this).parent().parent().parent().find("td").eq(2).find("span").eq(0).html());
-		moveTask(taskname, taskusername, taskstatus, "Requirements");
-	});
-	
-	$('.designmove').click(function(){
-		var taskname = ($(this).parent().parent().parent().find("td").eq(0).html());
-		var taskusername = ($(this).parent().parent().parent().find("td").eq(1).html());
-		var taskstatus = ($(this).parent().parent().parent().find("td").eq(2).find("span").eq(0).html());
-		moveTask(taskname, taskusername, taskstatus, "design");
-	});
-	
-	$('.implementmove').click(function(){
-		var taskname = ($(this).parent().parent().parent().find("td").eq(0).html());
-		var taskusername = ($(this).parent().parent().parent().find("td").eq(1).html());
-		var taskstatus = ($(this).parent().parent().parent().find("td").eq(2).find("span").eq(0).html());
-		moveTask(taskname, taskusername, taskstatus, "implementation");
-	});
-	
-	$('.verifmove').click(function(){
-		var taskname = ($(this).parent().parent().parent().find("td").eq(0).html());
-		var taskusername = ($(this).parent().parent().parent().find("td").eq(1).html());
-		var taskstatus = ($(this).parent().parent().parent().find("td").eq(2).find("span").eq(0).html());
-		moveTask(taskname, taskusername, taskstatus, "verification");
-	});
-	
-	$('.maintainmove').click(function(){
-		var taskname = ($(this).parent().parent().parent().find("td").eq(0).html());
-		var taskusername = ($(this).parent().parent().parent().find("td").eq(1).html());
-		var taskstatus = ($(this).parent().parent().parent().find("td").eq(2).find("span").eq(0).html());
-		moveTask(taskname, taskusername, taskstatus, "taskdelete");
-	});
-	
 	
 }
 
