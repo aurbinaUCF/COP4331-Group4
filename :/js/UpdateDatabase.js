@@ -166,12 +166,13 @@ function newProject(pn, pd){
 	});
 }
 
-function newUser(pn){
+function newUser(pn, un){
+	//nowhere for actual name
 	$.ajax({
 		type:"POST",
 		cache:false,
 		url:"http://localhost:8081/createProject/addUser",
-		data: {userID: useridtoken, name: token.name, companyToken: token.companyToken, projectName: pn},
+		data: {userID: useridtoken, name: un, companyToken: token.companyToken, projectName: pn, status: "Good"},
 		success: function(result){
 			alert("It updated!");
 			window.location.reload();
@@ -182,6 +183,60 @@ function newUser(pn){
 
 	});
 }
+
+function newTask(tn, tu){
+	$.ajax({
+		type:"POST",
+		cache:false,
+		url:"http://localhost:8081/createProject/addUser",
+		data: {userID: useridtoken, name: token.name, companyToken: token.companyToken, taskInfo: tn},
+		success: function(result){
+			alert("It updated!");
+			window.location.reload();
+		},
+		error:function(result){
+			alert("There is no user with that name"); //fix later
+		}
+
+	});
+}
+
+function moveRequire(tn, tu, ts){
+	//userID? again
+	$.ajax({
+		type:"POST",
+		cache:false,
+		url:"http://localhost:8081/updateTask/Requirements",
+		data: {userID: useridtoken, name: tu, companyToken: token.companyToken, taskInfo: tn, status: ts},
+		success: function(result){
+			alert("It updated!");
+			window.location.reload();
+		},
+		error:function(result){
+			alert("There is no user with that name"); //fix later
+		}
+
+	});
+}
+
+function moveTask(tn, tu, ts, what){
+	//userID? again
+	$.ajax({
+		type:"POST",
+		cache:false,
+		url:"http://localhost:8081/updateTask/"+what,
+		data: {userID: useridtoken, name: tu, companyToken: token.companyToken, taskInfo: tn, status: ts},
+		success: function(result){
+			alert("It updated!");
+			window.location.reload();
+		},
+		error:function(result){
+			alert("There is no user with that name"); //fix later
+		}
+
+	});
+}
+
 
 function deleteProject(pn, pd){
 	$.ajax({
