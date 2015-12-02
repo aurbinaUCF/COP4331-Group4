@@ -18,7 +18,14 @@ function getToken(){
 	    name = token.name;
 	    email = token.email;
 	    ismanager = (token.role=="manager")?true:false;
+	    getProjectsTasks();
 	    putInfo();
+	});
+} 
+
+function logout(){        
+	var URI = 'http://localhost:8081/logout';
+	$.getJSON(URI, function(results){
 	});
 } 
 
@@ -32,11 +39,13 @@ function getProjects(){
 		success: function(result){
 			var temp = result;
 	    		projects = new Array();
+	    		textprojects = "";
 	    		for(var i =0; i<temp.proj.length; i++){
 	    			if(temp.projusers[i]===null)
 	    			 		continue;
 	    			 var temp2 = new Object();
 	    			 temp2.name = temp.proj[i];
+	    			 textprojects+=temp.proj[i];
 	    			 temp2.users = new Array();
 	    			 for(var y =0; y<temp.projusers.length; y++){
 	    			 	if(temp.projusers[i][y]===null||temp.projusers[i][y][1]===null)
@@ -45,6 +54,7 @@ function getProjects(){
 	    			 }
 	    			 projects.push(temp2);
 	    		}
+	    		textprojects = textprojects.substring(0, textprojects.length-1);
 	    		putInfo();
 		},
 		error:function(result){
@@ -52,6 +62,103 @@ function getProjects(){
 		}
 	});
 } 
+
+function getProjectsTasks(){  
+	getTaskMain();
+	getTaskVerf();
+	getTaskReq();
+	getTaskDes();
+	getTaskImp();
+	getTaskComp();
+}
+
+function getTaskMain(){
+	$.ajax({
+		type:"POST",
+		cache:false,
+		url:"http://localhost:8081/getProjectTasks/requirements",
+		data: {projectName: getCookie("ProjectSelected")},
+		success: function(result){
+			putInfo();
+		},
+		error:function(result){
+			alert("fail " + result.responseText);
+		}
+	});
+} 
+function getTaskVerf(){
+	$.ajax({
+		type:"POST",
+		cache:false,
+		url:"http://localhost:8081/getProjectTasks/verification",
+		data: {projectName: getCookie("ProjectSelected")},
+		success: function(result){
+			putInfo();
+		},
+		error:function(result){
+			alert("fail " + result.responseText);
+		}
+	});
+} 
+
+function getTaskReq(){
+	$.ajax({
+		type:"POST",
+		cache:false,
+		url:"http://localhost:8081/getProjectTasks/requirements",
+		data: {projectName: getCookie("ProjectSelected")},
+		success: function(result){
+			putInfo();
+		},
+		error:function(result){
+			alert("fail " + result.responseText);
+		}
+	});
+} 
+function getTaskDes(){
+	$.ajax({
+		type:"POST",
+		cache:false,
+		url:"http://localhost:8081/getProjectTasks/design",
+		data: {projectName: getCookie("ProjectSelected")},
+		success: function(result){
+			putInfo();
+		},
+		error:function(result){
+			alert("fail " + result.responseText);
+		}
+	});
+} 
+function getTaskImp(){
+	$.ajax({
+		type:"POST",
+		cache:false,
+		url:"http://localhost:8081/getProjectTasks/implementation",
+		data: {projectName: getCookie("ProjectSelected")},
+		success: function(result){
+			putInfo();
+		},
+		error:function(result){
+			alert("fail " + result.responseText);
+		}
+	});
+} 
+function getTaskComp(){
+	$.ajax({
+		type:"POST",
+		cache:false,
+		url:"http://localhost:8081/getProjectTasks/complete",
+		data: {projectName: getCookie("ProjectSelected")},
+		success: function(result){
+			putInfo();
+		},
+		error:function(result){
+			alert("fail " + result.responseText);
+		}
+	});
+} 
+
+
 
 
 function getTodoList(){        

@@ -105,7 +105,7 @@ var todoending = "</span></label><div class='actions pull-right'><a class='btn b
 //Just to dynamically read the project files for right now
 //Projects divided by collons
 //files are designated by -
-var projnavbegin = "<li class=''><a onClick='setProject(\"";
+var projnavbegin = "'><a onClick='setProject(\"";
 // href=''><i class='icon-edit'></i><span>Proj2</span></a></li>
 var projnavmiddle = "\")' href='projects.html'><i class='icon-edit'></i><span>";
 var projnavend =  "</span></a></li>";
@@ -124,41 +124,24 @@ function setProject(projname){
 
 $('document').ready(function(){
 	putInfo();
+	if($('.projectname').length==1){
+		$('.'+getCookie("ProjectSelected")).eq(0).addClass("active");
+		$('.dashboardnav').eq(0).removeClass("active");
+	}
 });
 
-var tablebefore = "<div class='responsive-table'> <div class='scrollable-area'> <table class='data-table-column-filter table table-bordered table-striped' style='margin-bottom:0;'> <thead> <tr> <th> Task </th> <th> User(s) in charge </th> <th> Status </th> <th></th> </tr></thead> <tbody>";
+var tablebefore = "<div class='responsive-table'> <div class=''> <table class='data-table-column-filter table table-bordered table-striped' style='margin-bottom:0;'> <thead> <tr> <th> Task </th> <th> User(s) in charge </th> <th> Status </th> <th></th> </tr></thead> <tbody>";
 
-var tableafter = "</tbody> <tfoot> <tr> <th>Name</th> <th>User(s) in charge</th> <th colspan='2'>Status</th> </tr></tfoot> </table> </div></div>";
+var tableafter = "</tbody> </table> </div></div>";
 
 var requirements = new Array();
-requirements.push("Task1;Whoisdoingit;warning");
-requirements.push("Task2;Whoisdoingit2;warning");
-requirements.push("Task3;Whoisdoingit2;warning");
-
 var design = new Array();
-design.push("DesignTask1;Whoisdoingit;warning");
-design.push("DesignTask2;Whoisdoingit2;warning");
-design.push("DesignTask3;Whoisdoingit2;warning");
-
 var implementation = new Array();
-implementation.push("ImplemTask1;Whoisdoingit;warning");
-implementation.push("ImplemTask2;Whoisdoingit2;warning");
-implementation.push("ImplemTask3;Whoisdoingit2;warning");
-
 var verification = new Array();
-verification.push("VerifTask1;Whoisdoingit;warning");
-verification.push("VerifTask2;Whoisdoingit2;warning");
-verification.push("VerifTask3;Whoisdoingit2;warning");
-
 var maintenance = new Array();
-maintenance.push("MainTask1;Whoisdoingit;developer");
-maintenance.push("MainTask2;Whoisdoingit2;manager");
-maintenance.push("MainTask3;Whoisdoingit2;developer");
+var completed = new Array();
 
 var projusers = new Array();
-projusers.push("Manager;User1;Email");
-projusers.push("Developer;User2;Email");
-projusers.push("Developer;User3;Email");
 var projtags = "";
 var projdata = "";
 
@@ -220,7 +203,7 @@ function putInfo(){
 			//$('#texteditorprojects').append(texteditprojnavbegin+textsplit[0]+projnavmiddle+" "+textsplit[0]+texteditprojnavend);			
 			texteditorprojects += (texteditprojnavbegin+textsplit[0]+projnavmiddle+" "+textsplit[0]+texteditprojnavend);
 			//$('#projects').append(projnavbegin+textsplit[0]+projnavmiddle+" "+textsplit[0]+projnavend);
-			normalprojects += (projnavbegin+textsplit[0]+projnavmiddle+" "+textsplit[0]+projnavend);
+			normalprojects += ("<li class='"+textsplit[0]+projnavbegin+textsplit[0]+projnavmiddle+" "+textsplit[0]+projnavend);
 			for(var y = 1; y<textsplit.length; y++){
 				projectfiles.push(textsplit[y]);
 			}
@@ -228,10 +211,10 @@ function putInfo(){
 			//$('#projects').append(projnavbegin+textsplit[0]+projnavmiddle+" "+textsplit[0]+projnavend);
 			//$('#texteditorprojects').append(projnavbegin+textsplit[0]+projnavmiddle+" "+textsplit[0]+projnavend);				
 			texteditorprojects += (projnavbegin+textsplit[0]+projnavmiddle+" "+textsplit[0]+projnavend);
-			normalprojects += (projnavbegin+textsplit[0]+projnavmiddle+" "+textsplit[0]+projnavend);
+			normalprojects += ("<li class='"+textsplit[0]+projnavbegin+textsplit[0]+projnavmiddle+" "+textsplit[0]+projnavend);
 		}
 		$('#texteditorprojects').html(texteditorprojects);
-		$('#projects').html("<li class='active'><a href='dashboard.html'><i class='icon-dashboard'></i><span>Dashboard</span></a></li> <li class=''><a href='company_page.html'><i class='icon-table'></i><span>Company Info</span></a></li>"+normalprojects);
+		$('#projects').html("<li class='active dashboardnav'><a href='dashboard.html'><i class='icon-dashboard'></i><span>Dashboard</span></a></li> <li class=''><a href='company_page.html'><i class='icon-table'></i><span>Company Info</span></a></li>"+normalprojects);
 		
 	}	
 	
@@ -264,45 +247,54 @@ function putInfo(){
 	var temp = "";
 	var tasks = new Array(); 
 	for(var i = 0; i<requirements.length; i++){
-		var rtemp = requirements[i].split(";");
-		tasks.push({name: rtemp[0], level: 0});
-		temp += "<tr> <td>"+rtemp[0]+"</td><td>"+rtemp[1]+"</td><td> <span class='label label-"+rtemp[2]+"'>"+rtemp[2]+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs requiremove' href='#'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs deletetask' href='#'> <i class='icon-remove'></i> </a> </div></td></tr>";
+		var rtemp = requirements[i];
+		tasks.push({name: rtemp.taskInfo, level: 0});
+		temp += "<tr> <td>"+rtemp.taskInfo+"</td><td>"+rtemp.userId+"</td><td> <span class='label label-"+rtemp.status+"'>"+rtemp.status+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs requiremove has-tooltip' href='#' data-placement='top' data-original-title='Move To Next Section'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs deletetask has-tooltip' href='#' data-placement='top' data-original-title='Delete Task'> <i class='icon-remove'></i> </a> </div></td></tr>";
 	}
 	$('#putrequirements').html(tablebefore+temp+tableafter);
 	
 	//Put Design
 	temp = "";
 	for(var i = 0; i<design.length; i++){
-		var rtemp = design[i].split(";");
-		tasks.push({name: rtemp[0], level: 1});
-		temp += "<tr> <td>"+rtemp[0]+"</td><td>"+rtemp[1]+"</td><td> <span class='label label-"+rtemp[2]+"'>"+rtemp[2]+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs designmove' href='#'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs deletetask' href='#'> <i class='icon-remove'></i> </a> </div></td></tr>";
+		var rtemp = design[i];
+		tasks.push({name: rtemp.taskInfo, level: 1});
+		temp += "<tr> <td>"+rtemp.taskInfo+"</td><td>"+rtemp.userId+"</td><td> <span class='label label-"+rtemp.status+"'>"+rtemp.status+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs designmove has-tooltip' href='#' data-placement='top' data-original-title='Move To Next Section'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs deletetask has-tooltip' href='#' data-placement='top' data-original-title='Delete Task'> <i class='icon-remove'></i> </a> </div></td></tr>";
 	}
 	$('#putdesign').html(tablebefore+temp+tableafter);
 	
 	//Put Implementatoin
 	temp = "";
 	for(var i = 0; i<implementation.length; i++){
-		var rtemp = implementation[i].split(";");
-		tasks.push({name: rtemp[0], level: 2});
-		temp += "<tr> <td>"+rtemp[0]+"</td><td>"+rtemp[1]+"</td><td> <span class='label label-"+rtemp[2]+"'>"+rtemp[2]+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs implementmove' href='#'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs deletetask' href='#'> <i class='icon-remove'></i> </a> </div></td></tr>";
+		var rtemp = implementation[i];
+		tasks.push({name: rtemp.taskInfo, level: 2});
+		temp += "<tr> <td>"+rtemp.taskInfo+"</td><td>"+rtemp.userId+"</td><td> <span class='label label-"+rtemp.status+"'>"+rtemp.status+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs implementmove has-tooltip' href='#' data-placement='top' data-original-title='Move To Next Section'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs deletetask has-tooltip' href='#' data-placement='top' data-original-title='Delete Task'> <i class='icon-remove'></i> </a> </div></td></tr>";
 	}
 	$('#putimplementation').html(tablebefore+temp+tableafter);
 	
 	//Put Verification
 	temp = "";
 	for(var i = 0; i<verification.length; i++){
-		var rtemp = verification[i].split(";");
-		tasks.push({name: rtemp[0], level: 3});
-		temp += "<tr> <td>"+rtemp[0]+"</td><td>"+rtemp[1]+"</td><td> <span class='label label-"+rtemp[2]+"'>"+rtemp[2]+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs verifmove' href='#'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs deletetask' href='#'> <i class='icon-remove'></i> </a> </div></td></tr>";
+		var rtemp = verification[i];
+		tasks.push({name: rtemp.taskInfo, level: 3});
+		temp += "<tr> <td>"+rtemp.taskInfo+"</td><td>"+rtemp.userId+"</td><td> <span class='label label-"+rtemp.status+"'>"+rtemp.status+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs verifmove has-tooltip' href='#' data-placement='top' data-original-title='Move To Next Section'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs deletetask has-tooltip' href='#' data-placement='top' data-original-title='Delete Task'> <i class='icon-remove'></i> </a> </div></td></tr>";
 	}
 	$('#putverification').html(tablebefore+temp+tableafter);
 	
 	//Put Maintenance
 	temp = "";
 	for(var i = 0; i<maintenance.length; i++){
-		var rtemp = maintenance[i].split(";");
-		tasks.push({name: rtemp[0], level: 4});
-		temp += "<tr> <td>"+rtemp[0]+"</td><td>"+rtemp[1]+"</td><td> <span class='label label-"+rtemp[2]+"'>"+rtemp[2]+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs maintainmove' href='#'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs deletetask' href='#'> <i class='icon-remove'></i> </a> </div></td></tr>";
+		var rtemp = maintenance[i];
+		tasks.push({name: maintenance.taskInfo, level: 4});
+		temp += "<tr> <td>"+rtemp.taskInfo+"</td><td>"+rtemp.userId+"</td><td> <span class='label label-"+rtemp.status+"'>"+rtemp.status+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs maintainmove has-tooltip' href='#' data-placement='top' data-original-title='Move To Next Section'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs deletetask has-tooltip' href='#' data-placement='top' data-original-title='Delete Task'> <i class='icon-remove'></i> </a> </div></td></tr>";
+	}
+	$('#putmaintenance').html(tablebefore+temp+tableafter);
+	
+	//Put Completed
+	temp = "";
+	for(var i = 0; i<completed.length; i++){
+		var rtemp = completed[i];
+		tasks.push({name: rtemp.taskInfo, level: 4});
+		temp += "<tr> <td>"+rtemp.taskInfo+"</td><td>"+rtemp.userId+"</td><td> <span class='label label-"+rtemp.status+"'>"+rtemp.status+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs maintainmove has-tooltip' href='#' data-placement='top' data-original-title='Move To Next Section'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs deletetask has-tooltip' href='#' data-placement='top' data-original-title='Delete Task'> <i class='icon-remove'></i> </a> </div></td></tr>";
 	}
 	$('#putmaintenance').html(tablebefore+temp+tableafter);
 	
@@ -409,6 +401,10 @@ function putInfo(){
 		var projusername = ($(this).parent().parent().parent().find("td").eq(1).html());
 		var projrole = ($(this).parent().parent().parent().find("td").eq(2).find("span").eq(0).html());
 		
+	});
+	
+	$('#signout').click(function(){
+		logout();
 	});
 	
 	
