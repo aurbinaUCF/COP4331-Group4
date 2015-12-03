@@ -79,5 +79,5 @@
 			</ul>
 		<li>If success should read  “Started Server @ http://localhost:8081”</li>		
 	    <li> Verifying Success of Website </li>
-		<li>Using your Internet Browser (Google Chrome Recommend), navigate to http://localhost</li>
+		<ul><li>Using your Internet Browser (Google Chrome Recommend), navigate to http://localhost</li></ul>
 </ul>

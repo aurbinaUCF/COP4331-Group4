@@ -123,14 +123,15 @@ app.get('/logout', function(req,res){
 
 });
 app.post('/todo',function(req, res){
-	
+	var deleteTask = "DELETE FROM todo WHERE userID = '" + req.body.userid+ "'";
+
 	var submitTask = 'INSERT INTO todo (userID, tasklist) VALUES' + "('"+req.body.userid+ "','" +req.body.todolist+ "')";
 	companyDb.serialize(function(){
-	//var submitTask = "UPDATE todo SET tasklist='" + req.body.todolist+"' WHERE userID = '"+ req.body.userid+"'";
+	companyDb.run(deleteTask);
 		companyDb.serialize(function(){
 			companyDb.run(submitTask);	
 		});
-	res.redirect(200,'http://localhost/dashboard.html');
+
 	});
 }),
 
@@ -173,8 +174,9 @@ app.post('/register', function(req, res) {
 		companyDb.serialize(function(){
 				var createuser = 'INSERT INTO users (name, email, password, role, userID, companyToken) VALUES' +  "('" + req.body.name + "','" + req.body.email + "','" + hash + "','" +req.body.title+"','" + userHash+ "','"+ req.body.token+ "')";
 				companyDb.run(createuser);
-				var todoInsert = "INSERT INTO todo (userID) VALUES ('"+userHash+"')";
-				var calendarInsert = "INSERT INTO calendar (userID) VALUES ('"+userHash+"')";  
+				var todoInsert = "INSERT INTO todo (userID, tasklist) VALUES ('"+userHash+"', 'Add your first To-Do item now!;')";
+				var temp = {"info":[{"id":"event1","title":"Automatically Imported Event","start":"2015-11-01T19:00:00.000Z","end":null,"className":"event-orange","allDay":true},{"id":"event2","title":"What not to do at a stop light?","start":"2015-11-05T20:00:00.000Z","end":null,"className":"event-red","allDay":true},{"id":"event3","title":"Fiesta Party","start":"2015-11-16T15:00:00.000Z","end":"2015-11-16T18:30:00.000Z","className":"event-purple","allDay":false},{"title":"Work","start":"2015-12-09T20:00:00.000Z","end":null,"allDay":false},{"title":"Subway","start":"2015-12-03T15:00:00.000Z","end":"2015-12-05T15:00:00.000Z","allDay":false},{"title":"Birthday","start":"2015-12-23T10:00:00.000Z","end":null,"allDay":false},{"title":"teas","start":"2015-12-18T05:00:00.000Z","end":null,"allDay":false}]};
+				var calendarInsert = "INSERT INTO calendar (userID,calendarInformation) VALUES ('"+userHash+"','" + JSON.stringify(temp)+"')";  
 				companyDb.run(todoInsert);
 				companyDb.run(calendarInsert);
 				res.redirect('http://localhost/dashboard.html');
@@ -213,7 +215,7 @@ app.post('/register', function(req, res) {
 
 });
 
-app.get('/companyInfo',function(req,res){
+app.post('/companyInfo',function(req,res){
 	var SQLQuery = "SELECT * FROM users WHERE companyToken = '"+req.body.companyToken+"'";
 	companyDb.all(SQLQuery,function(err,row){
 		console.log(row);
@@ -324,14 +326,18 @@ app.post('/createProject', function(req,res){
 
 app.post('/createProject/addUser', function(req,res){
 	var projectName = req.body.projectName;
+	var getuser = 'SELECT * FROM users WHERE email = '+ "'"+ req.body.email+ "'";
+	companyDb.get(getuser, function(err,row){
 	co(function*() {
+
 		var db = yield sqliteConnect(projectName+".db");
-		yield db.run("INSERT INTO users(userID, name, companyToken, role) VALUES ('"+req.body.userID+ "','"+ req.body.username+ "','"+req.body.companyToken +"','developer')");
+		yield db.run("INSERT INTO users(userID, name,email, companyToken, role) VALUES ('"+row.userID+ "','"+ row.name+ "','"+req.body.email+"','"+row.companyToken +"','developer')");
 
 	}).catch(function(err){
 		console.log(err.stack);
 	});
-
+});
+res.redirect('http://localhost/dashboard.html');
 });
 
 	var Requirements; 
@@ -363,6 +369,7 @@ app.post('/getProjectTasks/design', function(req,res){
 app.post('/getProjectTasks/implementation', function(req,res){
 	projectName = req.body.projectName; 
 	var db = new sqlite3.Database('./'+projectName+'.db');
+	console.log(db);
 	const exporter = SqliteJson(db);
 	exporter.json('SELECT * FROM Implementation',function(err,json){
 		Implementation = json; 
@@ -383,11 +390,12 @@ app.post('/getProjectTasks/verification', function(req,res){
 app.post('/getProjectTasks/maintenance', function(req,res){
 	projectName = req.body.projectName; 
 	var db = new sqlite3.Database('./'+projectName+'.db');
+	console.log(db);
 	const exporter = SqliteJson(db);
 	exporter.json('SELECT * FROM Maintenance',function(err,json){
-		Maintenance = json; 
+		maintenance = json; 
 		
-		res.json(Maintenance);
+		res.json(maintenance);
 	});
 });
 
@@ -408,11 +416,28 @@ app.post('/projectTask', function(req,res){
 	co(function*() {
 		var db = yield sqliteConnect(projectName+".db");
 		yield db.run("INSERT INTO Requirements (taskInfo,userID,status,companyToken) VALUES ('" +req.body.taskInfo+"','"+ req.body.taskuserID+ "','"+"Incomplete"+ "','"+ req.body.companyToken+"')");
+		
+	}).catch(function(err){
+		console.log(err.stack);
+	});
+
+	res.redirect('http://localhost/projects.html');
+
+});
+
+app.post('/projectTask/addTextFile', function(req,res){
+	var projectName = req.body.projectName;
+
+	co(function*() {
+		var db = yield sqliteConnect(projectName+".db");
+		yield db.run("INSERT INTO EditorFiles (textfile) VALUES ('" +req.body.textfile+"')");
+		
 	}).catch(function(err){
 		console.log(err.stack);
 	});
 
 });
+
 
 app.post('/updateTask/Requirements', function(req,rows){
 	var projectName = req.body.projectName;
@@ -424,6 +449,7 @@ app.post('/updateTask/Requirements', function(req,rows){
 	}).catch(function(err){
 		console.log(err.stack);
 	});
+	res.redirect('http://localhost/projects.html');
 }); 
 
 app.post('/updateTask/design', function(req,rows){
@@ -432,23 +458,25 @@ app.post('/updateTask/design', function(req,rows){
 
 	co(function*() {
 		var db = yield sqliteConnect(projectName+".db");
-		yield db.run("INSERT INTO Implementation (taskInfo,userID,status,companyToken) VALUES '" +req.body.taskInfo+"','"+ req.body.userID+ "','"+"Incomplete"+ "','"+ req.body.companyToken+"')");
+		yield db.run("INSERT INTO Implementation (taskInfo,userID,status,companyToken) VALUES ('" +req.body.taskInfo+"','"+ req.body.name+ "','"+"Incomplete"+ "','"+ req.body.companyToken+"')");
 		console.log("DELETE FROM Design WHERE taskInfo = '"+ req.body.taskInfo+"'");
 		yield db.run("DELETE FROM Design WHERE taskInfo = '"+ req.body.taskInfo+"'");
 	}).catch(function(err){
 		console.log(err.stack);
 	});
+	res.redirect('http://localhost/projects.html');
 }); 
 app.post('/updateTask/implementation', function(req,rows){
 	var projectName = req.body.projectName;
 
 	co(function*() {
 		var db = yield sqliteConnect(projectName+".db");
-		yield db.run("INSERT INTO Verification (taskInfo,userID,status,companyToken) VALUES ('" +req.body.taskInfo+"','"+ req.body.userID+ "','"+"Incomplete"+ "','"+ req.body.companyToken+"')");
+		yield db.run("INSERT INTO Verification (taskInfo,userID,status,companyToken) VALUES ('" +req.body.taskInfo+"','"+ req.body.name+ "','"+"Incomplete"+ "','"+ req.body.companyToken+"')");
 		yield db.run("DELETE FROM Implementation WHERE taskInfo = '"+ req.body.taskInfo+"'");
 	}).catch(function(err){
 		console.log(err.stack);
 	});
+	res.redirect('http://localhost/projects.html');
 }); 
 
 app.post('/updateTask/verification', function(req,rows){
@@ -456,11 +484,12 @@ app.post('/updateTask/verification', function(req,rows){
 
 	co(function*() {
 		var db = yield sqliteConnect(projectName+".db");
-		yield db.run("INSERT INTO Maintenance (taskInfo,userID,status,companyToken) VALUES ('" +req.body.taskInfo+"','"+ req.body.userID+ "','"+"Incomplete"+ "','"+ req.body.companyToken+"')");
+		yield db.run("INSERT INTO Maintenance (taskInfo,userID,status,companyToken) VALUES ('" +req.body.taskInfo+"','"+ req.body.name+ "','"+"Incomplete"+ "','"+ req.body.companyToken+"')");
 		yield db.run("DELETE FROM Verification WHERE taskInfo = '"+ req.body.taskInfo+"'");
 	}).catch(function(err){
 		console.log(err.stack);
 	});
+	res.redirect('http://localhost/projects.html');
 }); 
 
 
@@ -469,15 +498,36 @@ app.post('/updateTask/maintenance', function(req,rows){
 
 	co(function*() {
 		var db = yield sqliteConnect(projectName+".db");
-		yield db.run("INSERT INTO Complete (taskInfo,userID,status,companyToken) VALUES ('" +req.body.taskInfo+"','"+ req.body.userID+ "','"+"Incomplete"+ "','"+ req.body.companyToken+"')");
+		yield db.run("INSERT INTO Complete (taskInfo,userID,status,companyToken) VALUES ('" +req.body.taskInfo+"','"+ req.body.name+ "','"+"Incomplete"+ "','"+ req.body.companyToken+"')");
 		yield db.run("DELETE FROM Maintenance WHERE taskInfo = '"+ req.body.taskInfo+"'");
 	}).catch(function(err){
 		console.log(err.stack);
 	});
+	res.redirect('http://localhost/projects.html');
 }); 
 
+app.delete('/updateTask/taskdelete',function(req,res){
+		var projectName = req.body.projectName;
+
+
+	co(function*() {
+		var db = yield sqliteConnect(projectName+".db");
+		yield db.run("DELETE FROM Requirements WHERE taskInfo = '"+ req.body.taskInfo+"'");
+		yield db.run("DELETE FROM Design WHERE taskInfo = '"+ req.body.taskInfo+"'");
+		yield db.run("DELETE FROM Implementation WHERE taskInfo = '"+ req.body.taskInfo+"'");
+		yield db.run("DELETE FROM Verification WHERE taskInfo = '"+ req.body.taskInfo+"'");
+		yield db.run("DELETE FROM Maintenance WHERE taskInfo = '"+ req.body.taskInfo+"'");
+		yield db.run("DELETE FROM Complete WHERE taskInfo = '"+ req.body.taskInfo+"'");
+	}).catch(function(err){
+		console.log(err.stack);
+	});
+	res.redirect('http://localhost/projects.html');
+});
+
 app.delete('/projectDelete', function(req,rows){
-	
+
+	var remove = 'DELETE FROM projects WHERE projectName = '+ "'"+ req.body.projectName+ "'";
+	projectDb.run(remove);	
 
 });
 

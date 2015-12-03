@@ -39,13 +39,12 @@
         	cursor: pointer;
         }
     </style>
-    <style>body { overflow-x: hidden!important;}</style>
 </head>
 
 <body class='contrast-banana'>
     <header>
         <nav class='navbar navbar-default'>
-            <a class='navbar-brand' href='dashboard.html'>
+            <a class='navbar-brand' href='index.html'>
                 <img width="81" height="21" class="logo" alt="Go Knights!" src="imgs/logo.png" />
                 <img width="21" height="21" class="logo-xs" alt="Go Knights!" src="imgs/logo_xs.svg" />
             </a>
@@ -53,30 +52,72 @@
                 <i class='icon-reorder'></i>
             </a>
             <ul class='nav'>
-               
+                <li class='dropdown light only-icon'>
+                    <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+                        <i class='icon-cog'></i>
+                    </a>
+                    <ul class='dropdown-menu'>
+                        <li>
+                            <div class='label'>Change User</div>
+                            <a href='#' onClick='testMode(0); putInfo(); window.location.reload();'>
+                  John Doe - Manager
+                  <small>(default)</small>
+                </a>
+                            <a href='#' onClick='testMode(1); putInfo(); window.location.reload();'>
+                  Granny G - User
+                </a>
+                            <a href='#' onClick='testMode(2); putInfo(); window.location.reload();'>
+                  Aang - Manager
+                </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class='dropdown dark user-menu'>
                     <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
-                        
+                        <img width="23" height="23" class='putprofilepic' />
                         <span class='user-name'></span>
                         <b class='caret'></b>
                     </a>
                     <ul class='dropdown-menu'>
                         <li>
-                            <a href='index.html'>
+                            <a href='user_profile.html'>
+                                <i class='icon-user'></i> Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a href='user_profile.html'>
+                                <i class='icon-cog'></i> Settings
+                            </a>
+                        </li>
+                        <li class='divider'></li>
+                        <li>
+                            <a href='sign_in.html'>
                                 <i class='icon-signout'></i> Sign out
                             </a>
                         </li>
                     </ul>
                 </li>
             </ul>
-            
+            <form action='search_results.html' class='navbar-form navbar-right hidden-xs' method='get'>
+                <button class='btn btn-link icon-search' name='button' type='submit'></button>
+                <div class='form-group'>
+                    <input value="" class="form-control" placeholder="Search..." autocomplete="off" id="q_header" name="q" type="text" />
+                </div>
+            </form>
         </nav>
     </header>
     <div id='wrapper'>
         <div id='main-nav-bg'></div>
         <nav id='main-nav'>
             <div class='navigation'>
-                
+                <div class='search'>
+                    <form action='search_results.html' method='get'>
+                        <div class='search-wrapper'>
+                            <input value="" class="search-query form-control" placeholder="Search..." autocomplete="off" name="q" type="text" />
+                            <button class='btn btn-link icon-search' name='button' type='submit'></button>
+                        </div>
+                    </form>
+                </div>
                 <ul class='nav nav-stacked' id='projects'>
 
                 </ul>
@@ -102,8 +143,11 @@
                                 <div class='box-header banana-background'>
                                     <div class='title'>Project List</div>
                                     <div class='actions'>
-						<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>
-                          
+                                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
+                      </a>
+
+                                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                      </a>
                                     </div>
                                 </div>
                                 <div class='box-content'>
@@ -156,11 +200,11 @@
                                                     <h4 class="modal-title">Add User</h4>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p>What is the email of your new user?</p>
+                                                    <p>What is the name of your new user?</p>
                                                     <br>
                                                     <div class="input-group input-group">
-                                                        <span class="input-group-addon" id="sizing-addon1">E-Mail</span>
-                                                        <input type="text" id='newusername' class="form-control" placeholder="JohnDoe@knights.ucf.edu" aria-describedby="sizing-addon1">
+                                                        <span class="input-group-addon" id="sizing-addon1">Name</span>
+                                                        <input type="text" id='newusername' class="form-control" placeholder="John Doe" aria-describedby="sizing-addon1">
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -172,7 +216,7 @@
                                     </div>
 
                                     <!-- Trigger the Update Project modal with a button -->
-                                    <button type="button" class="btn btn-med" data-toggle="modal" data-target="#myModal">Delete a Project</button>
+                                    <button type="button" class="btn btn-med" data-toggle="modal" data-target="#myModal">Edit/Delete Current Project</button>
 
                                     <!-- Update Project Modal -->
                                     <div id="myModal" class="modal fade" role="dialog">
@@ -182,11 +226,11 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title">Delete a Project</h4>
+                                                    <h4 class="modal-title">Edit or Delete a Project</h4>
                                                 </div>
 
                                                 <div class="modal-body">
-                                                    <p>First select which project to delete</p>
+                                                    <p>First select which project to edit</p>
 
                                                     <div class="btn-group" role="group">
                                                         <button type="button" class="btn btn-default dropdown-toggle editproj" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Select a Project<span class="caret"></span></button>
@@ -196,10 +240,28 @@
                                                     </div>
                                                     <br>
                                                     <br>
-                                                    
+                                                    <div class='editprojhide'>
+                                                        <p>What are you changing?</p>
+                                                        <!--We need to be able to identify what project the user wants to edit/delete-->
+                                                        <br>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon" id="sizing-addon1">Edit Project Name</span>
+                                                            <input type="text" class="form-control" placeholder="Here" aria-describedby="basic-addon1">
+                                                        </div>
+                                                        <br>
+
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon" id="basic-addon1">Edit Deadline</span>
+                                                            <input type="text" class="form-control" placeholder="Here" aria-describedby="basic-addon1">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-danger btn-ok pull-left editprojhide" data-toggle="modal" data-target="#confirm-delete">Delete <span class='editselectedproj'></span></button>                                    
+                                                    <button type="button" class="btn btn-danger btn-ok pull-left editprojhide" data-toggle="modal" data-target="#confirm-delete">Delete <span class='editselectedproj'></span></button>
+
+
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Submit</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -234,7 +296,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!--ToDo List here -->
+                        <!--Chat box here -->
                         <div class='col-sm-12 box'>
                             <div class='row'>
                                 <div class='col-sm-12 col-md-6'>
@@ -246,8 +308,11 @@
                                                         <i class='icon-list-alt'></i> Todo lists
                                                     </div>
                                                     <div class='actions'>
-						<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>
-                            
+                                                        <a class="btn box-remove btn-xs btn-link" href="#"><i class='icon-remove'></i>
+                            </a>
+
+                                                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                            </a>
                                                     </div>
                                                 </div>
                                                 <div class='box-content box-no-padding'>
@@ -291,11 +356,14 @@
 					    <div class="box-header orange-background">
 					      <div class="title">Company Token</div>
 					      <div class="actions">
+						<a class="btn box-remove btn-xs btn-link" href="#"><i class="icon-remove"></i>
+						</a>
 						
-						<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>
+						<a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+						</a>
 					      </div>
 					    </div>
-					   <div class="box-content"> Your Company Id is <input type='text' class='selectable form-control puttoken' readonly/>
+					   <div class="box-content"> You're Company Id is <input type='text' class='selectable form-control puttoken' readonly/>
 					    </div>
 					  </div>
 					</div>
@@ -305,11 +373,9 @@
                                         <div class='col-sm-12'>
                                             <div class='box box-bordered purple-border'>
                                                 <div class='box-header purple-background'>
-                                                    <div class='title'>Calendar</div>
-                                                    <div class="actions">
-                                                        <a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>     
+                                                    <div class='title'>
+                                                        <i class='icon-calendar'></i> Calendar
                                                     </div>
-                                                      
                                                 </div>
                                                 <div class='box-content'>
                                                     <div class='full-calendar-demo'></div>
@@ -337,7 +403,6 @@
     <!-- / jquery [required] -->
     <script src="js/jquery/jquery.min.js" type="text/javascript"></script>
     <!-- / jquery mobile (for touch events) -->
-    <script src="js/plugins/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
     <script src="js/putinfo.js" type="text/javascript"></script>
     <script src="js/UpdateDatabase.js" type="text/javascript"></script>
     <script src="js/jquery/jquery.mobile.custom.min.js" type="text/javascript"></script>
@@ -576,6 +641,7 @@
     <script src="js/plugins/timeago/jquery.timeago.js" type="text/javascript"></script>
     <script src="js/plugins/common/wysihtml5.min.js" type="text/javascript"></script>
     <script src="js/plugins/common/bootstrap-wysihtml5.js" type="text/javascript"></script>
+    <script src="js/plugins/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
     <script src="js/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
     <script src='js/date.js'></script>
     <script src='js/calendar.js'></script>

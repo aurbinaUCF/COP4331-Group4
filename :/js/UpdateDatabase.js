@@ -37,7 +37,7 @@ function getCompanyInfo(){
 		url:"http://localhost:8081/companyInfo",
 		data:{companyToken: companytoken},
 		success:function(result){
-			//ADD CODE TO ADD TO COMPANY DIRECTORY PAGE
+			companytable = (result);
 		},
 		error:function(result){
 			alert("fail " + result.responseText);
@@ -80,12 +80,12 @@ function getProjects(){
 } 
 
 function getProjectsTasks(){  
-	getTaskMain();
 	getTaskVerf();
 	getTaskReq();
 	getTaskDes();
 	getTaskImp();
 	getTaskComp();
+	getTaskMain();
 }
 
 function getTaskMain(){
@@ -237,7 +237,8 @@ function updateCalendar(){
 		url:"http://localhost:8081/calendar",
 		data: {userid: useridtoken, calendarinfo: objstring},
 		success: function(result){
-			alert("It updated!");
+			
+			window.location.reload();
 		},
 		error:function(result){
 			alert("fail " + result.responseText);
@@ -271,6 +272,7 @@ function newTask(pn, pd){
 		data: {taskInfo: pn, taskuserID: pd, email: token.email, companyToken: token.companyToken, projectName: getCookie("ProjectSelected")},
 		success: function(result){
 			alert("It updated!");
+			window.location.reload();
 		},
 		error:function(result){
 			alert("fail " + result.responseText);
@@ -287,7 +289,7 @@ function newProject(pn, pd){
 		url:"http://localhost:8081/createProject",
 		data: {userID: useridtoken, name: token.name, email: token.email, companyToken: token.companyToken, projectName: pn, projectDescription: pd},
 		success: function(result){
-			alert("It updated!");
+			
 		},
 		error:function(result){
 			alert("fail " + result.responseText);
@@ -302,9 +304,8 @@ function newUser(pn, un){
 		type:"POST",
 		cache:false,
 		url:"http://localhost:8081/createProject/addUser",
-		data: {userID: useridtoken, name: un, companyToken: token.companyToken, projectName: pn, status: "Good"},
+		data: {userID: useridtoken, email: un, companyToken: token.companyToken, projectName: pn, status: "Good"},
 		success: function(result){
-			alert("It updated!");
 			window.location.reload();
 		},
 		error:function(result){
@@ -312,6 +313,24 @@ function newUser(pn, un){
 		}
 
 	});
+}
+
+function updateFile(filename){ 
+		$.ajax({
+		type:"POST",
+		cache:false,
+		url:"http://localhost:8081/projectTask/addTextFile",
+		data: {textfile: filename, projectName: getCookie("ProjectSelected")},
+		success: function(result){
+
+			window.location.reload();
+		},
+		error:function(result){
+			
+		}
+
+	});
+
 }
 
 function moveRequire(tn, tu, ts, projectName){
@@ -340,25 +359,24 @@ function moveTask(tn, tu, ts, projectName,  what){
 		url:"http://localhost:8081/updateTask/"+what,
 		data: {userID: useridtoken, name: tu, companyToken: token.companyToken, taskInfo: tn, status: ts, projectName:projectName},
 		success: function(result){
-			alert("It updated!");
 			window.location.reload();
 		},
 		error:function(result){
-			alert("There is no user with that name"); //fix later
+			
 		}
 
 	});
 }
 
 
-function deleteProject(pn, pd){
+function deleteProject(pn){
 	$.ajax({
-		type:"POST",
+		type:"DELETE",
 		cache:false,
 		url:"http://localhost:8081/projectDelete",
 		data: {userID: useridtoken, projectName: pn},
 		success: function(result){
-			alert("It updated!");
+			window.location.reload();
 		},
 		error:function(result){
 			alert("fail " + result.responseText);
