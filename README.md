@@ -25,7 +25,7 @@
 	<li>Mac – AMPPS  - http://www.ampps.com/</li>
 </ul>
 </ul>
-<h2>Set Up Your Environment<h2>
+<h2>Set Up Your Environment</h2>
 <ul>
 <li>Download and Install Node.js</li>
 <li>Download and Install your respective local server system application (Windows or Mac)</li>
@@ -35,7 +35,7 @@
 	<li>Unzip website</li>
 	<li>Follow instructions based off your Operating System</li>
 <ul>	
-	<i>Macintosh:</i>
+	<u><i>Macintosh:</i></u>
 	  <li>Installing Website Files:</li>
 		<ul>
 			<li>Verify you have installed AMPPS </li>
@@ -58,18 +58,22 @@
 			<li>Using your Internet Browser (Google Chrome Recommend), navigate to <i>http://localhost</i></li>
 		</ul>
 </ul>
- 	Windows
-	      Installing Website Files:
-		Verify you have installed UniServerX and UniController
-		Open UniController
-		At the top, click on Apache> Change Apache-root Folders>Select new server Root-Folder (www)
-		Locate unzipped website and select the “/” folder (also may be called “:” folder) and hit “OK”
-		Click on “Start Apache”
-	      Starting Node.js Server
-		Using command prompt, locate the “/”folder 
-		Enter the following:
-¬	cd ./server
-			$ node server.js 
+ 	<u><i>Windows</i></u>
+	    <ul>
+	      <li>Installing Website Files:</li>
+	      <ul>
+				<li>Verify you have installed UniServerX and UniController</li>
+				<li>Open UniController</li>
+				<li>At the top, click on Apache> Change Apache-root Folders>Select new server Root-Folder (www)</li>
+				<li>Locate unzipped website and select the “/” folder (also may be called “:” folder) and hit “OK”</li>
+				<li>Click on “Start Apache”</li>
+		  </ul>
+	      <li>Starting Node.js Server</li>
+			<ul>
+				<li>Using command prompt, locate the “/”folder</li> 
+				<li>Enter the following:</li>
+				> cd ./server
+				> node server.js 
 		If success should read  “Started Server @ http://localhost:8081”		
 	     Verifying Success of Website 
 		Using your Internet Browser (Google Chrome Recommend), navigate to
