@@ -36,6 +36,7 @@
 	<li>Follow instructions based off your Operating System</li>
 <ul>	
 	<u><i>Macintosh:</i></u>
+	<ul>
 	  <li>Installing Website Files:</li>
 		<ul>
 			<li>Verify you have installed AMPPS </li>
@@ -48,8 +49,8 @@
 			<li>Using Terminal, locate the /AMPPS/www/ file </li>
 			<li>Enter the following:</li>
 			<ul>
-				<li>$ cd server</li>
-				<li>$ node server.js</li>
+				<code>$ cd server<br>
+					$ node server.js</code>
 			</ul>
 		<li>If success should read  “Started Server @ http://localhost:8081”</li>	
 		</ul>
@@ -57,7 +58,8 @@
 	   	<ul>
 			<li>Using your Internet Browser (Google Chrome Recommend), navigate to <i>http://localhost</i></li>
 		</ul>
-</ul>
+	</ul>
+
  	<u><i>Windows</i></u>
 	    <ul>
 	      <li>Installing Website Files:</li>
@@ -72,10 +74,10 @@
 			<ul>
 				<li>Using command prompt, locate the “/”folder</li> 
 				<li>Enter the following:</li>
-				> cd ./server
-				> node server.js 
-		If success should read  “Started Server @ http://localhost:8081”		
-	     Verifying Success of Website 
-		Using your Internet Browser (Google Chrome Recommend), navigate to
-			http://localhost
-
+				<code> > cd ./server<br>
+				> node server.js </code><br>
+			</ul>
+		<li>If success should read  “Started Server @ http://localhost:8081”</li>		
+	    <li> Verifying Success of Website </li>
+		<li>Using your Internet Browser (Google Chrome Recommend), navigate to http://localhost</li>
+</ul>
