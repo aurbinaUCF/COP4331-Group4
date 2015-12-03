@@ -15,6 +15,7 @@ function getToken(){
 	    getTodoList(); 
 	   	getCalendar();
 	   	getProjects();
+	   	getCompanyInfo();
 	    name = token.name;
 	    email = token.email;
 	    ismanager = (token.role=="manager")?true:false;
@@ -28,6 +29,21 @@ function logout(){
 	$.getJSON(URI, function(results){
 	});
 } 
+
+function getCompanyInfo(){
+	$.ajax({
+		type:"POST",
+		cache:false,
+		url:"http://localhost:8081/companyInfo",
+		data:{companyToken: companytoken},
+		success:function(result){
+			//ADD CODE TO ADD TO COMPANY DIRECTORY PAGE
+		},
+		error:function(result){
+			alert("fail " + result.responseText);
+		}
+	});
+}
 
 function getProjects(){  
 
@@ -45,7 +61,7 @@ function getProjects(){
 	    			 		continue;
 	    			 var temp2 = new Object();
 	    			 temp2.name = temp.proj[i];
-	    			 textprojects+=temp.proj[i];
+	    			 textprojects+=temp.proj[i]+";";
 	    			 temp2.users = new Array();
 	    			 for(var y =0; y<temp.projusers.length; y++){
 	    			 	if(temp.projusers[i][y]===null||temp.projusers[i][y][1]===null)
@@ -76,9 +92,10 @@ function getTaskMain(){
 	$.ajax({
 		type:"POST",
 		cache:false,
-		url:"http://localhost:8081/getProjectTasks/requirements",
+		url:"http://localhost:8081/getProjectTasks/maintenance",
 		data: {projectName: getCookie("ProjectSelected")},
 		success: function(result){
+			maintenance = JSON.parse(result);
 			putInfo();
 		},
 		error:function(result){
@@ -93,6 +110,7 @@ function getTaskVerf(){
 		url:"http://localhost:8081/getProjectTasks/verification",
 		data: {projectName: getCookie("ProjectSelected")},
 		success: function(result){
+			verification = JSON.parse(result);
 			putInfo();
 		},
 		error:function(result){
@@ -108,6 +126,7 @@ function getTaskReq(){
 		url:"http://localhost:8081/getProjectTasks/requirements",
 		data: {projectName: getCookie("ProjectSelected")},
 		success: function(result){
+			requirements = JSON.parse(result);
 			putInfo();
 		},
 		error:function(result){
@@ -122,6 +141,7 @@ function getTaskDes(){
 		url:"http://localhost:8081/getProjectTasks/design",
 		data: {projectName: getCookie("ProjectSelected")},
 		success: function(result){
+			design = JSON.parse(result);
 			putInfo();
 		},
 		error:function(result){
@@ -136,6 +156,7 @@ function getTaskImp(){
 		url:"http://localhost:8081/getProjectTasks/implementation",
 		data: {projectName: getCookie("ProjectSelected")},
 		success: function(result){
+			implementation = JSON.parse(result);
 			putInfo();
 		},
 		error:function(result){
@@ -150,6 +171,7 @@ function getTaskComp(){
 		url:"http://localhost:8081/getProjectTasks/complete",
 		data: {projectName: getCookie("ProjectSelected")},
 		success: function(result){
+			complete = JSON.parse(result);
 			putInfo();
 		},
 		error:function(result){
@@ -245,8 +267,8 @@ function newTask(pn, pd){
 	$.ajax({
 		type:"POST",
 		cache:false,
-		url:"http://localhost:8081/createProject",
-		data: {userID: useridtoken, name: token.name, email: token.email, companyToken: token.companyToken, projectName: pn, projectDescription: pd},
+		url:"http://localhost:8081/projectTask",
+		data: {taskInfo: pn, taskuserID: pd, email: token.email, companyToken: token.companyToken, projectName: getCookie("ProjectSelected")},
 		success: function(result){
 			alert("It updated!");
 		},
@@ -258,6 +280,7 @@ function newTask(pn, pd){
 }
 
 function newProject(pn, pd){
+	console.log("New Project");
 	$.ajax({
 		type:"POST",
 		cache:false,
@@ -291,30 +314,13 @@ function newUser(pn, un){
 	});
 }
 
-function newTask(tn, tu){
-	$.ajax({
-		type:"POST",
-		cache:false,
-		url:"http://localhost:8081/createProject/addUser",
-		data: {userID: useridtoken, name: token.name, companyToken: token.companyToken, taskInfo: tn},
-		success: function(result){
-			alert("It updated!");
-			window.location.reload();
-		},
-		error:function(result){
-			alert("There is no user with that name"); //fix later
-		}
-
-	});
-}
-
-function moveRequire(tn, tu, ts){
+function moveRequire(tn, tu, ts, projectName){
 	//userID? again
 	$.ajax({
 		type:"POST",
 		cache:false,
 		url:"http://localhost:8081/updateTask/Requirements",
-		data: {userID: useridtoken, name: tu, companyToken: token.companyToken, taskInfo: tn, status: ts},
+		data: {userID: useridtoken, name: tu, companyToken: token.companyToken, taskInfo: tn, status: ts, projectName: projectName},
 		success: function(result){
 			alert("It updated!");
 			window.location.reload();
@@ -326,13 +332,13 @@ function moveRequire(tn, tu, ts){
 	});
 }
 
-function moveTask(tn, tu, ts, what){
+function moveTask(tn, tu, ts, projectName,  what){
 	//userID? again
 	$.ajax({
 		type:"POST",
 		cache:false,
 		url:"http://localhost:8081/updateTask/"+what,
-		data: {userID: useridtoken, name: tu, companyToken: token.companyToken, taskInfo: tn, status: ts},
+		data: {userID: useridtoken, name: tu, companyToken: token.companyToken, taskInfo: tn, status: ts, projectName:projectName},
 		success: function(result){
 			alert("It updated!");
 			window.location.reload();

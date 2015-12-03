@@ -249,7 +249,7 @@ function putInfo(){
 	for(var i = 0; i<requirements.length; i++){
 		var rtemp = requirements[i];
 		tasks.push({name: rtemp.taskInfo, level: 0});
-		temp += "<tr> <td>"+rtemp.taskInfo+"</td><td>"+rtemp.userId+"</td><td> <span class='label label-"+rtemp.status+"'>"+rtemp.status+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs requiremove has-tooltip' href='#' data-placement='top' data-original-title='Move To Next Section'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs deletetask has-tooltip' href='#' data-placement='top' data-original-title='Delete Task'> <i class='icon-remove'></i> </a> </div></td></tr>";
+		temp += "<tr> <td>"+rtemp.taskInfo+"</td><td>"+rtemp.userID+"</td><td> <span class='label label-"+rtemp.status+"'>"+rtemp.status+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs requiremove has-tooltip' href='#' data-placement='top' data-original-title='Move To Next Section'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs deletetask has-tooltip' href='#' data-placement='top' data-original-title='Delete Task'> <i class='icon-remove'></i> </a> </div></td></tr>";
 	}
 	$('#putrequirements').html(tablebefore+temp+tableafter);
 	
@@ -258,7 +258,7 @@ function putInfo(){
 	for(var i = 0; i<design.length; i++){
 		var rtemp = design[i];
 		tasks.push({name: rtemp.taskInfo, level: 1});
-		temp += "<tr> <td>"+rtemp.taskInfo+"</td><td>"+rtemp.userId+"</td><td> <span class='label label-"+rtemp.status+"'>"+rtemp.status+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs designmove has-tooltip' href='#' data-placement='top' data-original-title='Move To Next Section'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs deletetask has-tooltip' href='#' data-placement='top' data-original-title='Delete Task'> <i class='icon-remove'></i> </a> </div></td></tr>";
+		temp += "<tr> <td>"+rtemp.taskInfo+"</td><td>"+rtemp.userID+"</td><td> <span class='label label-"+rtemp.status+"'>"+rtemp.status+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs designmove has-tooltip' href='#' data-placement='top' data-original-title='Move To Next Section'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs deletetask has-tooltip' href='#' data-placement='top' data-original-title='Delete Task'> <i class='icon-remove'></i> </a> </div></td></tr>";
 	}
 	$('#putdesign').html(tablebefore+temp+tableafter);
 	
@@ -267,7 +267,7 @@ function putInfo(){
 	for(var i = 0; i<implementation.length; i++){
 		var rtemp = implementation[i];
 		tasks.push({name: rtemp.taskInfo, level: 2});
-		temp += "<tr> <td>"+rtemp.taskInfo+"</td><td>"+rtemp.userId+"</td><td> <span class='label label-"+rtemp.status+"'>"+rtemp.status+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs implementmove has-tooltip' href='#' data-placement='top' data-original-title='Move To Next Section'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs deletetask has-tooltip' href='#' data-placement='top' data-original-title='Delete Task'> <i class='icon-remove'></i> </a> </div></td></tr>";
+		temp += "<tr> <td>"+rtemp.taskInfo+"</td><td>"+rtemp.userID+"</td><td> <span class='label label-"+rtemp.status+"'>"+rtemp.status+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs implementmove has-tooltip' href='#' data-placement='top' data-original-title='Move To Next Section'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs deletetask has-tooltip' href='#' data-placement='top' data-original-title='Delete Task'> <i class='icon-remove'></i> </a> </div></td></tr>";
 	}
 	$('#putimplementation').html(tablebefore+temp+tableafter);
 	
@@ -276,7 +276,7 @@ function putInfo(){
 	for(var i = 0; i<verification.length; i++){
 		var rtemp = verification[i];
 		tasks.push({name: rtemp.taskInfo, level: 3});
-		temp += "<tr> <td>"+rtemp.taskInfo+"</td><td>"+rtemp.userId+"</td><td> <span class='label label-"+rtemp.status+"'>"+rtemp.status+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs verifmove has-tooltip' href='#' data-placement='top' data-original-title='Move To Next Section'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs deletetask has-tooltip' href='#' data-placement='top' data-original-title='Delete Task'> <i class='icon-remove'></i> </a> </div></td></tr>";
+		temp += "<tr> <td>"+rtemp.taskInfo+"</td><td>"+rtemp.userID+"</td><td> <span class='label label-"+rtemp.status+"'>"+rtemp.status+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs verifmove has-tooltip' href='#' data-placement='top' data-original-title='Move To Next Section'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs deletetask has-tooltip' href='#' data-placement='top' data-original-title='Delete Task'> <i class='icon-remove'></i> </a> </div></td></tr>";
 	}
 	$('#putverification').html(tablebefore+temp+tableafter);
 	
@@ -285,7 +285,7 @@ function putInfo(){
 	for(var i = 0; i<maintenance.length; i++){
 		var rtemp = maintenance[i];
 		tasks.push({name: maintenance.taskInfo, level: 4});
-		temp += "<tr> <td>"+rtemp.taskInfo+"</td><td>"+rtemp.userId+"</td><td> <span class='label label-"+rtemp.status+"'>"+rtemp.status+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs maintainmove has-tooltip' href='#' data-placement='top' data-original-title='Move To Next Section'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs deletetask has-tooltip' href='#' data-placement='top' data-original-title='Delete Task'> <i class='icon-remove'></i> </a> </div></td></tr>";
+		temp += "<tr> <td>"+rtemp.taskInfo+"</td><td>"+rtemp.userID+"</td><td> <span class='label label-"+rtemp.status+"'>"+rtemp.status+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs maintainmove has-tooltip' href='#' data-placement='top' data-original-title='Move To Next Section'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs deletetask has-tooltip' href='#' data-placement='top' data-original-title='Delete Task'> <i class='icon-remove'></i> </a> </div></td></tr>";
 	}
 	$('#putmaintenance').html(tablebefore+temp+tableafter);
 	
@@ -294,7 +294,7 @@ function putInfo(){
 	for(var i = 0; i<completed.length; i++){
 		var rtemp = completed[i];
 		tasks.push({name: rtemp.taskInfo, level: 4});
-		temp += "<tr> <td>"+rtemp.taskInfo+"</td><td>"+rtemp.userId+"</td><td> <span class='label label-"+rtemp.status+"'>"+rtemp.status+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs maintainmove has-tooltip' href='#' data-placement='top' data-original-title='Move To Next Section'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs deletetask has-tooltip' href='#' data-placement='top' data-original-title='Delete Task'> <i class='icon-remove'></i> </a> </div></td></tr>";
+		temp += "<tr> <td>"+rtemp.taskInfo+"</td><td>"+rtemp.userID+"</td><td> <span class='label label-"+rtemp.status+"'>"+rtemp.status+"</span> </td><td> <div class='text-right'> <a class='btn btn-success btn-xs maintainmove has-tooltip' href='#' data-placement='top' data-original-title='Move To Next Section'> <i class='icon-ok'></i> </a> <a class='btn btn-danger btn-xs deletetask has-tooltip' href='#' data-placement='top' data-original-title='Delete Task'> <i class='icon-remove'></i> </a> </div></td></tr>";
 	}
 	$('#putmaintenance').html(tablebefore+temp+tableafter);
 	
@@ -327,8 +327,11 @@ function putInfo(){
 	});
 	
 	$('#newprojsubmit').click(function(){
-		
-		var newprojname = $("#newprojname").val();
+		if(clickedalready)
+			return;
+		else
+			clickedalready = true;
+		var newprojname = ($("#newprojname").val()).trim();
 		var newprojdesc = $("#newprojdesc").val();
 		var temp = "<li class=''><a data-toggle='tab' href='#"+newprojname+"'>"+newprojname+"</a></li>";
 		var temp2 = "<div class='tab-content'> <div id="+newprojname+" class='tab-pane'> <div class='row'><div class='col-sm-12'> <div class='box bordered-box orange-border' style='margin-bottom:0;'> <div class='box-header dark-background'> <div class='title'>Users</div><div class='actions'><a class='btn box-remove btn-xs btn-link' href='#'><i class='icon-remove'></i></a><a class='btn box-collapse btn-xs btn-link' href='#'><i></i></a> </div></div><div class='box-content box-no-padding putprojusers'> </div></div></div></div></div></div>";
@@ -345,6 +348,10 @@ function putInfo(){
 	});
 	
 	$('#newtasksubmit').click(function(){
+		if(taskalready)
+			return;
+		else
+			taskalready = true;
 		var newtaskname = $("#newtaskname").val();
 		var newtaskusername = $("#newtaskusername").val();
 		newTask(newtaskname, newtaskusername);
@@ -358,42 +365,42 @@ function putInfo(){
 		var taskname = ($(this).parent().parent().parent().find("td").eq(0).html());
 		var taskusername = ($(this).parent().parent().parent().find("td").eq(1).html());
 		var taskstatus = ($(this).parent().parent().parent().find("td").eq(2).find("span").eq(0).html());
-		moveTask(taskname, taskusername, taskstatus, "Requirements");
+		moveTask(taskname, taskusername, taskstatus,getCookie("ProjectSelected"), "Requirements");
 	});
 	
 	$('.designmove').click(function(){
 		var taskname = ($(this).parent().parent().parent().find("td").eq(0).html());
 		var taskusername = ($(this).parent().parent().parent().find("td").eq(1).html());
 		var taskstatus = ($(this).parent().parent().parent().find("td").eq(2).find("span").eq(0).html());
-		moveTask(taskname, taskusername, taskstatus, "design");
+		moveTask(taskname, taskusername, taskstatus,getCookie("ProjectSelected"),  "design");
 	});
 	
 	$('.implementmove').click(function(){
 		var taskname = ($(this).parent().parent().parent().find("td").eq(0).html());
 		var taskusername = ($(this).parent().parent().parent().find("td").eq(1).html());
 		var taskstatus = ($(this).parent().parent().parent().find("td").eq(2).find("span").eq(0).html());
-		moveTask(taskname, taskusername, taskstatus, "implementation");
+		moveTask(taskname, taskusername, taskstatus,getCookie("ProjectSelected"),  "implementation");
 	});
 	
 	$('.verifmove').click(function(){
 		var taskname = ($(this).parent().parent().parent().find("td").eq(0).html());
 		var taskusername = ($(this).parent().parent().parent().find("td").eq(1).html());
 		var taskstatus = ($(this).parent().parent().parent().find("td").eq(2).find("span").eq(0).html());
-		moveTask(taskname, taskusername, taskstatus, "verification");
+		moveTask(taskname, taskusername, taskstatus,getCookie("ProjectSelected"),  "verification");
 	});
 	
 	$('.maintainmove').click(function(){
 		var taskname = ($(this).parent().parent().parent().find("td").eq(0).html());
 		var taskusername = ($(this).parent().parent().parent().find("td").eq(1).html());
 		var taskstatus = ($(this).parent().parent().parent().find("td").eq(2).find("span").eq(0).html());
-		moveTask(taskname, taskusername, taskstatus, "taskdelete");
+		moveTask(taskname, taskusername, taskstatus,getCookie("ProjectSelected"),  "taskdelete");
 	});
 	
 	$('.deletetask').click(function(){
 		var taskname = ($(this).parent().parent().parent().find("td").eq(0).html());
 		var taskusername = ($(this).parent().parent().parent().find("td").eq(1).html());
 		var taskstatus = ($(this).parent().parent().parent().find("td").eq(2).find("span").eq(0).html());
-		moveTask(taskname, taskusername, taskstatus, "taskdelete");
+		moveTask(taskname, taskusername, taskstatus,getCookie("ProjectSelected"),  "taskdelete");
 	});
 	
 	$('.removeuser').click(function(){
@@ -437,6 +444,13 @@ function getHash(file){
 	}
     return hash;
 }
+
+var clickedalready = false;
+var taskalready = false;
 	
 
-
+if(!String.prototype.trim){  
+ String.prototype.trim = function(){  
+   return this.replace(/^\s+|\s+$/g,'');  
+ };  
+}
