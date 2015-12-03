@@ -49,7 +49,7 @@
 			<li>Using Terminal, locate the /AMPPS/www/ file </li>
 			<li>Enter the following:</li>
 			<ul>
-				<code>$ cd server<br>
+				<code>$ cd server</br>
 					$ node server.js</code>
 			</ul>
 		<li>If success should read  “Started Server @ http://localhost:8081”</li>	
@@ -74,8 +74,8 @@
 			<ul>
 				<li>Using command prompt, locate the “/”folder</li> 
 				<li>Enter the following:</li>
-				<code> > cd ./server<br>
-				> node server.js </code><br>
+				<code> > cd ./server</br>
+				> node server.js </code>
 			</ul>
 		<li>If success should read  “Started Server @ http://localhost:8081”</li>		
 	    <li> Verifying Success of Website </li>
