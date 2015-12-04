@@ -67,7 +67,7 @@
 				<li>Verify you have installed UniServerX and UniController</li>
 				<li>Open UniController</li>
 				<li>At the top, click on Apache> Change Apache-root Folders>Select new server Root-Folder (www)</li>
-				<li>Locate unzipped website and select the “/” folder (also may be called “:” folder) and hit “OK”</li>
+				<li>Locate unzipped website and select the “/” folder (also may be called “:” or "_" folder) and hit “OK”</li>
 				<li>Click on “Start Apache”</li>
 		  </ul>
 	      <li>Starting Node.js Server</li>
@@ -76,6 +76,9 @@
 				<li>Enter the following:</li>
 				<code> > cd ./server</br>
 				> node server.js </code>
+        <li>Note: If it comes up with error: Missing "./node-v46-win32-x64". Simply traverse to the node_modules folder, delete the folder titled "sqlite3" and input the following command into command prompt once you redirect to the node_modules folder".</li>
+        <code> npm install sqlite3</code>
+        <li> Then retry the commands listed earlier. </li>
 			</ul>
 		<li>If success should read  “Started Server @ http://localhost:8081”</li>		
 	    <li> Verifying Success of Website </li>
